@@ -3,7 +3,7 @@
   <p v-if="loading">Loading...</p>
   <p
     v-else
-    v-for="character in result.characters.results"
+    v-for="character in characters"
     :key="character.id"
   >
     {{ character.name }}
@@ -13,7 +13,10 @@
 
 <script>
 import gql from 'graphql-tag';
-import { useQuery } from '@vue/apollo-composable';
+import {
+  useQuery,
+  useResult,
+} from '@vue/apollo-composable';
 import HelloWorld from './components/HelloWorld.vue';
 
 const CHARACTERS_QUERY = gql`
@@ -34,8 +37,13 @@ export default {
     const { result, loading, error } = useQuery(
       CHARACTERS_QUERY
     );
-    return {
+    const characters = useResult(
       result,
+      null,
+      (data) => data.characters.results
+    );
+    return {
+      characters,
       loading,
       error,
     };
