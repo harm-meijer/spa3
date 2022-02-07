@@ -1,4 +1,4 @@
-import Home from '../views/Home.vue';
+import Home from '../views/Home/Home.vue';
 import About from '../views/About/About.vue';
 import Header from '../components/Header/Header.vue';
 import Footer from '../components/Footer.vue';
