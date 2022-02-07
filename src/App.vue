@@ -17,7 +17,7 @@ import {
   useQuery,
   useResult,
 } from '@vue/apollo-composable';
-import HelloWorld from './components/HelloWorld.vue';
+import HelloWorld from './components/Header.vue';
 
 const CHARACTERS_QUERY = gql`
   query Characters {
