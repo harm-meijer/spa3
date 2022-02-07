@@ -1,7 +1,7 @@
 import { onBeforeMount, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import sunriseConfig from '../sunrise.config';
-import { caseCorrected } from './lib';
+import { caseCorrected, moveLocationLocale } from './lib';
 
 const LOCALE = 'LOCALE';
 const setStorage = (value) =>
@@ -18,14 +18,7 @@ export default () => {
     'languages'
   );
   const move = (locale, fn = 'replace') =>
-    router[fn]({
-      ...route,
-      params: {
-        ...route.params,
-        locale,
-      },
-    });
-
+    moveLocationLocale(router, route, 'locale', locale, fn);
   onBeforeMount(() => {
     const localeFromLocalStorage = caseCorrected(
       localStorage.getItem(LOCALE) || undefined,

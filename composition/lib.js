@@ -13,3 +13,15 @@ export const caseCorrected = (
       .find(([key]) => key === loc) || []; //find the one from url
   return fromConfig; //return value from config (in correct case)
 };
+export const moveLocationLocale = (
+  (params) => (router, route, key, value, fn) => {
+    params[key] = value;
+    return router[fn]({
+      ...route,
+      params: {
+        ...route.params,
+        ...params,
+      },
+    });
+  }
+)({});
