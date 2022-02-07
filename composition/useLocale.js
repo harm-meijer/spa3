@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router';
 import sunriseConfig from '../sunrise.config';
 import { caseCorrected, moveLocationLocale } from './lib';
 
-const LOCALE = 'LOCALE';
+export const LOCALE = 'LOCALE';
 const setStorage = (value) =>
   localStorage.setItem(LOCALE, value);
 const getFirstLocale = () =>
