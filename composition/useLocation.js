@@ -2,12 +2,15 @@ import { onBeforeMount, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import sunriseConfig from '../sunrise.config';
 import { caseCorrected, moveLocationLocale } from './lib';
-
+//import from components to get location:
+//  const locale = inject(LOCATION);
 export const LOCATION = 'LOCATION';
 const setStorage = (value) =>
   localStorage.setItem(LOCATION, value);
 const getFirstLocation = () =>
   Object.keys(sunriseConfig.countries)[0];
+//only import from Root, this sets up the url with
+//  location/country
 export default () => {
   //on mount and watch route set location
   const location = ref();

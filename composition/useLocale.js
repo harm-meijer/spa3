@@ -2,12 +2,15 @@ import { onBeforeMount, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import sunriseConfig from '../sunrise.config';
 import { caseCorrected, moveLocationLocale } from './lib';
-
+//import from components to get locale:
+//  const locale = inject(LOCALE);
 export const LOCALE = 'LOCALE';
 const setStorage = (value) =>
   localStorage.setItem(LOCALE, value);
 const getFirstLocale = () =>
   Object.keys(sunriseConfig.languages)[0];
+//only import from Root, this sets up the url with
+//  locale
 export default () => {
   //on mount and watch route set locale
   const locale = ref();
