@@ -24,6 +24,10 @@ const authLink = setContext((_, { headers }) => {
     },
   }));
 });
+//@todo: on 404 try to get token using refreshtoken
+//  if that fails then remove all token info and get
+//  a fresh token
+//@todo: need to get a token to log in as specific user
 export const apolloClient = new ApolloClient({
   cache,
   link: authLink.concat(httpLink),
