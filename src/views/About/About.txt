@@ -1,8 +1,4 @@
-{
-  "en": {
-    "thankYou": "Thank you for your order!"
-  },
-  "de": {
-    "thankYou": "Vielen Dank für Ihre Bestellung!"
-  }
-}
+en:
+  thankYou: "Thank you for your order!"
+de:
+  thankYou: "Vielen Dank für Ihre Bestellung!"
