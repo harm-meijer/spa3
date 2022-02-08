@@ -7,7 +7,6 @@ export default {
       inheritLocale: true,
       useScope: 'local',
     });
-    console.log(t);
     return { ...t };
   },
 };
