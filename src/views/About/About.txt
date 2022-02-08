@@ -1,8 +1,11 @@
 {
-  "en": {
+  "EN": {
     "thankYou": "Thank you for your order!"
   },
-  "de": {
+  "DE": {
     "thankYou": "Vielen Dank für Ihre Bestellung!"
+  },
+  "PT-BR": {
+    "thankYou": "Obrigado pelo seu pedido!"
   }
 }
