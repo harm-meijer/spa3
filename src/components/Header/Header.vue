@@ -5,7 +5,7 @@
   <div>
     <a
       href="javascript:void"
-      v-on:click.prevent="() => setLocation('US')"
+      v-on:click.prevent="() => setLocation('us')"
     >
       US
     </a>
@@ -21,7 +21,7 @@
   <div>
     <a
       href="javascript:void"
-      v-on:click.prevent="() => setLocale('en')"
+      v-on:click.prevent="() => setLocale('EN')"
     >
       English
     </a>
@@ -29,7 +29,7 @@
   <div>
     <a
       href="javascript:void"
-      v-on:click.prevent="() => setLocale('de')"
+      v-on:click.prevent="() => setLocale('DE')"
     >
       German
     </a>
