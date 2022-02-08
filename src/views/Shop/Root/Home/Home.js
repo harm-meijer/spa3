@@ -1,8 +1,6 @@
 import gql from 'graphql-tag';
-import {
-  useQuery,
-  useResult,
-} from '@vue/apollo-composable';
+import { useResult } from '@vue/apollo-composable';
+import useQueryFacade from '../../../../../composition/useQueryFacade';
 
 const CHARACTERS_QUERY = gql`
   query Characters {
@@ -18,7 +16,7 @@ const CHARACTERS_QUERY = gql`
 export default {
   name: 'Home',
   setup() {
-    const { result, loading, error } = useQuery(
+    const { result, loading, error } = useQueryFacade(
       CHARACTERS_QUERY
     );
     const characters = useResult(
