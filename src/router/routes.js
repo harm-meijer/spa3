@@ -1,9 +1,9 @@
-import Home from '../views/Home/Home.vue';
 import About from '../views/About/About.vue';
 import Header from '../components/Header/Header.vue';
 import Footer from '../components/Footer.vue';
 import Root from '../views/Shop/Root/Root.vue';
-
+import harmRoutes from './harm';
+import felipeRoutes from './felipe';
 import config from '../../sunrise.config';
 export default [
   {
@@ -14,17 +14,7 @@ export default [
     )})?`,
     name: 'root',
     component: Root,
-    children: [
-      {
-        path: '',
-        name: 'home',
-        components: {
-          default: Home,
-          header: Header,
-          footer: Footer,
-        },
-      },
-    ],
+    children: [...harmRoutes, ...felipeRoutes],
   },
   {
     path: '/about',
