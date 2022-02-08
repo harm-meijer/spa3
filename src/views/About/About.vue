@@ -1,5 +1,5 @@
 <style src="./About.scss" lang="scss" scoped></style>
-<i18n src="./About.txt"></i18n>
+<!-- <i18n src="./About.txt"></i18n> -->
 <script src="./About.js"></script>
 
 <template>
