@@ -1,4 +1,10 @@
-import { onBeforeMount, provide, ref, watch } from 'vue';
+import {
+  computed,
+  onBeforeMount,
+  provide,
+  ref,
+  watch,
+} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { LOCALE } from '../../../constants';
 import { LOCATION } from '../../../constants';
@@ -116,7 +122,12 @@ const useInitRouteParams = () => {
       },
       'push'
     );
-  return { locale, location, setLocale, setLocation };
+  return {
+    locale,
+    location,
+    setLocale,
+    setLocation,
+  };
 };
 export default {
   setup() {
@@ -124,6 +135,10 @@ export default {
       useInitRouteParams();
     provide(LOCALE, { locale, setLocale });
     provide(LOCATION, { location, setLocation });
-    return {};
+    const paramsSet = computed(
+      () => locale.value && location.value
+    );
+
+    return { paramsSet };
   },
 };
