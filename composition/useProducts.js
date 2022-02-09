@@ -5,16 +5,21 @@ import useLocation from './useLocation';
 import usePaging from './usePaging';
 import useQuery from './useQueryFacade';
 import useState from './useState';
+//@todo: channel after selecting store
+//@todo: channel for logged in user after login
+//@todo: order by
+//@todo: is currency optional?
 //@todo: we will worry about importing the partials
 //  when the cart route is done
 const query = gql`
   query products(
     $locale: Locale!
     $limit: Int!
+    $offset: Int!
     $currency: Currency!
     $country: Country!
   ) {
-    products(limit: $limit) {
+    products(limit: $limit, offset: $offset) {
       count
       total
       results {
