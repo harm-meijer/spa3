@@ -1,4 +1,3 @@
-import { watch } from 'vue';
 import useCart from '../../../../../composition/useCart';
 import useLocale from '../../../../../composition/useLocale';
 
