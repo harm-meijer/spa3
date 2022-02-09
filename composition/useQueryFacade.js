@@ -12,14 +12,16 @@ export default (
     variables,
     options
   );
-  watch(
-    () => result.value,
-    (result) => {
-      if (typeof onCompleted === 'function') {
-        onCompleted(result);
-      }
-      data.value = result;
+  const setData = (result) => {
+    if (typeof onCompleted === 'function') {
+      onCompleted(result);
     }
-  );
+    data.value = result;
+  };
+  watch(result, setData);
+  //make hot module reloading work
+  if (result.value) {
+    setData(result.value);
+  }
   return { data, loading, error };
 };
