@@ -4,7 +4,7 @@ import { getValue } from '../src/lib';
 //for some reason someone did not only thought it would
 //  be a good idea for vue useQuery to have a completely
 //  different api than React but it doesn't even fit
-//  the options api (skip is called disable)
+//  the vue options api (skip is called enabled)
 const useFixOptions = (options) => {
   let fixed = { ...options };
   const enabled = computed(() =>

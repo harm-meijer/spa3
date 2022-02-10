@@ -10,6 +10,7 @@ import { LOCALE } from '../../../constants';
 import { LOCATION } from '../../../constants';
 import config from '../../../../sunrise.config';
 import { getValue, move } from '../../../lib';
+import i18n from '../../../i18n';
 
 const caseCorrected = (value = '', key = 'countries') => {
   //get case insensitive locale from sunrise config
@@ -134,6 +135,11 @@ export default {
     const paramsSet = computed(
       () => getValue(locale) && getValue(location)
     );
+    watch(paramsSet, (set) => {
+      if (set) {
+        i18n.global.locale = locale;
+      }
+    });
 
     return { paramsSet };
   },

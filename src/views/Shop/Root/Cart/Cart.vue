@@ -1,5 +1,5 @@
 <script src="./Cart.js"></script>
-<i18n src="./Cart.txt"></i18n>
+<i18n src="./Cart.json"></i18n>
 
 <template>
   <h1>{{ t('cart') }}</h1>
@@ -9,9 +9,7 @@
   <div>
     <div>
       <!-- <h2>{{ t('cart') }}</h2> -->
-      <h1>{{ JSON.stringify(cart, undefined, 2) }}</h1>
+      <pre>{{ JSON.stringify(cart, undefined, 2) }}</pre>
     </div>
-    <button>{{ t('addItem') }}</button>
-    <button>{{ t('checkout') }}</button>
   </div>
 </template>

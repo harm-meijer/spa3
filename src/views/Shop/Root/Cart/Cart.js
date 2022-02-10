@@ -1,16 +1,16 @@
 import useCart from '../../../../../composition/useCart';
-import useLocale from '../../../../../composition/useLocale';
-import { getValue } from '../../../../lib';
 import { useI18n } from 'vue-i18n';
+//resolve-path could be scr/presentation/fashion
+// import PresentationComponent from 'resolve-path/Cart/Cart.vue';
 
 export default {
   name: 'Cart',
+  // components: {
+  //   PresentationComonent
+  // },
   setup() {
-    const { locale } = useLocale();
-    const { cart, loading, error } = useCart({
-      locale: getValue(locale),
-    });
-    const t = useI18n({
+    const { cart, loading, error } = useCart();
+    const { t } = useI18n({
       inheritLocale: true,
       useScope: 'local',
     });
@@ -18,7 +18,7 @@ export default {
       cart,
       loading,
       error,
-      ...t,
+      t,
     };
   },
 };
