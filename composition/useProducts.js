@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { ALL } from '../src/constants';
 import { getValue } from '../src/lib';
-import useCategory from './useCategories';
+import useCategories from './useCategories';
 import useCurrency from './useCurrency';
 import useEffect from './useEffect';
 import useLocale from './useLocale';
@@ -22,11 +22,12 @@ const createQuery = (where) =>
   query products(
     $locale: Locale!
     $limit: Int!
+    $offset: Int!
     $currency: Currency!
     $country: Country!
     ${where ? '$where: String!' : ''}
   ) {
-    products(limit: $limit, ${
+    products(limit: $limit, offset: $offset ${
       where ? 'where: $where' : ''
     }) {
       count
@@ -79,7 +80,7 @@ const useProducts = ({
   const [where, setWhere] = useState();
 
   //@todo: Error handling needed
-  const { categories } = useCategory({
+  const { categories } = useCategories({
     categorySlug,
     skip: skipCategory,
   });
@@ -95,7 +96,7 @@ const useProducts = ({
         ? getValue(categories)[0].id
         : null
     );
-  }, [categories]);
+  }, [categories, categorySlug]);
   useEffect(
     () =>
       setWhere(
@@ -105,7 +106,7 @@ const useProducts = ({
             )}")))`
           : null
       ),
-    [categoryId]
+    [categoryId, categorySlug]
   );
   const { loading, error } = useQuery(createQuery(where), {
     variables: {
