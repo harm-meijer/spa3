@@ -9,7 +9,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { LOCALE } from '../../../constants';
 import { LOCATION } from '../../../constants';
 import config from '../../../../sunrise.config';
-import { move } from '../../../lib';
+import { getValue, move } from '../../../lib';
 
 const caseCorrected = (value = '', key = 'countries') => {
   //get case insensitive locale from sunrise config
@@ -132,7 +132,7 @@ export default {
     provide(LOCALE, { locale, setLocale });
     provide(LOCATION, { location, setLocation });
     const paramsSet = computed(
-      () => locale.value && location.value
+      () => getValue(locale) && getValue(location)
     );
 
     return { paramsSet };

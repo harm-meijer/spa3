@@ -1,4 +1,5 @@
 import { ref, watch } from 'vue';
+import { getValue } from '../src/lib';
 
 //@todo: calculate total pages
 //this should work in react
@@ -14,7 +15,7 @@ export default (
   page,
   pageSize = process.env.VUE_APP_PAGE_SIZE
 ) => {
-  const info = usePage(page.value, pageSize);
+  const info = usePage(getValue(page), pageSize);
   const limit = ref(info.limit);
   const offset = ref(info.offset);
   watch(page, (page) => {

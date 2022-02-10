@@ -1,7 +1,7 @@
-<script src="./Products.js"></script>
+<script src="./Product.js"></script>
 
 <template>
-  <h1>Products</h1>
+  <h1>Cart</h1>
   <p v-if="error">Something went wrong...</p>
   <p v-if="loading">Loading...</p>
   <div v-else>
