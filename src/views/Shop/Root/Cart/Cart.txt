@@ -1,0 +1,12 @@
+{
+  "EN": {
+    "cart": "Shopping Cart",
+    "checkout": "Checkout",
+    "addItem": "Add Item"
+  },
+  "DE": {
+    "cart": "Warenkorb",
+    "checkout": "Zur Kasse",
+    "addItem": "Artikel hinzufügen"
+}
+}
