@@ -103,7 +103,10 @@ const useProducts = ({
 }) => {
   const { limit, offset } = usePaging(page);
   const [products, setProducts] = useState();
-  const [priceSelector, setPriceSelector] = useState();
+  const [priceSelector, setPriceSelector] = useState({
+    currency: getValue(currency),
+    country: getValue(country),
+  });
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
   const [filters, setFilters] = useState([
