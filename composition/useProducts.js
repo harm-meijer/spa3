@@ -11,55 +11,87 @@ import useLocation from './useLocation';
 import usePaging from './usePaging';
 import useQuery from './useQueryFacade';
 import useState from './useState';
-//@todo: channel after selecting store
-//@todo: channel for logged in user after login
-//@todo: order by
-//@todo: is currency optional?
+//@todo: channel (do in react mock in vue)
+//@todo: channel for logged in user (do in React, mock in Vue)
+//@todo: pass sort
 //@todo: we will worry about importing the partials
 //  when the cart route is done
-const createQuery = (where) =>
-  gql`
+const query = gql`
   query products(
     $locale: Locale!
     $limit: Int!
     $offset: Int!
-    $currency: Currency!
-    $country: Country!
-    ${where ? '$where: String!' : ''}
+    $priceSelector: PriceSelectorInput!
+    $sorts: [String!] = []
+    $filters: [SearchFilterInput!] = []
   ) {
-    products(limit: $limit, offset: $offset ${
-      where ? 'where: $where' : ''
-    }) {
-      count
+    productProjectionSearch(
+      limit: $limit
+      offset: $offset
+      sorts: $sorts
+      priceSelector: $priceSelector
+      filters: $filters
+    ) {
       total
       results {
         id
-        masterData {
-          current {
-            name(locale: $locale)
-            slug(locale: $locale)
-            categoriesRef {
-              typeId
-              id
+        name(locale: $locale)
+        masterVariant {
+          id
+          scopedPrice {
+            value {
+              currencyCode
+              centAmount
             }
-            masterVariant {
-              price(
-                country: $country
-                currency: $currency
-              ) {
-                value {
-                  currencyCode
-                  centAmount
-                  fractionDigits
-                }
-              }
-            }
+            country
           }
         }
+        # variants {
+        #   id
+        #   scopedPrice {
+        #     value {
+        #       currencyCode
+        #       centAmount
+        #     }
+        #     country
+        #     # customerGroup {
+        #     #   name
+        #     # }
+        #     # channel {
+        #     #   name(locale: $locale)
+        #     # }
+        #   }
+        # }
       }
     }
   }
 `;
+
+function useCategoryId({ categorySlug, setSkip }) {
+  const [skipCategory, setSkipCategory] = useState(
+    !getValue(categorySlug)
+  );
+  const [categoryId, setCategoryId] = useState(null);
+  //@todo: Error handling needed
+  const { categories } = useCategories({
+    categorySlug,
+    skip: skipCategory,
+  });
+  useEffect(() => {
+    setSkipCategory(!getValue(categorySlug));
+    setSkip(
+      getValue(categorySlug) && !getValue(categoryId)
+    );
+  }, [categorySlug, categoryId, setSkip]);
+  useEffect(() => {
+    setCategoryId(
+      getValue(categorySlug) && getValue(categories)
+        ? getValue(categories)[0].id
+        : null
+    );
+  }, [categories, categorySlug]);
+  return categoryId;
+}
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useProducts = ({
@@ -71,58 +103,71 @@ const useProducts = ({
 }) => {
   const { limit, offset } = usePaging(page);
   const [products, setProducts] = useState();
-  const [categoryId, setCategoryId] = useState(null);
-  const [skipCategory, setSkipCategory] = useState(
-    !getValue(categorySlug)
-  );
+  const [priceSelector, setPriceSelector] = useState();
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
-  const [where, setWhere] = useState();
-
-  //@todo: Error handling needed
-  const { categories } = useCategories({
+  const [filters, setFilters] = useState([
+    {
+      model: {
+        range: {
+          path: 'variants.scopedPrice.value.centAmount',
+          ranges: [
+            {
+              from: '0',
+              to: '1000000000000',
+            },
+          ],
+        },
+      },
+    },
+  ]);
+  const categoryId = useCategoryId({
     categorySlug,
-    skip: skipCategory,
+    setSkip,
   });
   useEffect(() => {
-    setSkipCategory(!getValue(categorySlug));
-    setSkip(
-      getValue(categorySlug) && !getValue(categoryId)
-    );
-  }, [categorySlug, categoryId]);
-  useEffect(() => {
-    setCategoryId(
-      getValue(categorySlug) && getValue(categories)
-        ? getValue(categories)[0].id
-        : null
-    );
-  }, [categories, categorySlug]);
+    setPriceSelector({
+      currency: getValue(currency),
+      country: getValue(country),
+    });
+  }, [currency, country]);
   useEffect(
     () =>
-      setWhere(
-        getValue(categorySlug) && getValue(categoryId)
-          ? `masterData(current(categories(id="${getValue(
-              categoryId
-            )}")))`
-          : null
-      ),
+      setFilters((filters) => {
+        if (getValue(categoryId)) {
+          return [
+            ...filters,
+            {
+              model: {
+                tree: {
+                  path: 'categories.id',
+                  rootValues: [],
+                  subTreeValues: [getValue(categoryId)],
+                },
+              },
+            },
+          ];
+        }
+        return filters;
+      }),
     [categoryId, categorySlug]
   );
-  const { loading, error } = useQuery(createQuery(where), {
+  const { loading, error } = useQuery(query, {
     variables: {
       locale,
-      currency,
-      country,
       limit,
       offset,
-      where,
+      sorts: null, //@todo: implement sort
+      priceSelector,
+      filters,
+      country,
     },
     onCompleted: (data) => {
       if (!data) {
         return;
       }
-      setProducts(data.products.results);
-      setTotal(data.products.total);
+      setProducts(data.productProjectionSearch.results);
+      setTotal(data.productProjectionSearch.total);
     },
     skip,
   });
