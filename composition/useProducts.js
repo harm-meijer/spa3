@@ -124,6 +124,7 @@ const useProducts = ({
       },
     },
   ]);
+  const [sorts] = useState();
   const categoryId = useCategoryId({
     categorySlug,
     setSkip,
@@ -160,7 +161,7 @@ const useProducts = ({
       locale,
       limit,
       offset,
-      sorts: null, //@todo: implement sort
+      sorts, //@todo: implement sort
       priceSelector,
       filters,
     },
