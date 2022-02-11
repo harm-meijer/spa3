@@ -160,13 +160,19 @@ const useProducts = ({
       sorts: null, //@todo: implement sort
       priceSelector,
       filters,
-      country,
     },
     onCompleted: (data) => {
       if (!data) {
         return;
       }
-      setProducts(data.productProjectionSearch.results);
+      setProducts(
+        data.productProjectionSearch.results.map(
+          ({ masterVariant, name }) => [
+            name,
+            masterVariant.scopedPrice.value.currencyCode,
+          ]
+        )
+      );
       setTotal(data.productProjectionSearch.total);
     },
     skip,
