@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import useLocale from './useLocale';
 import useQueryFacade from './useQueryFacade';
 import useState from './useState';
 //@todo: we will worry about importing the partials
@@ -115,11 +116,15 @@ const query = gql`
 `;
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
-export default ({ locale }) => {
+export default () => {
+  const { locale } = useLocale();
   const [cart, setCart] = useState();
   const { loading, error } = useQueryFacade(query, {
     variables: { locale },
     onCompleted: (data) => {
+      if (!data) {
+        return;
+      }
       setCart(data.me.activeCart);
     },
   });

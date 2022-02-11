@@ -1,3 +1,4 @@
+import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from '../../../../../composition/useProducts';
 import { move } from '../../../../lib';
@@ -18,8 +19,12 @@ export default {
         },
         'push'
       );
-    const { total, products, loading, error } =
-      useProducts();
+    const page = computed(() => route.params.page || 1);
+    const { total, products, loading, error } = useProducts(
+      {
+        page,
+      }
+    );
     return {
       setPage,
       products,
