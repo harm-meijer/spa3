@@ -21,8 +21,12 @@ module.exports = {
           __dirname,
           PROJECT_VIEW_PATH
         ),
-        container: path.resolve(__dirname, 'src/'),
+        containers: path.resolve(
+          __dirname,
+          'src/containers'
+        ),
         react: path.resolve(__dirname, 'composition/react'),
+        hooks: path.resolve(__dirname, 'composition'),
       },
     },
   },

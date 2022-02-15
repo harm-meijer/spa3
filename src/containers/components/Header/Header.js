@@ -1,5 +1,5 @@
-import useLocale from '../../../composition/useLocale';
-import useLocation from '../../../composition/useLocation';
+import useLocale from 'hooks/useLocale';
+import useLocation from 'hooks/useLocation';
 
 export default {
   setup() {
