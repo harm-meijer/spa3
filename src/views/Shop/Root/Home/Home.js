@@ -1,8 +1,8 @@
-import gql from 'graphql-tag';
-import { useResult } from '@vue/apollo-composable';
-import useQueryFacade from '../../../../../composition/useQueryFacade';
+//import gql from 'graphql-tag';
+//import { useResult } from '@vue/apollo-composable';
+//import useQueryFacade from '../../../../../composition/useQueryFacade';
 
-const CHARACTERS_QUERY = gql`
+/**const CHARACTERS_QUERY = gql`
   query Characters {
     characters {
       results {
@@ -13,9 +13,10 @@ const CHARACTERS_QUERY = gql`
     }
   }
 `;
+*/
 export default {
   name: 'Home',
-  setup() {
+  /**  setup() {
     const { result, loading, error } = useQueryFacade(
       CHARACTERS_QUERY
     );
@@ -30,4 +31,5 @@ export default {
       error,
     };
   },
+   */
 };
