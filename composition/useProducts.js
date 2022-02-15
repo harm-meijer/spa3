@@ -34,9 +34,13 @@ const query = gql`
     ) {
       total
       results {
-        id
+        # better never select id or cache breaks
+        # https://github.com/apollographql/apollo-client/issues/9429
+        productId: id
         name(locale: $locale)
         masterVariant {
+          # better never select id or cache breaks
+          # https://github.com/apollographql/apollo-client/issues/9429
           variantId: id
           scopedPrice {
             value {
