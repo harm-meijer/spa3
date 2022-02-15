@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import { getValue } from '../../src/lib';
-// import { computed } from 'vue';
 import useQuery from '../useQueryFacade';
 import { useState, useEffect } from 'react';
 
