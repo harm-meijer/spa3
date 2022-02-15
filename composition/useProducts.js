@@ -10,10 +10,9 @@ export const useSorts = () => {
   const route = useRoute();
   const router = useRouter();
   const sorts = computed(() => {
-    if (route?.query?.sort) {
-      return [route.query.sort];
-    }
-    return null;
+    return route?.query?.sort === 'newest'
+      ? ['astModifiedAt+desc']
+      : null;
   });
   const setSort = (sort) =>
     router.push({
