@@ -1,7 +1,6 @@
 const path = require('path');
-const PROJECT_VIEW_PATH = `src/views/${
-  process.env.PROJECT_VIEW_PATH || ''
-}`;
+const PROJECT_VIEW_PATH =
+  process.env.PROJECT_VIEW_PATH || '';
 
 module.exports = {
   pluginOptions: {
@@ -19,23 +18,23 @@ module.exports = {
       alias: {
         Cart: path.resolve(
           __dirname,
-          `${PROJECT_VIEW_PATH}/Shop/Root/`
+          `src/views/Shop/Root/${PROJECT_VIEW_PATH}`
         ),
         Home: path.resolve(
           __dirname,
-          `${PROJECT_VIEW_PATH}/Home`
+          `src/views/Home/${PROJECT_VIEW_PATH}`
         ),
         Product: path.resolve(
           __dirname,
-          `${PROJECT_VIEW_PATH}/Product`
+          `src/views/Product/${PROJECT_VIEW_PATH}`
         ),
         Products: path.resolve(
           __dirname,
-          `${PROJECT_VIEW_PATH}/Products`
+          `src/views/Products/${PROJECT_VIEW_PATH}`
         ),
         About: path.resolve(
           __dirname,
-          `${PROJECT_VIEW_PATH}/About`
+          `src/views/About/${PROJECT_VIEW_PATH}`
         ),
       },
     },
