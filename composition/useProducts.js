@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ALL } from '../src/constants';
 import { getValue } from '../src/lib';
 import useCategories from './useCategories';
@@ -103,6 +103,7 @@ const useProducts = ({
   page,
   currency,
   country,
+  sorts,
   categorySlug,
 }) => {
   const { limit, offset } = usePaging(page);
@@ -128,7 +129,6 @@ const useProducts = ({
       },
     },
   ]);
-  const [sorts] = useState();
   const categoryId = useCategoryId({
     categorySlug,
     setSkip,
@@ -188,6 +188,26 @@ const useProducts = ({
   return { total, products, loading, error };
 };
 //vue specific useProducts
+export const useSorts = () => {
+  const route = useRoute();
+  const router = useRouter();
+  const sorts = computed(() => {
+    if (route?.query?.sort) {
+      return [route.query.sort];
+    }
+    return null;
+  });
+  const setSort = (sort) =>
+    router.push({
+      ...route,
+      query: {
+        ...route.query,
+        sort,
+      },
+    });
+  return { sorts, setSort };
+};
+
 export default () => {
   const route = useRoute();
   const { locale } = useLocale();
@@ -199,13 +219,22 @@ export default () => {
       : route.params.categorySlug
   );
   const page = computed(() => route.params.page || 1);
+  const { sorts, setSort } = useSorts();
 
   const { total, products, loading, error } = useProducts({
     page,
     locale,
     currency,
+    sorts,
     country: location,
     categorySlug,
   });
-  return { total, products, loading, error };
+  return {
+    total,
+    products,
+    loading,
+    error,
+    sorts,
+    setSort,
+  };
 };
