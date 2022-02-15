@@ -119,9 +119,12 @@ const useProducts = ({
   useEffect(
     () =>
       setFilters((filters) => {
+        const newFilters = filters.filter(
+          (filter) => !filter?.model?.tree?.path
+        );
         if (getValue(categoryId)) {
           return [
-            ...filters,
+            ...newFilters,
             {
               model: {
                 tree: {
@@ -133,7 +136,7 @@ const useProducts = ({
             },
           ];
         }
-        return filters;
+        return newFilters;
       }),
     [categoryId, categorySlug]
   );
