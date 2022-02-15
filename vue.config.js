@@ -1,6 +1,7 @@
 const path = require('path');
 const PROJECT_VIEW_PATH =
-  process.env.PROJECT_VIEW_PATH || '';
+  process.env.PROJECT_VIEW_PATH ||
+  'src/presentation/fashion/';
 
 module.exports = {
   pluginOptions: {
@@ -16,26 +17,12 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        Cart: path.resolve(
+        presentation: path.resolve(
           __dirname,
-          `src/views/Shop/Root/${PROJECT_VIEW_PATH}`
+          PROJECT_VIEW_PATH
         ),
-        Home: path.resolve(
-          __dirname,
-          `src/views/Home/${PROJECT_VIEW_PATH}`
-        ),
-        Product: path.resolve(
-          __dirname,
-          `src/views/Product/${PROJECT_VIEW_PATH}`
-        ),
-        Products: path.resolve(
-          __dirname,
-          `src/views/Products/${PROJECT_VIEW_PATH}`
-        ),
-        About: path.resolve(
-          __dirname,
-          `src/views/About/${PROJECT_VIEW_PATH}`
-        ),
+        container: path.resolve(__dirname, 'src/'),
+        react: path.resolve(__dirname, 'composition/react'),
       },
     },
   },

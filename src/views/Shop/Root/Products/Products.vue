@@ -17,6 +17,18 @@
     >
       page 2
     </a>
+    <a
+      href="javascipt:void"
+      v-on:click.prevent="setSort('newest')"
+    >
+      newest
+    </a>
+    <a
+      href="javascipt:void"
+      v-on:click.prevent="setSort(null)"
+    >
+      recommended
+    </a>
     <pre>{{
       JSON.stringify({ products, total }, undefined, 2)
     }}</pre>

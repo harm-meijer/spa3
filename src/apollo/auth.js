@@ -4,6 +4,7 @@ import {
   createGroup,
   createPromiseSessionCache,
 } from './group';
+import config from '../../sunrise.config';
 
 const createAuth = (au) => encode(`${au.id}:${au.secret}`);
 const saveToken = ({ access_token, refresh_token }) => {
@@ -40,9 +41,58 @@ const getToken = (au) => {
         ? response.json()
         : Promise.reject(response)
     )
-    .then(saveToken);
+    .then(saveToken)
+    .catch(handleError);
 };
 const group = createGroup(createPromiseSessionCache());
-//@todo: on 404 error make sure to try and get token with
-//  refreshtoken and if that doesn't work reset and re get token
-export default group((auth) => getToken(auth));
+const getTokenGrouped = group((auth) => getToken(auth));
+export const handleError = (error) => {
+  return Promise.reject(error);
+};
+export const fetchWithToken = (url, options) => {
+  return getTokenGrouped({
+    id: config.ct.auth.credentials.clientId,
+    secret: config.ct.auth.credentials.clientSecret,
+    scope: config.ct.auth.scope,
+    projectKey: config.ct.auth.projectKey,
+    authUrl: config.ct.auth.host,
+  }).then((token) => {
+    return fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      if (response.status === 401) {
+        return refreshToken({
+          id: config.ct.auth.credentials.clientId,
+          secret: config.ct.auth.credentials.clientSecret,
+          scope: config.ct.auth.scope,
+          projectKey: config.ct.auth.projectKey,
+          authUrl: config.ct.auth.host,
+        }).then(() => {
+          return fetchWithToken(url, options);
+        });
+      }
+      return response;
+    });
+  }, handleError);
+};
+const refreshToken = group((au) => {
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+  const auth = createAuth(au);
+  return fetch(`${au.authUrl}/oauth/token`, {
+    headers: {
+      authorization: `Basic ${auth}`,
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    body: `grant_type=refresh_token&refresh_token=${refreshToken}`,
+    method: 'POST',
+  })
+    .then((response) => response.json())
+    .then((token) => {
+      saveToken(token);
+    });
+});
+export default fetchWithToken;

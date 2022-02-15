@@ -18,14 +18,22 @@ export default {
         },
         'push'
       );
-    const { total, products, loading, error } =
-      useProducts();
+    const {
+      total,
+      products,
+      loading,
+      error,
+      sort,
+      setSort,
+    } = useProducts();
     return {
       setPage,
       products,
       total,
       loading,
       error,
+      sort,
+      setSort,
     };
   },
 };
