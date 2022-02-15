@@ -37,7 +37,7 @@ const query = gql`
         id
         name(locale: $locale)
         masterVariant {
-          id
+          variantId: id
           scopedPrice {
             value {
               currencyCode
@@ -179,9 +179,6 @@ const useProducts = ({
       );
       setTotal(data.productProjectionSearch.total);
     },
-    //vue-apollo is broken: https://github.com/vuejs/apollo/issues/1322
-    //  do not do this in React:
-    fetchPolicy: 'no-cache',
     skip,
   });
   return { total, products, loading, error };
