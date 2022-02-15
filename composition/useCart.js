@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import useLocale from './useLocale';
 import useQueryFacade from './useQueryFacade';
-import useState from './useState';
+import { useState } from 'react';
 //@todo: we will worry about importing the partials
 //  when the cart route is done
 const query = gql`

@@ -37,6 +37,7 @@ module.exports = {
           __dirname,
           `${PROJECT_VIEW_PATH}/About`
         ),
+        react: path.resolve(__dirname, 'composition/react'),
       },
     },
   },

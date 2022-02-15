@@ -1,5 +1,5 @@
 import { shallowRef } from 'vue';
-import { getValue } from '../src/lib';
+import { getValue } from '../../src/lib';
 
 export default (initialState) => {
   const state = shallowRef(initialState);
