@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 import { getValue } from '../../src/lib';
 import useCategories from '../useCategories';
 import { useEffect, useState } from 'react';
-import usePaging from '../usePaging';
 import useQuery from '../useQueryFacade';
 //@todo: channel (do in react mock in vue)
 //@todo: channel for logged in user (do in React, mock in Vue)
@@ -77,13 +76,13 @@ function useCategoryId({ categorySlug, setSkip }) {
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useProducts = ({
   locale,
-  page,
+  limit,
+  offset,
   currency,
   country,
   sorts,
   categorySlug,
 }) => {
-  const { limit, offset } = usePaging(page);
   const [products, setProducts] = useState();
   const [priceSelector, setPriceSelector] = useState({
     currency: getValue(currency),

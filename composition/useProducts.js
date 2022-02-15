@@ -5,6 +5,7 @@ import useLocation from './useLocation';
 import useCurrency from './useCurrency';
 import { ALL } from '../src/constants';
 import useProducts from './ct/useProducts';
+import usePaging from './usePaging';
 //vue specific useProducts
 export const useSorts = () => {
   const route = useRoute();
@@ -36,10 +37,12 @@ export default () => {
       : route.params.categorySlug
   );
   const page = computed(() => route.params.page || 1);
+  const { limit, offset } = usePaging(page);
   const { sorts, setSort } = useSorts();
 
   const { total, products, loading, error } = useProducts({
-    page,
+    limit,
+    offset,
     locale,
     currency,
     sorts,
