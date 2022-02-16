@@ -1,4 +1,4 @@
-import useCart from '../../../../../composition/useCart';
+import useCart from 'hooks/useCart';
 import { useI18n } from 'vue-i18n';
 //resolve-path could be scr/presentation/fashion
 // import PresentationComponent from 'resolve-path/Cart/Cart.vue';

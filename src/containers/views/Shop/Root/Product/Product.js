@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import useProducts from '../../../../../composition/useProducts';
-import { move } from '../../../../lib';
+import useProducts from 'hooks/useProducts';
+import { move } from '../../../../../lib';
 // import { ALL } from '../../../../constants';
 
 export default {

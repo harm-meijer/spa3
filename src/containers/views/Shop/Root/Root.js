@@ -6,11 +6,11 @@ import {
   watch,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { LOCALE } from '../../../constants';
-import { LOCATION } from '../../../constants';
-import config from '../../../../sunrise.config';
-import { getValue, move } from '../../../lib';
-import i18n from '../../../i18n';
+import { LOCALE } from '../../../../constants';
+import { LOCATION } from '../../../../constants';
+import config from '../../../../../sunrise.config';
+import { getValue, move } from '../../../../lib';
+import i18n from '../../../../i18n';
 
 const caseCorrected = (value = '', key = 'countries') => {
   //get case insensitive locale from sunrise config

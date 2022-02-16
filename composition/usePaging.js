@@ -1,4 +1,5 @@
 import { ref, watch } from 'vue';
+import { DEFAULT_PAGE_SIZE } from '../src/constants';
 import { getValue } from '../src/lib';
 
 //@todo: calculate total pages
@@ -13,7 +14,8 @@ const usePage = (
 //vue specific implementation
 export default (
   page,
-  pageSize = process.env.VUE_APP_PAGE_SIZE
+  pageSize = process.env.VUE_APP_PAGE_SIZE ||
+    DEFAULT_PAGE_SIZE
 ) => {
   const info = usePage(getValue(page), pageSize);
   const limit = ref(info.limit);
