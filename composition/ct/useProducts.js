@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import useQuery from '../useQueryFacade';
 //@todo: channel (do in react mock in vue)
 //@todo: channel for logged in user (do in React, mock in Vue)
-//@todo: pass sort
 //@todo: we will worry about importing the partials
 //  when the cart route is done
 const query = (expand) => gql`

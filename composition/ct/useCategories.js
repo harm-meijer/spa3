@@ -47,7 +47,7 @@ const useCategories = ({ locale, categorySlug, skip }) => {
       ),
     [skip, categorySlug, where]
   );
-  const { loading, error } = useQuery(getValue(query), {
+  const { loading, error } = useQuery(query, {
     variables: {
       locale,
       where,
