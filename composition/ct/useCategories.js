@@ -5,8 +5,7 @@ import { useState, useEffect } from 'react';
 
 //@todo: we will worry about importing the partials
 //  when the cart route is done
-const createQuery = (where) =>
-  gql`
+const createQuery = (where) => gql`
     query categories($locale: Locale! ${
       where ? ', $where: String!' : ''
     }) {
@@ -22,20 +21,23 @@ const createQuery = (where) =>
   `;
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
-const NONE = {};
 const useCategories = ({ locale, categorySlug, skip }) => {
   const [categories, setCategories] = useState();
   const [total, setTotal] = useState();
-  const [where, setWhere] = useState(NONE);
+  const [where, setWhere] = useState(null);
   const [skipQuery, setSkipQuery] = useState(true);
+  const [query, setQuery] = useState(
+    createQuery(getValue(where))
+  );
   useEffect(() => {
-    setWhere(
-      getValue(categorySlug)
-        ? `slug(${getValue(locale)}="${getValue(
-            categorySlug
-          )}")`
-        : NONE
-    );
+    const newWhere = getValue(categorySlug)
+      ? `slug(${getValue(locale)}="${getValue(
+          categorySlug
+        )}")`
+      : null;
+
+    setWhere(newWhere);
+    setQuery(createQuery(newWhere));
   }, [categorySlug, locale]);
   useEffect(
     () =>
@@ -45,10 +47,10 @@ const useCategories = ({ locale, categorySlug, skip }) => {
       ),
     [skip, categorySlug, where]
   );
-  const { loading, error } = useQuery(createQuery(where), {
+  const { loading, error } = useQuery(getValue(query), {
     variables: {
       locale,
-      where: where === NONE ? null : where,
+      where,
     },
     onCompleted: (data) => {
       if (!data) {
