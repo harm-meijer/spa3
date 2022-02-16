@@ -26,7 +26,7 @@ export const useSorts = () => {
   return { sorts, setSort };
 };
 
-export default () => {
+export default ({ expand }) => {
   const route = useRoute();
   const { locale } = useLocale();
   const { location } = useLocation();
@@ -50,6 +50,7 @@ export default () => {
     country: location,
     categorySlug,
     sku,
+    expand,
   });
   return {
     total,

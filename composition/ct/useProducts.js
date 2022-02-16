@@ -208,11 +208,11 @@ const useProducts = ({
       }
       setProducts(
         data.productProjectionSearch.results.map(
-          ({ masterVariant, name, variants }) => [
+          ({ masterVariant, name, variants }) => ({
             name,
             masterVariant,
             variants,
-          ]
+          })
         )
       );
       setTotal(data.productProjectionSearch.total);
