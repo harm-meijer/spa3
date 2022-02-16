@@ -198,7 +198,7 @@ const useProducts = ({
       locale,
       limit,
       offset,
-      sorts, //@todo: implement sort
+      sorts,
       priceSelector,
       filters,
     },
