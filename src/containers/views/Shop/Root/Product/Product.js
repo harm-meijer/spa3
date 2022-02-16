@@ -9,28 +9,21 @@ export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const setPage = (page) =>
-      move(
-        router,
-        route,
-        {
-          ...route.params,
-          page,
-        },
-        'push'
-      );
-    const page = computed(() => route.params.page || 1);
+    const sku = computed(() => route.params.sku);
     const { total, products, loading, error } = useProducts(
       {
-        page,
+        sku,
       }
     );
+    const changeSKU = (sku) => {
+      move(router, route, { ...route.params, sku }, 'push');
+    };
     return {
-      setPage,
       products,
       total,
       loading,
       error,
+      changeSKU,
     };
   },
 };

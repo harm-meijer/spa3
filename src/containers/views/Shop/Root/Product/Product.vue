@@ -2,6 +2,19 @@
 
 <template>
   <h1>Cart</h1>
+  <select value="sku">
+    <option
+      v-for="value in [
+        'M0E20000000EAT6',
+        'M0E20000000EATA',
+        'M0E20000000DX1Y',
+        'M0E20000000DX2E',
+      ]"
+      :value="value"
+      :key="value"
+    ></option>
+  </select>
+
   <p v-if="error">Something went wrong...</p>
   <p v-if="loading">Loading...</p>
   <div v-else>
