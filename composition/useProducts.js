@@ -26,7 +26,7 @@ export const useSorts = () => {
   return { sorts, setSort };
 };
 
-export default ({ expand }) => {
+export default ({ expand } = {}) => {
   const route = useRoute();
   const { locale } = useLocale();
   const { location } = useLocation();
