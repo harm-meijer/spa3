@@ -12,7 +12,7 @@ export const useSorts = () => {
   const router = useRouter();
   const sorts = computed(() => {
     return route?.query?.sort === 'newest'
-      ? ['astModifiedAt+desc']
+      ? ['lastModifiedAt desc']
       : null;
   });
   const setSort = (sort) =>
