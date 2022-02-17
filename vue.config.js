@@ -18,7 +18,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         additionalData: `
-          @import "${PROJECT_VIEW_PATH}/assets/scss/_global.scss";
+          @import "presentation/assets/scss/_global.scss";
         `,
       },
     },
