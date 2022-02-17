@@ -14,6 +14,15 @@ module.exports = {
       fullInstall: true,
     },
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: `
+          @import "${PROJECT_VIEW_PATH}/assets/scss/_global.scss";
+        `,
+      },
+    },
+  },
   configureWebpack: {
     resolve: {
       alias: {
