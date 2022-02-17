@@ -7,10 +7,10 @@ const query = gql`
   query myCart($locale: Locale!) {
     me {
       activeCart {
-        id
+        cartId: id
         version
         lineItems {
-          id
+          lineId: id
           name(locale: $locale)
           productSlug(locale: $locale)
           quantity
@@ -58,7 +58,7 @@ const query = gql`
         }
         shippingInfo {
           shippingMethod {
-            id
+            methodId: id
             name
             localizedDescription(locale: $locale)
           }
@@ -82,7 +82,7 @@ const query = gql`
         }
         discountCodes {
           discountCode {
-            id
+            codeId: id
             code
             name(locale: $locale)
           }
