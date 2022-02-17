@@ -1,0 +1,19 @@
+.vue-map-container {
+  width: 60%;
+  background: $gray;
+  float: right;
+  height: 655px;
+
+  @media screen and (max-width: 991px) {
+    width: 100%;
+  }
+
+  #vue-map-container {
+    height: 655px;
+    width: 100%;
+    float: left;
+    @media screen and (max-width: 991px) {
+      height: 400px;
+    }
+  }
+}

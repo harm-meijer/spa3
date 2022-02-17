@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
+    "@fawmi/vue-google-maps": "^0.9.4",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "core-js": "^3.6.5",
     "graphql": "^16.3.0",
