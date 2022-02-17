@@ -16,6 +16,7 @@ const app = createApp({
   .use(VueGoogleMaps, {
     load: {
       key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
+      libraries: 'places',
     },
   })
   .use(i18n)
