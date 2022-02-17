@@ -46,8 +46,11 @@ describe('useProducts', () => {
     expect(useQuery.mock.calls[0][1].locale.value).toBe(
       'en'
     );
-    params.locale.value = 'de';
-    expect(useQuery.mock.calls.length).toBe('de');
+    useQuery.mockClear();
+    useProducts({ ...createParams({ locale: ref('de') }) });
+    expect(useQuery.mock.calls[0][1].locale.value).toBe(
+      'de'
+    );
 
     // expect(useQuery).toHaveBeenCalledWith(1, 2);
     expect(true).toEqual(true);
