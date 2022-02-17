@@ -3,4 +3,8 @@ module.exports = {
   transform: {
     '^.+\\.vue$': 'vue-jest',
   },
+  moduleNameMapper: {
+    '^react$': '<rootDir>/composition/react',
+    '^composition$': '<rootDir>/composition',
+  },
 };
