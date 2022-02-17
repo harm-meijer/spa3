@@ -5,7 +5,7 @@
   <div>
     <h1>Store on presentation</h1>
   </div>
-  <div class="map">
+  <div>
     <GoogleMaps />
   </div>
 </template>
