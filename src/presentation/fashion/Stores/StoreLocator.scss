@@ -1,0 +1,18 @@
+.map {
+  width: 60%;
+  background: $gray;
+  float: right;
+
+  @media screen and (max-width: 991px) {
+    width: 100%;
+  }
+
+  #map {
+    height: 655px;
+    width: 100%;
+    float: left;
+    @media screen and (max-width: 991px) {
+      height: 400px;
+    }
+  }
+}
