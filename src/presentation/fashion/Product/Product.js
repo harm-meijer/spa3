@@ -33,5 +33,13 @@ export default {
       type: Array,
       required: true,
     },
+    channel: {
+      type: String,
+      required: false,
+    },
+    setChannel: {
+      type: Function,
+      required: true,
+    },
   },
 };

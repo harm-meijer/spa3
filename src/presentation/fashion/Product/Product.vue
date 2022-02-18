@@ -2,7 +2,7 @@
 
 <template>
   <h1>Product Detail</h1>
-  <select
+  sku:<select
     :value="sku"
     v-on:change="(e) => changeSKU(e.target.value)"
   >
@@ -12,6 +12,16 @@
       :key="value"
     >
       {{ value }}
+    </option>
+  </select>
+  channel:
+  <select
+    :value="channel"
+    v-on:change="(e) => setChannel(e.target.value)"
+  >
+    <option value="">none</option>
+    <option value="3ebb7c58-eb09-41c9-b751-57fe5089c128">
+      Munich
     </option>
   </select>
 

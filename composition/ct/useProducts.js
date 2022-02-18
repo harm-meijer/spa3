@@ -3,7 +3,6 @@ import { getValue } from '../../src/lib';
 import useCategories from '../useCategories';
 import { useEffect, useState } from 'react';
 import useQuery from '../useQueryFacade';
-//@todo: channel (do in react mock in vue)
 //@todo: channel for logged in user (do in React, mock in Vue)
 //@todo: we will worry about importing the partials
 //  when the cart route is done
@@ -130,7 +129,20 @@ const updateFilters = (
         : undefined
     )
     .filter((f) => f);
-
+const createPriceSelector = (
+  currency,
+  country,
+  channel
+) => ({
+  currency: getValue(currency),
+  country: getValue(country),
+  channel: getValue(channel)
+    ? {
+        typeId: 'priceChannel',
+        id: getValue(channel),
+      }
+    : null,
+});
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useProducts = ({
@@ -144,12 +156,12 @@ const useProducts = ({
   categorySlug,
   expand = {},
   sku,
+  channel,
 }) => {
   const [products, setProducts] = useState();
-  const [priceSelector, setPriceSelector] = useState({
-    currency: getValue(currency),
-    country: getValue(country),
-  });
+  const [priceSelector, setPriceSelector] = useState(
+    createPriceSelector(currency, country, channel)
+  );
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
   const categoryId = useCategoryId({
@@ -179,11 +191,10 @@ const useProducts = ({
     )
   );
   useEffect(() => {
-    setPriceSelector({
-      currency: getValue(currency),
-      country: getValue(country),
-    });
-  }, [currency, country]);
+    setPriceSelector(
+      createPriceSelector(currency, country, channel)
+    );
+  }, [currency, country, channel]);
   useEffect(
     () =>
       setFilters((filters) =>
