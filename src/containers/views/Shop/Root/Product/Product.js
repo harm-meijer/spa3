@@ -6,7 +6,7 @@ import ProductPresentation from 'presentation/Product/Product.vue';
 import useCartMutation, {
   addLineItem,
 } from 'hooks/useCartMutation';
-import useChannel from '../../../../../../composition/useChannel';
+import useChannel from 'hooks/useChannel';
 // import { ALL } from '../../../../constants';
 const skus = [
   'M0E20000000EAT6',

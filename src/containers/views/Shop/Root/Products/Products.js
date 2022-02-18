@@ -1,7 +1,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
-import useSearch from '../../../../../../composition/useSearch';
+import useSearch from 'hooks/useSearch';
 // import { ALL } from '../../../../constants';
 
 export default {
