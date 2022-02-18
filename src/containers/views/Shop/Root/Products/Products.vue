@@ -29,6 +29,24 @@
     >
       recommended
     </a>
+    <a
+      href="javascipt:void"
+      v-on:click.prevent="setCategory('all')"
+    >
+      all
+    </a>
+    <a
+      href="javascipt:void"
+      v-on:click.prevent="setCategory('men')"
+    >
+      men
+    </a>
+    <a
+      href="javascipt:void"
+      v-on:click.prevent="setCategory('women')"
+    >
+      women
+    </a>
     <pre>{{
       JSON.stringify({ products, total }, undefined, 2)
     }}</pre>

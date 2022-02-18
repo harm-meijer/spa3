@@ -5,10 +5,9 @@ import { useEffect, useState } from 'react';
 import useQuery from '../useQueryFacade';
 //@todo: channel (do in react mock in vue)
 //@todo: channel for logged in user (do in React, mock in Vue)
-//@todo: pass sort
 //@todo: we will worry about importing the partials
 //  when the cart route is done
-const query = gql`
+const query = (expand) => gql`
   query products(
     $locale: Locale!
     $limit: Int!
@@ -30,10 +29,26 @@ const query = gql`
         # https://github.com/apollographql/apollo-client/issues/9429
         productId: id
         name(locale: $locale)
+        ${
+          expand.variants
+            ? `variants {
+          variantId: id
+          sku
+          scopedPrice {
+            value {
+              currencyCode
+              centAmount
+            }
+            country
+          }
+        }`
+            : ''
+        }
         masterVariant {
           # better never select id or cache breaks
           # https://github.com/apollographql/apollo-client/issues/9429
           variantId: id
+          sku
           scopedPrice {
             value {
               currencyCode
@@ -72,6 +87,47 @@ function useCategoryId({ categorySlug, setSkip }) {
   }, [categories, categorySlug]);
   return categoryId;
 }
+const updateFilters = (
+  filters,
+  sku,
+  categoryId,
+  categorySlug
+) =>
+  filters
+    .filter(
+      (f) => !(f?.model?.value?.path === 'variants.sku')
+    )
+    .filter(
+      (filter) =>
+        !(filter?.model?.tree?.path === 'categories.id')
+    )
+    .concat(
+      sku
+        ? {
+            model: {
+              value: {
+                path: 'variants.sku',
+                values: [sku],
+              },
+            },
+          }
+        : undefined
+    )
+    .concat(
+      categorySlug && categoryId
+        ? {
+            model: {
+              tree: {
+                path: 'categories.id',
+                rootValues: [],
+                subTreeValues: [getValue(categoryId)],
+              },
+            },
+          }
+        : undefined
+    )
+    .filter((f) => f);
+
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useProducts = ({
@@ -82,6 +138,8 @@ const useProducts = ({
   country,
   sorts,
   categorySlug,
+  expand = {},
+  sku,
 }) => {
   const [products, setProducts] = useState();
   const [priceSelector, setPriceSelector] = useState({
@@ -90,25 +148,32 @@ const useProducts = ({
   });
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
-  const [filters, setFilters] = useState([
-    {
-      model: {
-        range: {
-          path: 'variants.scopedPrice.value.centAmount',
-          ranges: [
-            {
-              from: '0',
-              to: '1000000000000',
-            },
-          ],
-        },
-      },
-    },
-  ]);
   const categoryId = useCategoryId({
     categorySlug,
     setSkip,
   });
+  const [filters, setFilters] = useState(() =>
+    updateFilters(
+      [
+        {
+          model: {
+            range: {
+              path: 'variants.scopedPrice.value.centAmount',
+              ranges: [
+                {
+                  from: '0',
+                  to: '1000000000000',
+                },
+              ],
+            },
+          },
+        },
+      ],
+      getValue(sku),
+      getValue(categoryId),
+      getValue(categorySlug)
+    )
+  );
   useEffect(() => {
     setPriceSelector({
       currency: getValue(currency),
@@ -117,34 +182,22 @@ const useProducts = ({
   }, [currency, country]);
   useEffect(
     () =>
-      setFilters((filters) => {
-        const newFilters = filters.filter(
-          (filter) => !filter?.model?.tree?.path
-        );
-        if (getValue(categoryId)) {
-          return [
-            ...newFilters,
-            {
-              model: {
-                tree: {
-                  path: 'categories.id',
-                  rootValues: [],
-                  subTreeValues: [getValue(categoryId)],
-                },
-              },
-            },
-          ];
-        }
-        return newFilters;
-      }),
-    [categoryId, categorySlug]
+      setFilters((filters) =>
+        updateFilters(
+          filters,
+          getValue(sku),
+          getValue(categoryId),
+          getValue(categorySlug)
+        )
+      ),
+    [categoryId, categorySlug, sku]
   );
-  const { loading, error } = useQuery(query, {
+  const { loading, error } = useQuery(query(expand), {
     variables: {
       locale,
       limit,
       offset,
-      sorts, //@todo: implement sort
+      sorts,
       priceSelector,
       filters,
     },
@@ -154,10 +207,11 @@ const useProducts = ({
       }
       setProducts(
         data.productProjectionSearch.results.map(
-          ({ masterVariant, name }) => [
+          ({ masterVariant, name, variants }) => ({
             name,
-            masterVariant.scopedPrice.value.currencyCode,
-          ]
+            masterVariant,
+            variants,
+          })
         )
       );
       setTotal(data.productProjectionSearch.total);

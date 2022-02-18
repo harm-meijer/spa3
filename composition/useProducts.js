@@ -26,7 +26,7 @@ export const useSorts = () => {
   return { sorts, setSort };
 };
 
-export default () => {
+export default ({ expand } = {}) => {
   const route = useRoute();
   const { locale } = useLocale();
   const { location } = useLocation();
@@ -36,6 +36,7 @@ export default () => {
       ? null
       : route.params.categorySlug
   );
+  const sku = computed(() => route?.params?.sku);
   const page = computed(() => route.params.page || 1);
   const { limit, offset } = usePaging(page);
   const { sorts, setSort } = useSorts();
@@ -48,6 +49,8 @@ export default () => {
     sorts,
     country: location,
     categorySlug,
+    sku,
+    expand,
   });
   return {
     total,

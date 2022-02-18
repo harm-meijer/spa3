@@ -18,6 +18,17 @@ export default {
         },
         'push'
       );
+    const setCategory = (categorySlug) =>
+      move(
+        router,
+        route,
+        {
+          ...route.params,
+          categorySlug,
+        },
+        'push'
+      );
+
     const {
       total,
       products,
@@ -34,6 +45,8 @@ export default {
       error,
       sort,
       setSort,
+      setCategory,
+      categories: ['all', 'men', 'women'],
     };
   },
 };

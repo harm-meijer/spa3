@@ -2,35 +2,40 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
+import ProductPresentation from 'presentation/Product/Product.vue';
 // import { ALL } from '../../../../constants';
-
+const skus = [
+  'M0E20000000EAT6',
+  'M0E20000000EATA',
+  'M0E20000000DX1Y',
+  'M0E20000000DX2E',
+];
 export default {
-  name: 'Products',
+  name: 'Product',
+  components: {
+    ProductPresentation,
+  },
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const setPage = (page) =>
-      move(
-        router,
-        route,
-        {
-          ...route.params,
-          page,
-        },
-        'push'
-      );
-    const page = computed(() => route.params.page || 1);
+    const sku = computed(() => route.params.sku);
     const { total, products, loading, error } = useProducts(
       {
-        page,
+        sku,
+        expand: { variants: true },
       }
     );
+    const changeSKU = (sku) => {
+      move(router, route, { ...route.params, sku }, 'push');
+    };
     return {
-      setPage,
       products,
       total,
       loading,
       error,
+      changeSKU,
+      sku,
+      skus,
     };
   },
 };
