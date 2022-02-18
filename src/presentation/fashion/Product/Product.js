@@ -1,9 +1,13 @@
 export default {
   name: 'ProductPresentation',
   props: {
-    products: {
-      type: Array,
+    product: {
+      type: Object,
       required: false,
+    },
+    changeLine: {
+      type: Function,
+      required: true,
     },
     total: {
       type: Number,

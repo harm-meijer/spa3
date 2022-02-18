@@ -2,12 +2,13 @@
 
 <template>
   <ProductPresentation
-    :products="products"
+    :product="product"
     :total="total"
     :loading="loading"
     :error="error"
     :changeSKU="changeSKU"
     :sku="sku"
     :skus="skus"
+    :changeLine="changeLine"
   />
 </template>

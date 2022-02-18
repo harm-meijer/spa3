@@ -18,20 +18,11 @@
   <p v-if="error">Something went wrong...</p>
   <p v-if="loading">Loading...</p>
   <div v-else>
-    <a
-      href="javascipt:void"
-      v-on:click.prevent="setPage(1)"
-    >
-      page 1
-    </a>
-    <a
-      href="javascipt:void"
-      v-on:click.prevent="setPage(2)"
-    >
-      page 2
-    </a>
+    <button v-on:click="() => changeLine(sku, 1)">
+      Add to cart
+    </button>
     <pre>{{
-      JSON.stringify({ products, total }, undefined, 2)
+      JSON.stringify({ product, total }, undefined, 2)
     }}</pre>
   </div>
 </template>

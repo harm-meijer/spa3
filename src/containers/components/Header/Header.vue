@@ -1,7 +1,7 @@
 <script src="./Header.js" />
 
 <template>
-  <h1>Header</h1>
+  <h1>Header, Cart items: {{ total }}</h1>
   <div>
     <a
       href="javascript:void"

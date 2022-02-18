@@ -3,6 +3,9 @@ import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
 import ProductPresentation from 'presentation/Product/Product.vue';
+import useCartMutation, {
+  addLineItem,
+} from 'hooks/useCartMutation';
 // import { ALL } from '../../../../constants';
 const skus = [
   'M0E20000000EAT6',
@@ -25,17 +28,22 @@ export default {
         expand: { variants: true },
       }
     );
+    const product = computed(() => products.value?.[0]);
     const changeSKU = (sku) => {
       move(router, route, { ...route.params, sku }, 'push');
     };
+    const { mutateCart } = useCartMutation();
+    const changeLine = (sku, quantity = 1) =>
+      mutateCart(addLineItem(sku, quantity));
     return {
-      products,
+      product,
       total,
       loading,
       error,
       changeSKU,
       sku,
       skus,
+      changeLine,
     };
   },
 };
