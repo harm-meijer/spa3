@@ -37,7 +37,7 @@ export const addLineItem = (sku, quantity) => [
 
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
-const useCartMutation = () => {
+const useCartMutation = ({ location, currency }) => {
   const [mutateFunction, { data, loading, error }] =
     useMutation(mutation);
   const [createCart] = useMutation(create);
@@ -56,9 +56,11 @@ const useCartMutation = () => {
           return createCart({
             variables: {
               draft: {
-                currency: 'EUR',
-                country: 'DE',
-                shippingAddress: { country: 'DE' },
+                currency: getValue(currency),
+                country: getValue(location),
+                shippingAddress: {
+                  country: getValue(location),
+                },
               },
             },
           }).then((result) => ({
