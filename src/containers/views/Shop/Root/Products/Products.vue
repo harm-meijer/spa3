@@ -47,6 +47,14 @@
     >
       women
     </a>
+    <select
+      :value="search"
+      v-on:change="(e) => setSearch(e.target.value)"
+    >
+      <option value="">none</option>
+      <option value="shoes">shoes</option>
+      <option value="pants">pants</option>
+    </select>
     <pre>{{
       JSON.stringify({ products, total }, undefined, 2)
     }}</pre>

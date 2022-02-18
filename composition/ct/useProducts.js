@@ -14,9 +14,12 @@ const query = (expand) => gql`
     $offset: Int!
     $priceSelector: PriceSelectorInput!
     $sorts: [String!] = []
-    $filters: [SearchFilterInput!] = []
+    $filters: [SearchFilterInput!] = [],
+    $text: String = ""
   ) {
     productProjectionSearch(
+      locale: $locale
+      text: $text
       limit: $limit
       offset: $offset
       sorts: $sorts
@@ -131,6 +134,7 @@ const updateFilters = (
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useProducts = ({
+  search,
   locale,
   limit,
   offset,
@@ -194,6 +198,7 @@ const useProducts = ({
   );
   const { loading, error } = useQuery(query(expand), {
     variables: {
+      text: search,
       locale,
       limit,
       offset,
