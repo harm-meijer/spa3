@@ -6,7 +6,7 @@ import ProductPresentation from 'presentation/Product/Product.vue';
 import useCartMutation, {
   addLineItem,
 } from 'hooks/useCartMutation';
-import useChannel from 'hooks/useChannel';
+import useStore from 'hooks/useStore';
 // import { ALL } from '../../../../constants';
 const skus = [
   'M0E20000000EAT6',
@@ -36,10 +36,10 @@ export default {
     const { mutateCart } = useCartMutation();
     const changeLine = (sku, quantity = 1) =>
       mutateCart(addLineItem(sku, quantity));
-    const { channel, setChannel } = useChannel();
+    const { store, setStore } = useStore();
     return {
-      channel,
-      setChannel,
+      store,
+      setStore,
       product,
       total,
       loading,

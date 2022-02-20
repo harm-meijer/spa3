@@ -33,11 +33,11 @@ export default {
       type: Array,
       required: true,
     },
-    channel: {
+    store: {
       type: String,
       required: false,
     },
-    setChannel: {
+    setStore: {
       type: Function,
       required: true,
     },

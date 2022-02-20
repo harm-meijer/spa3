@@ -14,10 +14,10 @@
       {{ value }}
     </option>
   </select>
-  channel:
+  store:
   <select
-    :value="channel"
-    v-on:change="(e) => setChannel(e.target.value)"
+    :value="store"
+    v-on:change="(e) => setStore(e.target.value)"
   >
     <option value="">none</option>
     <option value="3ebb7c58-eb09-41c9-b751-57fe5089c128">

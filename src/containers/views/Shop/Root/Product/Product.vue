@@ -10,7 +10,7 @@
     :sku="sku"
     :skus="skus"
     :changeLine="changeLine"
-    :channel="channel"
-    :setChannel="setChannel"
+    :store="store"
+    :setStore="setStore"
   />
 </template>

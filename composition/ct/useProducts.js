@@ -3,7 +3,7 @@ import { getValue } from '../../src/lib';
 import useCategories from '../useCategories';
 import { useEffect, useState } from 'react';
 import useQuery from '../useQueryFacade';
-//@todo: channel for logged in user (do in React, mock in Vue)
+//@todo: price for logged in user (do in React, mock in Vue)
 //@todo: we will worry about importing the partials
 //  when the cart route is done
 const query = (expand) => gql`
@@ -129,17 +129,13 @@ const updateFilters = (
         : undefined
     )
     .filter((f) => f);
-const createPriceSelector = (
-  currency,
-  country,
-  channel
-) => ({
+const createPriceSelector = (currency, country, store) => ({
   currency: getValue(currency),
   country: getValue(country),
-  channel: getValue(channel)
+  channel: getValue(store)
     ? {
         typeId: 'priceChannel',
-        id: getValue(channel),
+        id: getValue(store),
       }
     : null,
 });
@@ -156,11 +152,11 @@ const useProducts = ({
   categorySlug,
   expand = {},
   sku,
-  channel,
+  store,
 }) => {
   const [products, setProducts] = useState();
   const [priceSelector, setPriceSelector] = useState(
-    createPriceSelector(currency, country, channel)
+    createPriceSelector(currency, country, store)
   );
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
@@ -192,9 +188,9 @@ const useProducts = ({
   );
   useEffect(() => {
     setPriceSelector(
-      createPriceSelector(currency, country, channel)
+      createPriceSelector(currency, country, store)
     );
-  }, [currency, country, channel]);
+  }, [currency, country, store]);
   useEffect(
     () =>
       setFilters((filters) =>
