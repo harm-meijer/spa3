@@ -1,5 +1,5 @@
 <style src="./Header.scss" lang="scss"></style>
-<i18n src="./Header.json"></i18n>
+<i18n src="./Header.txt" lang="yaml"></i18n>
 <script src="./Header.js"></script>
 
 <template>
@@ -15,7 +15,7 @@
                   data-test="stores-link"
                   v-if="showLocationChange"
                 >
-                  <!-- {{ t('stores') }} -->
+                  {{ t('stores') }}
                 </router-link>
                 <!-- <a href="#">{{ t('help') }}</a> -->
               </div>
