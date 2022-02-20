@@ -2,81 +2,116 @@
 // import LoginButton from "../LoginButton/LoginButton.vue";
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
 // import MiniCart from "../MiniCart/MiniCart.vue";
-import cartMixin from '../../../mixins/cartMixin';
-import { inject, computed } from '@vue/composition-api';
-import { SHOPPING_LIST } from '../../../composition/useShoppingList';
+
+import LocationSelector from 'containers/components/Header/LocationSelector/LocationSelector.vue';
+import { useI18n } from 'vue-i18n';
 
 export default {
+  name: 'HeaderPresentation',
+  setup() {
+    //@todo: what do we do with this one? Do we have to get this every time?
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: 'local',
+    });
+    window.broken = t;
+    return { t };
+  },
+  components: {
+    LocationSelector,
+  },
+  data() {
+    return {
+      searchOpen: false,
+      mobileMenuOpen: false,
+    };
+  },
+  props: {
+    shoppingLists: {
+      type: Array,
+      required: false,
+    },
+    totalShoppingCartItems: {
+      type: Number,
+      required: false,
+    },
+    cart: {
+      type: Object,
+      required: false,
+    },
+    totalCartItems: {
+      type: Number,
+      required: false,
+    },
+    showLocationChange: {
+      type: Boolean,
+      required: true,
+    },
+    search: {
+      type: String,
+      required: true,
+    },
+    setSearch: {
+      type: Function,
+      required: true,
+    },
+    toggleMobileMenu: {
+      type: Function,
+      required: true,
+    },
+    toggleMiniCart: {
+      type: Function,
+      required: true,
+    },
+    openMiniCart: {
+      type: Function,
+      required: true,
+    },
+  },
   // components: {
   //   CategoriesMenu,
   //   LoginButton,
   //   MiniCart,
   //   LocationSelector,
   // },
-  data() {
-    return {
-      searchText: this.$route.query.q || '',
-      mobileMenuOpen: false,
-      searchOpen: false,
-    };
-  },
-  setup() {
-    const { shoppingLists } = inject(SHOPPING_LIST);
-    const totalShoppingCartItems = computed(() => {
-      return (shoppingLists.value || []).reduce(
-        (total, list) =>
-          list.lineItems.reduce(
-            (total, { quantity }) => total + quantity,
-            total
-          ),
-        0
-      );
-    });
-    return {
-      totalShoppingCartItems,
-    };
-  },
-  mixins: [cartMixin],
-  computed: {
-    totalCartItems() {
-      return this.$store.state.cartItems;
-    },
-    showLocationChange() {
-      return !this.totalCartItems;
-    },
-  },
+  // data() {
+  //   return {
+  //     searchText: this.$route.query.q || '',
+  //     mobileMenuOpen: false,
+  //     searchOpen: false,
+  //   };
+  // },
+  // setup() {
+  //   const { shoppingLists } = inject(SHOPPING_LIST);
+  //   const totalShoppingCartItems = computed(() => {
+  //     return (shoppingLists.value || []).reduce(
+  //       (total, list) =>
+  //         list.lineItems.reduce(
+  //           (total, { quantity }) => total + quantity,
+  //           total
+  //         ),
+  //       0
+  //     );
+  //   });
+  //   return {
+  //     totalShoppingCartItems,
+  //   };
+  // },
+  // computed: {
+  //   totalCartItems() {
+  //     return this.$store.state.cartItems;
+  //   },
+  //   showLocationChange() {
+  //     return !this.totalCartItems;
+  //   },
+  // },
   methods: {
     toggleSearch() {
       this.searchOpen = !this.searchOpen;
     },
-    search() {
+    doSearch() {
       this.toggleSearch();
-      const { query } = this.$route;
-      this.$router.push({
-        name: 'products',
-        params: {
-          categorySlug: 'all',
-          page: 1,
-        },
-        query: {
-          ...query,
-          q: this.searchText,
-        },
-      });
-    },
-    toggleMobileMenu() {
-      this.mobileMenuOpen = !this.mobileMenuOpen;
-    },
-    onToggleMinicart() {
-      this.$store.dispatch('toggleMiniCart');
-    },
-    openMiniCart() {
-      this.$store.dispatch('openMiniCart', 0);
-    },
-  },
-  watch: {
-    $route(to) {
-      this.searchText = to.query.q || '';
+      this.setSearch(this.search);
     },
   },
 };
