@@ -14,7 +14,6 @@ export default {
       inheritLocale: true,
       useScope: 'local',
     });
-    window.broken = t;
     return { t };
   },
   components: {
