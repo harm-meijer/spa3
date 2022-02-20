@@ -48,7 +48,9 @@
                   <div class="logo">
                     <router-link to="/">
                       <img
-                        src="presentation/assets/img/logo.svg"
+                        :src="
+                          require('presentation/assets/img/logo.svg')
+                        "
                         alt="SUNRISE"
                         class="img-responsive sunrise-logo"
                       />
@@ -125,7 +127,9 @@
               <a href="index.html">
                 <img
                   alt=""
-                  src="assets/images/logo/logo.svg"
+                  :src="
+                    require('presentation/assets/img/logo.svg')
+                  "
                 />
               </a>
             </div>
