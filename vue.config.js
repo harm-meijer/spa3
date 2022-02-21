@@ -36,6 +36,10 @@ module.exports = {
         ),
         react: path.resolve(__dirname, 'composition/react'),
         hooks: path.resolve(__dirname, 'composition'),
+        SASS: path.resolve(
+          __dirname,
+          'presentation/assets/scss'
+        ),
       },
     },
   },
