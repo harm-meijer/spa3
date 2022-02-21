@@ -13,6 +13,9 @@
     :toggleMobileMenu="() => 88"
     :toggleMiniCart="() => 88"
     :openMiniCart="() => 88"
+    :locations="locations"
+    :location="location"
+    :setLocation="setLocation"
   />
 </template>
 

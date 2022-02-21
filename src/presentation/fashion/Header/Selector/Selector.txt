@@ -1,0 +1,12 @@
+en:
+  location: "Location"
+  language: "Language"
+  country: "Country"
+  "DE": "Germany"
+  "US": "United States"
+de:
+  location: "Ort"
+  language: "Sprache"
+  country: "Land"
+  "DE": "Deutschland"
+  "US": "Vereinigte Staaten"

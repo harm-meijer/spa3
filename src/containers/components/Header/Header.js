@@ -4,6 +4,7 @@ import useCart from 'hooks/useCart';
 import HeaderPresentation from 'presentation/Header/Header.vue';
 import { computed } from 'vue';
 import useSearch from 'hooks/useSearch';
+import sunriseConfig from '../../../../sunrise.config';
 export default {
   components: {
     HeaderPresentation,
@@ -22,7 +23,14 @@ export default {
             .reduce((sum, q) => sum + q, 0)
         : 0
     );
+    const locations = Object.keys(sunriseConfig.countries);
 
-    return { ...locale, ...location, ...search, total };
+    return {
+      ...locale,
+      ...location,
+      locations,
+      ...search,
+      total,
+    };
   },
 };

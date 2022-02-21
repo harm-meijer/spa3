@@ -25,8 +25,12 @@
             >
               <div class="curr-lang-wrap curr-lang-inc">
                 <ul>
-                  <LocationSelector
+                  <Selector
                     v-if="showLocationChange"
+                    :values="locations"
+                    title="location"
+                    :value="location"
+                    :setValue="setLocation"
                   />
                   <!-- <LocationSelector
                     v-bind:values="$sunrise.languages"

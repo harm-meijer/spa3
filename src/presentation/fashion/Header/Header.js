@@ -3,7 +3,7 @@
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
 // import MiniCart from "../MiniCart/MiniCart.vue";
 
-import LocationSelector from 'containers/components/Header/LocationSelector/LocationSelector.vue';
+import Selector from './Selector/Selector.vue';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -17,7 +17,7 @@ export default {
     return { t };
   },
   components: {
-    LocationSelector,
+    Selector,
   },
   data() {
     return {
@@ -64,6 +64,18 @@ export default {
     },
     openMiniCart: {
       type: Function,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    setLocation: {
+      type: Function,
+      required: true,
+    },
+    locations: {
+      type: Array,
       required: true,
     },
   },
