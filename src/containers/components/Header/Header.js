@@ -16,7 +16,7 @@ export default {
       expand: { minimum: true },
     });
     const search = useSearch();
-    const total = computed(() =>
+    const totalCartItems = computed(() =>
       exist.value && cart.value
         ? cart.value.lineItems
             .map(({ quantity }) => quantity)
@@ -31,7 +31,7 @@ export default {
       ...location,
       locations,
       ...search,
-      total,
+      totalCartItems,
     };
   },
 };

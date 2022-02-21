@@ -36,10 +36,6 @@ export default {
       type: Number,
       required: false,
     },
-    cart: {
-      type: Object,
-      required: false,
-    },
     totalCartItems: {
       type: Number,
       required: false,

@@ -5,8 +5,7 @@
   <HeaderPresentation
     :shoppingLists="[]"
     :totalShoppingCartItems="0"
-    :cart="{}"
-    :totalCartItems="0"
+    :totalCartItems="totalCartItems"
     :showLocationChange="true"
     :search="search"
     :setSearch="setSearch"
