@@ -24,9 +24,10 @@ export default {
         : 0
     );
     const locations = Object.keys(sunriseConfig.countries);
-
+    const locales = Object.keys(sunriseConfig.languages);
     return {
       ...locale,
+      locales,
       ...location,
       locations,
       ...search,

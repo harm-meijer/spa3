@@ -16,6 +16,9 @@
     :locations="locations"
     :location="location"
     :setLocation="setLocation"
+    :locales="locales"
+    :locale="locale"
+    :setLocale="setLocale"
   />
 </template>
 

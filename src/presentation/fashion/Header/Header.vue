@@ -32,11 +32,12 @@
                     :value="location"
                     :setValue="setLocation"
                   />
-                  <!-- <LocationSelector
-                    v-bind:values="$sunrise.languages"
+                  <Selector
+                    :values="locales"
                     title="language"
-                    data-test="language-selector-dropdown"
-                  /> -->
+                    :value="locale"
+                    :setValue="setLocale"
+                  />
                 </ul>
               </div>
             </div>

@@ -78,6 +78,18 @@ export default {
       type: Array,
       required: true,
     },
+    locale: {
+      type: String,
+      required: true,
+    },
+    setLocale: {
+      type: Function,
+      required: true,
+    },
+    locales: {
+      type: Array,
+      required: true,
+    },
   },
   // components: {
   //   CategoriesMenu,
