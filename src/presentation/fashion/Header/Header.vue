@@ -72,7 +72,7 @@
                       main-menu-blod main-menu-center
                     "
                   >
-                    <CategoriesMenu :locale="locale" />
+                    <CategoriesMenu />
                   </div>
                 </div>
                 <div class="col-xl-2 col-lg-3">
