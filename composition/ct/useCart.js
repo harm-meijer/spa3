@@ -142,18 +142,22 @@ const createQuery = (expand) =>
 const useCart = ({ expand = {}, locale }) => {
   const [cart, setCart] = useState();
   const [exist, setExist] = useState();
-  const { loading, error } = useQueryFacade(
-    createQuery(expand),
-    {
-      variables: { locale },
-      onCompleted: (data) => {
-        if (!data) {
-          return;
-        }
-        setCart(data.me.activeCart);
-      },
-    }
+  const [query, setQuery] = useState(
+    createQuery(getValue(expand))
   );
+  useEffect(() => {
+    setQuery(createQuery(getValue(expand)));
+  }, [expand]);
+
+  const { loading, error } = useQueryFacade(query, {
+    variables: { locale },
+    onCompleted: (data) => {
+      if (!data) {
+        return;
+      }
+      setCart(data.me.activeCart);
+    },
+  });
   useEffect(
     () =>
       setExist(

@@ -140,7 +140,7 @@ export default {
         i18n.global.locale = locale;
       }
     });
-
-    return { paramsSet };
+    const isMiniCartOpen = false;
+    return { paramsSet, isMiniCartOpen };
   },
 };

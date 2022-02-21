@@ -8,37 +8,58 @@ import { useState, useEffect } from 'react';
 const createQuery = (where) => gql`
     query categories($locale: Locale! ${
       where ? ', $where: String!' : ''
-    }) {
-      categories${where ? '(where: $where)' : ''} {
+    }, $sort: [String!] = []) {
+      categories(sort: $sort${
+        where ? ', where: $where' : ''
+      }) {
         count
         total
         results {
           id
           slug(locale: $locale)
+          name(locale: $locale)
         }
       }
     }
   `;
+const createWhere = (categorySlug, rootOnly, locale) => {
+  const where = [
+    getValue(categorySlug)
+      ? `slug(${getValue(getValue(locale))}="${getValue(
+          categorySlug
+        )}")`
+      : false,
+    getValue(rootOnly) ? 'parent is not defined' : false,
+  ].filter((x) => x);
+  return where.length ? where.join(' and ') : null;
+};
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
-const useCategories = ({ locale, categorySlug, skip }) => {
+const useCategories = ({
+  locale,
+  categorySlug,
+  rootOnly,
+  sort,
+  skip,
+}) => {
   const [categories, setCategories] = useState();
   const [total, setTotal] = useState();
-  const [where, setWhere] = useState(null);
+  const [where, setWhere] = useState(
+    createWhere(categorySlug, rootOnly, locale)
+  );
   const [skipQuery, setSkipQuery] = useState(true);
   const [query, setQuery] = useState(
     createQuery(getValue(where))
   );
   useEffect(() => {
-    const newWhere = getValue(categorySlug)
-      ? `slug(${getValue(locale)}="${getValue(
-          categorySlug
-        )}")`
-      : null;
-
-    setWhere(newWhere);
-    setQuery(createQuery(newWhere));
-  }, [categorySlug, locale]);
+    const _where = createWhere(
+      categorySlug,
+      rootOnly,
+      locale
+    );
+    setWhere(_where);
+    setQuery(createQuery(_where));
+  }, [categorySlug, rootOnly, locale]);
   useEffect(
     () =>
       setSkipQuery(
@@ -51,6 +72,7 @@ const useCategories = ({ locale, categorySlug, skip }) => {
     variables: {
       locale,
       where,
+      sort,
     },
     onCompleted: (data) => {
       if (!data) {
