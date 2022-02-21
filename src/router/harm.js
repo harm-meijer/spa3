@@ -6,7 +6,7 @@ import Product from 'containers/views/Shop/Root/Product/Product.vue';
 export default [
   {
     path: 'products/:categorySlug/:page?',
-    name: 'Products',
+    name: 'products',
     components: {
       default: Products,
       header: Header,
@@ -15,7 +15,7 @@ export default [
   },
   {
     path: 'product/:productSlug/:sku',
-    name: 'Product',
+    name: 'product',
     components: {
       default: Product,
       header: Header,

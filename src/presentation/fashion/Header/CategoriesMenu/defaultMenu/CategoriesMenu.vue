@@ -10,8 +10,8 @@
         :key="category.id"
         data-test="category-1st-level"
       >
-        <!-- :class="isActive(category.name) ? 'active' : ''" -->
         <router-link
+          :class="isActive(category.slug) ? 'active' : ''"
           :to="{
             name: 'products',
             params: { categorySlug: category.slug },
