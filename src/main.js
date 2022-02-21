@@ -5,6 +5,7 @@ import { apolloClient } from './apollo';
 import router from './router';
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import i18n from './i18n';
+import 'presentation/assets/scss/main.scss';
 
 const app = createApp({
   setup() {
