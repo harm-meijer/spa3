@@ -1,7 +1,14 @@
 <script src="./Header.js" />
 
 <template>
-  <!-- @todo: need to implement some of these -->
+  <!-- @todo: need to implement some of these 
+    :shoppingLists
+    :totalShoppingCartItems
+    :showLocationChange
+    :toggleMobileMenu
+    :toggleMiniCart
+    :openMiniCart  
+  -->
   <HeaderPresentation
     :shoppingLists="[]"
     :totalShoppingCartItems="0"
