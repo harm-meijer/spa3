@@ -17,7 +17,7 @@
                 >
                   {{ t('stores') }}
                 </router-link>
-                <!-- <a href="#">{{ t('help') }}</a> -->
+                <a href="#">{{ t('help') }}</a>
               </div>
             </div>
             <div
@@ -72,7 +72,7 @@
                       main-menu-blod main-menu-center
                     "
                   >
-                    <!-- <CategoriesMenu /> -->
+                    <CategoriesMenu :locale="locale" />
                   </div>
                 </div>
                 <div class="col-xl-2 col-lg-3">

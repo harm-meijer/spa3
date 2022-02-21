@@ -4,6 +4,7 @@
 // import MiniCart from "../MiniCart/MiniCart.vue";
 
 import Selector from './Selector/Selector.vue';
+import CategoriesMenu from './CategoriesMenu';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -18,6 +19,7 @@ export default {
   },
   components: {
     Selector,
+    CategoriesMenu,
   },
   data() {
     return {
