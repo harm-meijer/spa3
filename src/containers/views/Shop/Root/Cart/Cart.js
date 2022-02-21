@@ -9,7 +9,9 @@ export default {
   //   PresentationComonent
   // },
   setup() {
-    const { cart, loading, error } = useCart();
+    const { cart, loading, error } = useCart({
+      expand: { minimum: true },
+    });
     const { t } = useI18n({
       inheritLocale: true,
       useScope: 'local',

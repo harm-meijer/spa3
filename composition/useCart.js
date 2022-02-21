@@ -1,8 +1,10 @@
 import useLocale from './useLocale';
 import useCart from './ct/useCart';
 //Vue/app specific code
-export default () => {
+export default ({ expand } = {}) => {
   const { locale } = useLocale();
-  const { cart, loading, error } = useCart({ locale });
-  return { cart, loading, error };
+  return useCart({
+    locale,
+    expand,
+  });
 };

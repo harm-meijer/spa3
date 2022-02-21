@@ -1,40 +1,24 @@
 <script src="./Header.js" />
 
 <template>
-  <h1>Header</h1>
-  <div>
-    <a
-      href="javascript:void"
-      v-on:click.prevent="() => setLocation('us')"
-    >
-      US
-    </a>
-  </div>
-  <div>
-    <a
-      href="javascript:void"
-      v-on:click.prevent="() => setLocation('de')"
-    >
-      DE
-    </a>
-  </div>
-  <div>
-    <a
-      href="javascript:void"
-      v-on:click.prevent="() => setLocale('EN')"
-    >
-      English
-    </a>
-  </div>
-  <div>
-    <a
-      href="javascript:void"
-      v-on:click.prevent="() => setLocale('DE')"
-    >
-      German
-    </a>
-  </div>
-  <h1>{{ location }}</h1>
-  <h1>{{ locale }}</h1>
+  <!-- @todo: need to implement some of these -->
+  <HeaderPresentation
+    :shoppingLists="[]"
+    :totalShoppingCartItems="0"
+    :cart="{}"
+    :totalCartItems="0"
+    :showLocationChange="true"
+    :search="search"
+    :setSearch="setSearch"
+    :toggleMobileMenu="() => 88"
+    :toggleMiniCart="() => 88"
+    :openMiniCart="() => 88"
+    :locations="locations"
+    :location="location"
+    :setLocation="setLocation"
+    :locales="locales"
+    :locale="locale"
+    :setLocale="setLocale"
+  />
 </template>
 

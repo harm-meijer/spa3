@@ -1,14 +1,36 @@
 import gql from 'graphql-tag';
 import useQueryFacade from '../useQueryFacade';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getValue } from '../../src/lib';
+const minimum = gql`
+  query myCart {
+    me {
+      activeCart {
+        cartId: id
+        version
+        lineItems {
+          lineId: id
+          quantity
+        }
+      }
+    }
+  }
+`;
+
 //@todo: we will worry about importing the partials
 //  when the cart route is done
-const query = gql`
+const createQuery = (expand) =>
+  expand.minimum
+    ? minimum
+    : gql`
   query myCart($locale: Locale!) {
     me {
       activeCart {
         cartId: id
         version
+        ${
+          expand.lineItems
+            ? `
         lineItems {
           lineId: id
           name(locale: $locale)
@@ -50,6 +72,8 @@ const query = gql`
               }
             }
           }
+        }`
+            : ''
         }
         totalPrice {
           centAmount
@@ -115,17 +139,30 @@ const query = gql`
 `;
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
-const useCart = ({ locale }) => {
+const useCart = ({ expand = {}, locale }) => {
   const [cart, setCart] = useState();
-  const { loading, error } = useQueryFacade(query, {
-    variables: { locale },
-    onCompleted: (data) => {
-      if (!data) {
-        return;
-      }
-      setCart(data.me.activeCart);
-    },
-  });
-  return { cart, loading, error };
+  const [exist, setExist] = useState();
+  const { loading, error } = useQueryFacade(
+    createQuery(expand),
+    {
+      variables: { locale },
+      onCompleted: (data) => {
+        if (!data) {
+          return;
+        }
+        setCart(data.me.activeCart);
+      },
+    }
+  );
+  useEffect(
+    () =>
+      setExist(
+        !getValue(loading) && !getValue(error)
+          ? Boolean(getValue(cart))
+          : undefined
+      ),
+    [cart, loading, error]
+  );
+  return { cart, exist, loading, error };
 };
 export default useCart;

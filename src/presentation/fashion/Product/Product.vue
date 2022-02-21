@@ -2,7 +2,7 @@
 
 <template>
   <h1>Product Detail</h1>
-  <select
+  sku:<select
     :value="sku"
     v-on:change="(e) => changeSKU(e.target.value)"
   >
@@ -14,24 +14,25 @@
       {{ value }}
     </option>
   </select>
+  store:
+  <select
+    :value="store"
+    v-on:change="(e) => setStore(e.target.value)"
+  >
+    <option value="">none</option>
+    <option value="3ebb7c58-eb09-41c9-b751-57fe5089c128">
+      Munich
+    </option>
+  </select>
 
   <p v-if="error">Something went wrong...</p>
   <p v-if="loading">Loading...</p>
   <div v-else>
-    <a
-      href="javascipt:void"
-      v-on:click.prevent="setPage(1)"
-    >
-      page 1
-    </a>
-    <a
-      href="javascipt:void"
-      v-on:click.prevent="setPage(2)"
-    >
-      page 2
-    </a>
+    <button v-on:click="() => changeLine(sku, 1)">
+      Add to cart
+    </button>
     <pre>{{
-      JSON.stringify({ products, total }, undefined, 2)
+      JSON.stringify({ product, total }, undefined, 2)
     }}</pre>
   </div>
 </template>

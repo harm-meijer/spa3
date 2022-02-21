@@ -3,8 +3,7 @@ import { getValue } from '../../src/lib';
 import useCategories from '../useCategories';
 import { useEffect, useState } from 'react';
 import useQuery from '../useQueryFacade';
-//@todo: channel (do in react mock in vue)
-//@todo: channel for logged in user (do in React, mock in Vue)
+//@todo: price for logged in user (do in React, mock in Vue)
 //@todo: we will worry about importing the partials
 //  when the cart route is done
 const query = (expand) => gql`
@@ -14,9 +13,12 @@ const query = (expand) => gql`
     $offset: Int!
     $priceSelector: PriceSelectorInput!
     $sorts: [String!] = []
-    $filters: [SearchFilterInput!] = []
+    $filters: [SearchFilterInput!] = [],
+    $text: String = ""
   ) {
     productProjectionSearch(
+      locale: $locale
+      text: $text
       limit: $limit
       offset: $offset
       sorts: $sorts
@@ -127,10 +129,20 @@ const updateFilters = (
         : undefined
     )
     .filter((f) => f);
-
+const createPriceSelector = (currency, country, store) => ({
+  currency: getValue(currency),
+  country: getValue(country),
+  channel: getValue(store)
+    ? {
+        typeId: 'priceChannel',
+        id: getValue(store),
+      }
+    : null,
+});
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useProducts = ({
+  search,
   locale,
   limit,
   offset,
@@ -140,12 +152,12 @@ const useProducts = ({
   categorySlug,
   expand = {},
   sku,
+  store,
 }) => {
   const [products, setProducts] = useState();
-  const [priceSelector, setPriceSelector] = useState({
-    currency: getValue(currency),
-    country: getValue(country),
-  });
+  const [priceSelector, setPriceSelector] = useState(
+    createPriceSelector(currency, country, store)
+  );
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
   const categoryId = useCategoryId({
@@ -175,11 +187,10 @@ const useProducts = ({
     )
   );
   useEffect(() => {
-    setPriceSelector({
-      currency: getValue(currency),
-      country: getValue(country),
-    });
-  }, [currency, country]);
+    setPriceSelector(
+      createPriceSelector(currency, country, store)
+    );
+  }, [currency, country, store]);
   useEffect(
     () =>
       setFilters((filters) =>
@@ -194,6 +205,7 @@ const useProducts = ({
   );
   const { loading, error } = useQuery(query(expand), {
     variables: {
+      text: search,
       locale,
       limit,
       offset,

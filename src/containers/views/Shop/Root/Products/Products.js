@@ -1,6 +1,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
+import useSearch from 'hooks/useSearch';
 // import { ALL } from '../../../../constants';
 
 export default {
@@ -28,7 +29,7 @@ export default {
         },
         'push'
       );
-
+    const { search, setSearch } = useSearch();
     const {
       total,
       products,
@@ -38,6 +39,8 @@ export default {
       setSort,
     } = useProducts();
     return {
+      setSearch,
+      search,
       setPage,
       products,
       total,
