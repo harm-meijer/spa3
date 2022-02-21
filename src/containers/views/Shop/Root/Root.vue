@@ -1,9 +1,18 @@
 <script src="./Root.js" />
 
 <template>
-  <template v-if="paramsSet">
+  <div
+    v-if="paramsSet"
+    class="main-wrapper main-wrapper-2 main-wrapper-3"
+    :class="isMiniCartOpen ? 'overlay-active' : ''"
+  >
+    <div @click="close()" class="body-overlay"></div>
+    <!-- @todo: create the minicart -->
+    <!-- <MiniCart /> -->
     <router-view name="header" />
     <router-view />
-    <router-view name="footer" />
-  </template>
+    <footer>
+      <router-view name="footer" />
+    </footer>
+  </div>
 </template>
