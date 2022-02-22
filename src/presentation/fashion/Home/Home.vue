@@ -1,9 +1,11 @@
 <script src="./Home.js" />
 <style src="./Home.scss" lang="scss"></style>
+<i18n src="./Home.txt" lang="yaml"></i18n>
 
 <template>
   <span>
     <!--TODO: Add banner component here -->
+    <Banner />
     <div class="banner-area pt-30">
       <div class="custom-container">
         <div class="row">
@@ -28,7 +30,7 @@
                     alt="banner"
                   />
                   <div class="banner-content">
-                    <h3>WOMEN JEANS</h3>
+                    <h3>{{ t('w_jeans') }}</h3>
                   </div>
                 </router-link>
               </div>
@@ -55,7 +57,7 @@
                     alt="banner"
                   />
                   <div class="banner-content">
-                    <h3>SNEAKERS</h3>
+                    <h3>{{ t('sneakers') }}</h3>
                   </div>
                 </router-link>
               </div>
@@ -80,7 +82,7 @@
                     alt="banner"
                   />
                   <div class="banner-content">
-                    <h3>ACCESSORIES</h3>
+                    <h3>{{ t('accessories') }}</h3>
                   </div>
                 </router-link>
               </div>
@@ -107,7 +109,7 @@
                     alt="banner"
                   />
                   <div class="banner-content">
-                    <h3>BATHING SUITS</h3>
+                    <h3>{{ t('bathing_suits') }}</h3>
                   </div>
                 </router-link>
               </div>
@@ -127,6 +129,14 @@
               <div class="service-icon">
                 <i class="las la-shipping-fast"></i>
               </div>
+              <div class="service-content">
+                <h6>{{ t('free_shipping_head') }}</h6>
+                <p>
+                  {{ t('free_shipping_body') }}
+                  <!--TODO: Change currency based on Location, not language -->
+                  {{ t('currency') }}100
+                </p>
+              </div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
@@ -138,8 +148,8 @@
                 <i class="las la-coins"></i>
               </div>
               <div class="service-content">
-                <h6>30 Days Money Returns</h6>
-                <p>30 days money back guarantee</p>
+                <h6>{{ t('return_head') }}</h6>
+                <p>{{ t('return_body') }}</p>
               </div>
             </div>
           </div>
@@ -152,8 +162,8 @@
                 <i class="las la-headphones"></i>
               </div>
               <div class="service-content">
-                <h6>Support 24/7</h6>
-                <p>Offered in the country of usage</p>
+                <h6>{{ t('support_head') }}</h6>
+                <p>{{ t('support_body') }}</p>
               </div>
             </div>
           </div>
@@ -166,8 +176,8 @@
                 <i class="las la-shield-alt"></i>
               </div>
               <div class="service-content">
-                <h6>100% Secure Checkout</h6>
-                <p>Paypal / Visa / Master Card</p>
+                <h6>{{ t('secure_checkout_head') }}</h6>
+                <p>{{ t('secure_checkout_body') }}</p>
               </div>
             </div>
           </div>
