@@ -4,12 +4,9 @@
 
 <template>
   <div class="shop-area pb-100">
-    <LoadingSpinner v-if="isLoading" />
-    <div
-      class="custom-container"
-      v-else-if="categories && products"
-    >
-      <TopBar
+    <Spinner v-if="loading" />
+    <div class="custom-container" v-else-if="products">
+      <!-- <TopBar
         v-on:toggle-filter="toggleFilter"
         @change-sort="changeSort"
         v-bind:show="show"
@@ -17,35 +14,32 @@
         v-bind:count="products.count"
         v-bind:offset="products.offset"
         v-bind:total="products.total"
-      />
-      <ProductFilter
+      /> -->
+      <!-- <ProductFilter
         :facets="facets"
         :facetFilter="facetFilter"
         @filter-change="facetFilterChange"
         @channel-change="channelChange"
         :allChannels="allChannels"
         v-bind:show="show"
-      />
-      <div
-        class="shop-wrapper"
-        v-if="products.results.length"
-      >
+      /> -->
+      <div class="shop-wrapper" v-if="products.length">
         <div class="row">
+          <!-- @open-quick-view="openQuickView"
+            @open-add-shopping-list="openAddToShoppingList" -->
           <ProductThumbnail
-            @open-quick-view="openQuickView"
-            @open-add-shopping-list="openAddToShoppingList"
-            v-for="product in products.results"
+            v-for="product in products"
             data-test="product-list"
             :key="product.id"
-            :product="product"
+            :product="formatProduct(product)"
           />
         </div>
-        <Pagination
+        <!-- <Pagination
           :pageSize="limit"
           :total="totalProducts"
           :page="page"
           @pagechanged="changePage"
-        />
+        /> -->
       </div>
 
       <div v-else>
@@ -65,7 +59,7 @@
           class="empty-results"
           data-test="category-not-found"
         >
-          {{ $t('categoryNotFound') }}
+          {{ t('categoryNotFound') }}
         </span>
       </div>
     </div>

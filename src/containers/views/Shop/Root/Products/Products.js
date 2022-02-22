@@ -2,7 +2,7 @@ import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
 import useSearch from 'hooks/useSearch';
-import ProductList from './ProductList/ProductList';
+import ProductList from './ProductList/ProductList.vue';
 
 export default {
   name: 'Products',

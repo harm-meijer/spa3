@@ -31,6 +31,7 @@ const query = (expand) => gql`
         # https://github.com/apollographql/apollo-client/issues/9429
         productId: id
         name(locale: $locale)
+        slug(locale: $locale)
         ${
           expand.variants
             ? `variants {
@@ -51,6 +52,9 @@ const query = (expand) => gql`
           # https://github.com/apollographql/apollo-client/issues/9429
           variantId: id
           sku
+          images {
+         	  url 
+          }
           scopedPrice {
             value {
               currencyCode
@@ -217,15 +221,7 @@ const useProducts = ({
       if (!data) {
         return;
       }
-      setProducts(
-        data.productProjectionSearch.results.map(
-          ({ masterVariant, name, variants }) => ({
-            name,
-            masterVariant,
-            variants,
-          })
-        )
-      );
+      setProducts(data.productProjectionSearch.results);
       setTotal(data.productProjectionSearch.total);
     },
     skip,
