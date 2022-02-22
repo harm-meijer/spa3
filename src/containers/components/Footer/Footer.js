@@ -1,5 +1,7 @@
-import TheFooter from 'presentation/Footer/TheFooter/TheFooter.vue';
+import FooterPresentation from 'presentation/Footer/Footer.vue';
 
 export default {
-  components: TheFooter,
+  name: 'Footer',
+  components: { FooterPresentation },
+  setup() {},
 };

@@ -1,5 +1,5 @@
 <script src="./Footer.js" />
 
 <template>
-  <TheFooter />
+  <FooterPresentation />
 </template>

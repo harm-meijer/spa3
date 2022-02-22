@@ -3,5 +3,5 @@
 //import FooterMarketing from '../FooterMarketing/FooterMarketing.vue';
 
 export default {
-  name: 'TheFooter',
+  name: 'FooterPresentation',
 };
