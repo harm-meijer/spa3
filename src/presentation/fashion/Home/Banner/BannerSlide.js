@@ -1,6 +1,10 @@
 export default {
   name: 'bannerSlide',
   props: {
+    bannerImage: {
+      type: String,
+      required: true,
+    },
     h3Message: {
       type: String,
       required: true,

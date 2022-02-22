@@ -12,12 +12,6 @@ export default {
   data() {
     return {
       slides: SlideContent,
-
-      settings: {
-        itemsToShow: 1,
-        autoplay: 2000,
-        wrapAround: false,
-      },
     };
   },
 };

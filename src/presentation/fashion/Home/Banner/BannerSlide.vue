@@ -4,7 +4,7 @@
 <template>
   <div
     class="single-slider bg-img slider-height-2 align-items-center custom-d-flex"
-    style="background-color: lightblue"
+    :style="`background-image:url(${require(`presentation/assets/img/${bannerImage}`)});`"
   >
     <div class="container">
       <div

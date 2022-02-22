@@ -1,6 +1,6 @@
 import About from 'containers/views/About/About.vue';
 import Header from 'containers/components/Header/Header.vue';
-import Footer from 'containers/components/Footer/Footer.vue';
+import Footer from 'presentation/Footer/Footer.vue';
 import Root from 'containers/views/Shop/Root/Root.vue';
 import harmRoutes from './harm';
 import felipeRoutes from './felipe';
