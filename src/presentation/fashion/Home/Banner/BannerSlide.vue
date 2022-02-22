@@ -1,5 +1,6 @@
 <script src="./BannerSlide.js" />
 <style src="./BannerSlide.scss" lang="scss"></style>
+<i18n src="./Banner.txt" lang="yaml"></i18n>
 
 <template>
   <div
@@ -27,7 +28,7 @@
                 :to="{ name: 'home' }"
                 class="animated"
                 ><!--{$t("shopNow")}}-->
-                Shop Now!</router-link
+                {{ bttnText }}</router-link
               >
             </div>
           </div>
