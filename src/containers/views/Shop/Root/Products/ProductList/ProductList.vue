@@ -34,12 +34,12 @@
             :product="formatProduct(product)"
           />
         </div>
-        <!-- <Pagination
-          :pageSize="limit"
-          :total="totalProducts"
+        <Pagination
+          :pageSize="pageSize"
+          :total="total"
           :page="page"
-          @pagechanged="changePage"
-        /> -->
+          :setPage="setPage"
+        />
       </div>
 
       <div v-else>

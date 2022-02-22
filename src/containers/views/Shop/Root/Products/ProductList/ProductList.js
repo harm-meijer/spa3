@@ -5,7 +5,7 @@
 // import ProductFilter from '../ProductFilter/ProductFilter.vue';
 // import ProductThumbnail from '../../common/ProductThumbnail/ProductThumbnail.vue';
 // import TopBar from '../TopBar/TopBar.vue';
-// import Pagination from '../../common/Pagination/Pagination.vue';
+import Pagination from 'presentation/components/Pagination/Pagination.vue';
 import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import ProductThumbnail from './ProductThumbnail/ProductThumbnail.vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -13,13 +13,15 @@ import useProducts from 'hooks/useProducts';
 import useSearch from 'hooks/useSearch';
 import { move } from '../../../../../../lib';
 import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+import { DEFAULT_PAGE_SIZE } from '../../../../../../constants';
 
 export default {
   name: 'ProductList',
   components: {
     Spinner,
     ProductThumbnail,
-    // Pagination,
+    Pagination,
     // ProductFilter,
     // TopBar,
   },
@@ -36,6 +38,9 @@ export default {
         },
         'push'
       );
+    const page = computed(() =>
+      Number(route.params.page || 1)
+    );
     const setCategory = (categorySlug) =>
       move(
         router,
@@ -68,7 +73,11 @@ export default {
       formatProduct,
       // setSearch,
       // search,
-      // setPage,
+      setPage,
+      page,
+      pageSize: Number(
+        process.env.VUE_APP_PAGE_SIZE || DEFAULT_PAGE_SIZE
+      ),
       products,
       total,
       loading,
