@@ -2,10 +2,16 @@ import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
 import useSearch from 'hooks/useSearch';
-// import { ALL } from '../../../../constants';
+import ProductList from './ProductList/ProductList';
 
 export default {
   name: 'Products',
+  components: {
+    ProductList,
+    // Breadcrumb,
+    // ProductQuickView,
+    // AddToShoppingList
+  },
   setup() {
     const route = useRoute();
     const router = useRouter();
