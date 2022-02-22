@@ -1,5 +1,5 @@
 import { useI18n } from 'vue-i18n';
-import Banner from './Banner/Banner.vue';
+import Banner from 'presentation/Banner/Banner.vue';
 
 export default {
   name: 'Home',
