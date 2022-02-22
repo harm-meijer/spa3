@@ -4,7 +4,6 @@
 
 <template>
   <span>
-    <!--TODO: Add banner component here -->
     <Banner />
     <div class="banner-area pt-30">
       <div class="custom-container">
@@ -132,7 +131,7 @@
               <div class="service-content">
                 <h6>{{ t('free_shipping_head') }}</h6>
                 <p>
-                  {{ t('free_shipping_body') }}
+                  {{ t('free_shipping_body') }}&nbsp;
                   <!--TODO: Change currency based on Location, not language -->
                   {{ t('currency') }}100
                 </p>

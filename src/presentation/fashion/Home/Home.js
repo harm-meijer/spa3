@@ -4,6 +4,7 @@ import Banner from 'presentation/Banner/Banner.vue';
 export default {
   name: 'Home',
   components: { Banner },
+
   setup() {
     const { t } = useI18n({
       inheritLocale: true,
