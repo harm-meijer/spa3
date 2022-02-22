@@ -1,4 +1,5 @@
 <script src="./Banner.js" />
+<i18n src="./Banner.txt" lang="yaml"></i18n>
 
 <template>
   <carousel
@@ -13,8 +14,9 @@
     >
       <BannerSlide
         :bannerImage="slide.bannerImage"
-        :h3Message="slide.h3Message"
-        :h1Message="slide.h1Message"
+        :h3Message="t(slide.h3Message)"
+        :h1Message="t(slide.h1Message)"
+        :bttnText="t(slide.bttnText)"
       >
       </BannerSlide>
     </Slide>

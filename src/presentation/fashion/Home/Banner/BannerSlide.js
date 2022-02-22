@@ -1,5 +1,6 @@
 export default {
   name: 'bannerSlide',
+
   props: {
     bannerImage: {
       type: String,
@@ -10,6 +11,10 @@ export default {
       required: true,
     },
     h1Message: {
+      type: String,
+      required: true,
+    },
+    bttnText: {
       type: String,
       required: true,
     },

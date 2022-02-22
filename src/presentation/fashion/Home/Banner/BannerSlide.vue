@@ -27,7 +27,7 @@
                 :to="{ name: 'home' }"
                 class="animated"
                 ><!--{$t("shopNow")}}-->
-                Shop Now!</router-link
+                {{ bttnText }}</router-link
               >
             </div>
           </div>
