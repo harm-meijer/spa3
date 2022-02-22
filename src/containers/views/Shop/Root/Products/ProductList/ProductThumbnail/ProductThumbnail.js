@@ -1,7 +1,12 @@
+//@todo: split into presentation and container
 // import productMixin from '@/mixins/productMixin';
 // import BasePrice from '../BasePrice/BasePrice.vue';
 // import cartMixin from '../../../mixins/cartMixin';
 // import { addLine } from '../shared';
+import { useI18n } from 'vue-i18n';
+import useCartMutation, {
+  addLineItem,
+} from 'hooks/useCartMutation';
 
 export default {
   name: 'ProductThumbnail',
@@ -28,8 +33,20 @@ export default {
       }
       return require('presentation/assets/img/missing.svg');
     };
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: 'local',
+    });
+    const { mutateCart } = useCartMutation();
+    const addToCart = (sku, quantity = 1) =>
+      mutateCart(addLineItem(sku, quantity));
 
-    return { productRoute, displayedImageUrl };
+    return {
+      productRoute,
+      displayedImageUrl,
+      t,
+      addToCart,
+    };
   },
   // components: {
   //   BasePrice,

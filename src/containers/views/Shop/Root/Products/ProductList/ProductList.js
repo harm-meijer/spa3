@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+//@todo: remove this eslint disable and see what we need
+//@todo: split into presentation and container
 // import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner.vue';
 // import ProductFilter from '../ProductFilter/ProductFilter.vue';
 // import ProductThumbnail from '../../common/ProductThumbnail/ProductThumbnail.vue';
@@ -63,17 +66,17 @@ export default {
 
     return {
       formatProduct,
-      setSearch,
-      search,
-      setPage,
+      // setSearch,
+      // search,
+      // setPage,
       products,
       total,
       loading,
       error,
-      sort,
-      setSort,
-      setCategory,
-      categories: ['all', 'men', 'women'],
+      // sort,
+      // setSort,
+      // setCategory,
+      // categories: ['all', 'men', 'women'],
       t,
     };
   },

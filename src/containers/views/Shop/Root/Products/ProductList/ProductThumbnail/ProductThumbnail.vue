@@ -21,25 +21,26 @@
             >Sale</span
           > -->
         </router-link>
-        <!-- <div class="product-action">
-          <a href @click.prevent="openAddToShoppingList"
+        <div class="product-action">
+          <!-- <a href @click.prevent="openAddToShoppingList"
             ><i class="dl-icon-heart"></i>
             <span>Shopping list</span></a
           >
           <a href @click.prevent="openQuickView"
             ><i class="dl-icon-view"></i>
             <span>Quick Shop</span></a
-          >
+          > -->
+          <!-- @todo: need translation -->
           <a
             data-toggle="tooltip"
             title="Add to Cart"
             href="#"
-            @click.prevent="addLineItem()"
+            @click.prevent="() => addToCart(product.sku)"
           >
             <i class="dl-icon-cart29"></i>
-            <span>{{ $t('addToCart') }}</span></a
+            <span>{{ t('addToCart') }}</span></a
           >
-        </div> -->
+        </div>
       </div>
       <div class="product-content text-center mt-15">
         <h3>
