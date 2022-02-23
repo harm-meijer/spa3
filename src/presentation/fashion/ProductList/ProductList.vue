@@ -32,6 +32,7 @@
             data-test="product-list"
             :key="product.id"
             :product="formatProduct(product)"
+            :addToCart="addToCart"
           />
         </div>
         <Pagination
@@ -48,7 +49,7 @@
             class="empty-results"
             data-test="empty-results"
           >
-            <!-- {{ $t('notFound') }} -->
+            {{ t('notFound') }}
           </span>
         </div>
       </div>

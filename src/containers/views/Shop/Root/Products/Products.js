@@ -1,7 +1,10 @@
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
+import useCartMutation, {
+  addLineItem,
+} from 'hooks/useCartMutation';
 import { move } from '../../../../../lib';
-import ProductList from './ProductList/ProductList.vue';
+import ProductList from 'presentation/ProductList/ProductList.vue';
 import { DEFAULT_PAGE_SIZE } from '../../../../../constants';
 import { useI18n } from 'vue-i18n';
 import { computed } from 'vue';
@@ -46,8 +49,12 @@ export default {
       ...product,
       ...product.masterVariant,
     });
+    const { mutateCart } = useCartMutation();
+    const addToCart = (sku, quantity = 1) =>
+      mutateCart(addLineItem(sku, quantity));
 
     return {
+      addToCart,
       formatProduct,
       // setSearch,
       // search,

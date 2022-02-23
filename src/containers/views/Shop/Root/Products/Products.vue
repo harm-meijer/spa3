@@ -10,5 +10,6 @@
     :total="total"
     :loading="loading"
     :error="error"
+    :addToCart="addToCart"
   />
 </template>

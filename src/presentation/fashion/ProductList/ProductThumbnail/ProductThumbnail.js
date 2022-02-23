@@ -1,13 +1,5 @@
-//@todo: split into presentation and container
-// import productMixin from '@/mixins/productMixin';
-// import BasePrice from '../BasePrice/BasePrice.vue';
-// import cartMixin from '../../../mixins/cartMixin';
-// import { addLine } from '../shared';
 import { useI18n } from 'vue-i18n';
-import useCartMutation, {
-  addLineItem,
-} from 'hooks/useCartMutation';
-import BasePrice from './BasePrice/BasePrice.vue';
+import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { computed } from 'vue';
 
 export default {
@@ -18,6 +10,10 @@ export default {
   props: {
     product: {
       type: Object,
+      required: true,
+    },
+    addToCart: {
+      type: Function,
       required: true,
     },
   },
@@ -42,9 +38,6 @@ export default {
       inheritLocale: true,
       useScope: 'local',
     });
-    const { mutateCart } = useCartMutation();
-    const addToCart = (sku, quantity = 1) =>
-      mutateCart(addLineItem(sku, quantity));
     const hasPrice = computed(
       () => props?.product?.masterVariant?.scopedPrice
     );
@@ -57,7 +50,6 @@ export default {
       productRoute,
       displayedImageUrl,
       t,
-      addToCart,
       hasPrice,
       hasDiscount,
     };
