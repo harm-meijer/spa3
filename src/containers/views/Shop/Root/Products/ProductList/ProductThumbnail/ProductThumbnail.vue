@@ -14,12 +14,12 @@
             :src="displayedImageUrl(product)"
             alt=""
           />
-          <!-- <span
+          <span
             data-test="product-thumbnail-sale-flag"
-            v-if="hasPrice && hasDiscount"
+            v-if="hasDiscount"
             class="badge-pink badge-right"
             >Sale</span
-          > -->
+          >
         </router-link>
         <div class="product-action">
           <!-- <a href @click.prevent="openAddToShoppingList"
@@ -50,9 +50,11 @@
             >{{ product.name }}
           </router-link>
         </h3>
-        <!-- <div class="product-price" v-if="hasPrice">
-          <BasePrice :price="matchingVariant.price" />
-        </div> -->
+        <div class="product-price" v-if="hasPrice">
+          <BasePrice
+            :price="product?.masterVariant?.scopedPrice"
+          />
+        </div>
       </div>
     </div>
   </div>
