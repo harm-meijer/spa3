@@ -179,10 +179,14 @@
           <input
             name="q"
             type="text"
-            v-model="search"
+            v-model="q"
             placeholder="Search entire store…"
+            @submit.prevent="doSearch"
           />
-          <button @click="search" class="button-search">
+          <button
+            @click.prevent="doSearch"
+            class="button-search"
+          >
             <i class="dl-icon-search10"></i>
           </button>
         </form>

@@ -6,26 +6,33 @@
 import Selector from './Selector/Selector.vue';
 import CategoriesMenu from 'containers/components/Header/CategoriesMenu';
 import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
 
 export default {
   name: 'HeaderPresentation',
-  setup() {
+  setup(props) {
     //@todo: what do we do with this one? Do we have to get this every time?
     const { t } = useI18n({
       inheritLocale: true,
       useScope: 'local',
     });
-    return { t };
+    const q = ref(props.search);
+    const searchOpen = ref(false);
+    // const mobileMenuOpen = ref(false);
+
+    const toggleSearch = () => {
+      searchOpen.value = !searchOpen.value;
+    };
+    const doSearch = () => {
+      toggleSearch();
+      props.setSearch(q.value);
+    };
+
+    return { t, q, doSearch, toggleSearch, searchOpen };
   },
   components: {
     Selector,
     CategoriesMenu,
-  },
-  data() {
-    return {
-      searchOpen: false,
-      mobileMenuOpen: false,
-    };
   },
   props: {
     shoppingLists: {
@@ -87,52 +94,6 @@ export default {
     locales: {
       type: Array,
       required: true,
-    },
-  },
-  // components: {
-  //   CategoriesMenu,
-  //   LoginButton,
-  //   MiniCart,
-  //   LocationSelector,
-  // },
-  // data() {
-  //   return {
-  //     searchText: this.$route.query.q || '',
-  //     mobileMenuOpen: false,
-  //     searchOpen: false,
-  //   };
-  // },
-  // setup() {
-  //   const { shoppingLists } = inject(SHOPPING_LIST);
-  //   const totalShoppingCartItems = computed(() => {
-  //     return (shoppingLists.value || []).reduce(
-  //       (total, list) =>
-  //         list.lineItems.reduce(
-  //           (total, { quantity }) => total + quantity,
-  //           total
-  //         ),
-  //       0
-  //     );
-  //   });
-  //   return {
-  //     totalShoppingCartItems,
-  //   };
-  // },
-  // computed: {
-  //   totalCartItems() {
-  //     return this.$store.state.cartItems;
-  //   },
-  //   showLocationChange() {
-  //     return !this.totalCartItems;
-  //   },
-  // },
-  methods: {
-    toggleSearch() {
-      this.searchOpen = !this.searchOpen;
-    },
-    doSearch() {
-      this.toggleSearch();
-      this.setSearch(this.search);
     },
   },
 };
