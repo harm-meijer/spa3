@@ -48,7 +48,7 @@
             class="empty-results"
             data-test="empty-results"
           >
-            {{ $t('notFound') }}
+            <!-- {{ $t('notFound') }} -->
           </span>
         </div>
       </div>

@@ -25,68 +25,42 @@ export default {
     // ProductFilter,
     // TopBar,
   },
+  props: {
+    formatProduct: {
+      type: Function,
+      required: true,
+    },
+    setPage: {
+      type: Function,
+      required: true,
+    },
+    page: {
+      type: Number,
+      required: true,
+    },
+    pageSize: {
+      type: Number,
+      required: true,
+    },
+    products: {
+      type: Array,
+      required: false,
+    },
+    total: {
+      type: Number,
+      required: false,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+    error: {
+      type: Object,
+      required: false,
+    },
+  },
   setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const setPage = (page) =>
-      move(
-        router,
-        route,
-        {
-          ...route.params,
-          page,
-        },
-        'push'
-      );
-    const page = computed(() =>
-      Number(route.params.page || 1)
-    );
-    const setCategory = (categorySlug) =>
-      move(
-        router,
-        route,
-        {
-          ...route.params,
-          categorySlug,
-        },
-        'push'
-      );
-    const { search, setSearch } = useSearch();
-    const {
-      total,
-      products,
-      loading,
-      error,
-      sort,
-      setSort,
-    } = useProducts();
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: 'local',
-    });
-    const formatProduct = (product) => ({
-      ...product,
-      ...product.masterVariant,
-    });
-
-    return {
-      formatProduct,
-      // setSearch,
-      // search,
-      setPage,
-      page,
-      pageSize: Number(
-        process.env.VUE_APP_PAGE_SIZE || DEFAULT_PAGE_SIZE
-      ),
-      products,
-      total,
-      loading,
-      error,
-      // sort,
-      // setSort,
-      // setCategory,
-      // categories: ['all', 'men', 'women'],
-      t,
-    };
+    const { t } = useI18n();
+    return { t };
   },
 };

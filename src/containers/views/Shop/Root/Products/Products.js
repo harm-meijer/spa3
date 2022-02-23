@@ -1,8 +1,10 @@
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
-import useSearch from 'hooks/useSearch';
 import ProductList from './ProductList/ProductList.vue';
+import { DEFAULT_PAGE_SIZE } from '../../../../../constants';
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
 
 export default {
   name: 'Products',
@@ -25,37 +27,44 @@ export default {
         },
         'push'
       );
-    const setCategory = (categorySlug) =>
-      move(
-        router,
-        route,
-        {
-          ...route.params,
-          categorySlug,
-        },
-        'push'
-      );
-    const { search, setSearch } = useSearch();
+    const page = computed(() =>
+      Number(route.params.page || 1)
+    );
     const {
       total,
       products,
       loading,
       error,
-      sort,
-      setSort,
+      // sort,
+      // setSort,
     } = useProducts();
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: 'local',
+    });
+    const formatProduct = (product) => ({
+      ...product,
+      ...product.masterVariant,
+    });
+
     return {
-      setSearch,
-      search,
+      formatProduct,
+      // setSearch,
+      // search,
       setPage,
+      page,
+      pageSize: Number(
+        process.env.VUE_APP_PAGE_SIZE || DEFAULT_PAGE_SIZE
+      ),
       products,
       total,
       loading,
       error,
-      sort,
-      setSort,
-      setCategory,
-      categories: ['all', 'men', 'women'],
+      // sort,
+      // setSort,
+      // setCategory,
+      // categories: ['all', 'men', 'women'],
+      t,
     };
   },
 };
