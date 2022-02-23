@@ -59,6 +59,14 @@ const query = (expand) => gql`
             value {
               currencyCode
               centAmount
+              fractionDigits
+            }
+            discounted {
+              value {
+                currencyCode
+                centAmount
+                fractionDigits
+              }
             }
             country
           }
