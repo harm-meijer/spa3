@@ -40,13 +40,13 @@
                     <AddDiscountCodeForm />
                   </div>
                 </div>
-                <!-- <div class="col-lg-4">
+                <div class="col-lg-4">
                   <CartLikePriceDetail
-                    :cartLike="me.activeCart"
+                    :cart="cart"
                     :editable="true"
                     class="total-price-calc"
                   />
-                </div> -->
+                </div>
               </div>
             </form>
           </div>
