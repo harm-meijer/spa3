@@ -1,6 +1,6 @@
-import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { useI18n } from 'vue-i18n';
-// import DiscountCodes from '../DiscountCodes/DiscountCodes.vue';
+import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
+import DiscountCodes from './DiscountCodes/DiscountCodes.vue';
 // import { subTotal } from '../../shared';
 
 //@todo: this is probably shared with minicart
@@ -40,7 +40,7 @@ export function subTotal(cartLike) {
 
 export default {
   components: {
-    // DiscountCodes,
+    DiscountCodes,
     BasePrice,
   },
   props: {
@@ -53,10 +53,9 @@ export default {
       default: false,
     },
   },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
-    const whatCart = () => console.log(props.cart);
-    return { whatCart, t };
+    return { t };
   },
   computed: {
     subtotal() {
@@ -80,7 +79,7 @@ export default {
       return null;
     },
     discountCodesExist() {
-      return this.cartLike.discountCodes?.length;
+      return this.cart.discountCodes?.length;
     },
   },
 };

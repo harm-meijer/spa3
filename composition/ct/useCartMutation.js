@@ -51,6 +51,13 @@ export const removeLineItem = (lineItemId) => [
 export const addDiscountCode = (code) => [
   { addDiscountCode: { code } },
 ];
+export const removeDiscountCode = (id) => [
+  {
+    removeDiscountCode: {
+      discountCode: { id, typeId: 'discount-code' },
+    },
+  },
+];
 
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature

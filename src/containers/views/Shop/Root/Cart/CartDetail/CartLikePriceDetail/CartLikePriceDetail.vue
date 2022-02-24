@@ -33,11 +33,11 @@
           </span>
         </div>
       </div>
-      <!-- <DiscountCodes
+      <DiscountCodes
         v-if="discountCodesExist > 0"
         :cart="cart"
         :editable="editable"
-      /> -->
+      />
     </div>
     <div class="cart-total-wrap">
       <div class="single-cart-total-left col-sm-6">
@@ -48,7 +48,6 @@
         data-test="cart-total-price"
       >
         <b>
-          {{ whatCart() }}
           <BasePrice :price="{ value: cart.totalPrice }" />
         </b>
       </div>
