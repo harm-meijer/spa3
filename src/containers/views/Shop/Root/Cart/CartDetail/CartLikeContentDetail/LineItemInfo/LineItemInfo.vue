@@ -46,11 +46,11 @@
         </span>
       </td>
       <td class="cart-quality">
-        <!-- <LineItemQuantityForm
+        <LineItemQuantityForm
           v-if="editable"
-          :line-item-id="lineItem.id"
+          :line-item-id="lineItem.lineId"
           :quantity="lineItem.quantity"
-        /> -->
+        />
         <div v-if="selectable">
           <div class="cart-plus-minus">
             <input
