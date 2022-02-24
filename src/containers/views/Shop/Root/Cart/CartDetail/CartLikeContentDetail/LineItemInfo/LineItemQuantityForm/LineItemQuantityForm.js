@@ -31,7 +31,7 @@ export default {
     const quantity_ = shallowRef(props.quantity);
     const { mutateCart } = useCartMutation();
     const changeLine = debounce((quantity = 1) => {
-      if (!quantity) {
+      if (!quantity || quantity < 0) {
         return;
       }
       mutateCart(
@@ -41,7 +41,15 @@ export default {
         )
       );
     });
-    watch(quantity_, (q) => changeLine(q));
+    watch(quantity_, (q) => {
+      if (q === '') {
+        return;
+      }
+      changeLine(q);
+      if (q <= 0) {
+        removeLineItem();
+      }
+    });
     const changeLineItemQuantity = () => {
       return changeLine(quantity_.value);
     };
@@ -52,11 +60,7 @@ export default {
       quantity_.value += 1;
     };
     const decrement = () => {
-      if (quantity_.value > 1) {
-        quantity_.value -= 1;
-      } else {
-        removeLineItem();
-      }
+      quantity_.value -= 1;
     };
 
     return {
