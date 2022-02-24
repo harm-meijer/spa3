@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+//@todo: remove this eslint disable
 // import LineItemQuantityForm from '../../../cartdetail/LineItemQuantityForm/LineItemQuantityForm.vue';
 // import LineItemDeleteForm from '../../../cartdetail/LineItemDeleteForm/LineItemDeleteForm.vue';
 // import Remove from '../../../cartdetail/LineItemQuantityForm/Remove/Remove.vue';
@@ -47,20 +49,20 @@ export default {
   },
   methods: {
     productSlug(lineItem) {
-      console.log('what do we need', lineItem);
+      // console.log('what do we need', lineItem);
       // return productSlug(this, lineItem);
       return '--- todo ---';
     },
     productRoute(slug, sku) {
-      console.log(
-        '---- todo ---- product route',
-        slug,
-        sku
-      );
+      // console.log(
+      //   '---- todo ---- product route',
+      //   slug,
+      //   sku
+      // );
       return '/';
     },
     displayedImageUrl(variant) {
-      console.log('--- todo --- get image url', variant);
+      // console.log('--- todo --- get image url', variant);
       return '';
     },
   },
@@ -78,7 +80,7 @@ export default {
 
   computed: {
     total() {
-      return this.lineItem.totalPrice;
+      return { value: this.lineItem.totalPrice };
     },
     lineItemAttr() {
       // const attributes = variantAttributes(

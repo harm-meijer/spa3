@@ -52,7 +52,7 @@
       </td>
       <td v-if="!selectable" class="product-price">
         <span class="amount" data-test="item-price">
-          <!-- <BasePrice :price="lineItem.price" /> -->
+          <BasePrice :price="lineItem.price" />
         </span>
       </td>
       <td class="cart-quality">
@@ -83,7 +83,7 @@
         data-test="line-total"
       >
         <span>
-          <!-- <BasePrice :price="total" /> -->
+          <BasePrice :price="total" />
         </span>
       </td>
     </tr>
