@@ -4,8 +4,8 @@
 // import LineItemDeleteForm from '../../../cartdetail/LineItemDeleteForm/LineItemDeleteForm.vue';
 // import Remove from '../../../cartdetail/LineItemQuantityForm/Remove/Remove.vue';
 // import { totalPrice, variantAttributes, locale, productSlug } from '../../shared';
-
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
+import config from '../../../../../../../../../sunrise.config';
 export default {
   components: {
     // LineItemQuantityForm,
@@ -48,22 +48,17 @@ export default {
     }
   },
   methods: {
-    productSlug(lineItem) {
-      // console.log('what do we need', lineItem);
-      // return productSlug(this, lineItem);
-      return '--- todo ---';
-    },
-    productRoute(slug, sku) {
-      // console.log(
-      //   '---- todo ---- product route',
-      //   slug,
-      //   sku
-      // );
-      return '/';
+    productRoute(lineItem) {
+      return {
+        name: 'product',
+        params: {
+          sku: lineItem.variant.sku,
+          productSlug: lineItem.productSlug,
+        },
+      };
     },
     displayedImageUrl(variant) {
-      // console.log('--- todo --- get image url', variant);
-      return '';
+      return variant?.images?.[0].url;
     },
   },
 
@@ -83,14 +78,15 @@ export default {
       return { value: this.lineItem.totalPrice };
     },
     lineItemAttr() {
-      // const attributes = variantAttributes(
-      //   this.lineItem?.variant,
-      //   locale(this)
-      // );
-      // return `${attributes
-      //   .map(({ name, value }) => `${name}: ${value}`)
-      //   .join(', ')}`;
-      return '----  todo ----';
+      const attributes = this.lineItem.variant.attributesRaw
+        .filter(({ name }) =>
+          config.variantInProductName.includes(name)
+        )
+        .map(({ attributeDefinition, value }) => [
+          attributeDefinition.label,
+          value,
+        ]);
+      return attributes.join(', ');
     },
   },
 };
