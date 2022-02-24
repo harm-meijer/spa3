@@ -1,3 +1,3 @@
 import script from '../LineItemQuantityForm';
 
-export default { ...script };
+export default { ...script, name: 'Remove' };

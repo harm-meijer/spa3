@@ -1,8 +1,12 @@
-import { shallowRef } from 'vue';
+import { shallowRef, watch } from 'vue';
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
+import useCartMutation, {
+  addLineItem,
+} from 'hooks/useCartMutation';
 
 export default {
+  name: 'LineItemQuantityForm',
   components: {
     // ServerError,
     // BaseForm,
@@ -10,7 +14,46 @@ export default {
   },
   setup(props) {
     const quantity_ = shallowRef(props.quantity);
-    return { quantity_ };
+    const { mutateCart } = useCartMutation();
+    const changeLine = (quantity = 1) => {
+      if (!quantity) {
+        console.log('do nothing');
+        return;
+      }
+      mutateCart(addLineItem(props.sku, quantity));
+    };
+    watch(quantity_, (q) => changeLine(q));
+    const changeLineItemQuantity = () => {
+      return changeLine(quantity_.value);
+    };
+    const removeLineItem = () => {
+      console.log('remove line item');
+      // return this.updateMyCart([
+      //   {
+      //     removeLineItem: {
+      //       lineItemId: this.lineItemId,
+      //     },
+      //   },
+      // ]);
+    };
+    const increment = () => {
+      quantity_.value += 1;
+    };
+    const decrement = () => {
+      if (quantity_.value > 1) {
+        quantity_.value -= 1;
+      } else {
+        removeLineItem();
+      }
+    };
+
+    return {
+      quantity_,
+      increment,
+      decrement,
+      removeLineItem,
+      changeLineItemQuantity,
+    };
   },
   props: {
     lineItemId: {
@@ -21,38 +64,9 @@ export default {
       type: Number,
       required: true,
     },
-  },
-  methods: {
-    changeLineItemQuantity() {
-      console.log('change line item quantity');
-      // return this.updateMyCart([
-      //   {
-      //     changeLineItemQuantity: {
-      //       lineItemId: this.lineItemId,
-      //       quantity: this.form.quantity,
-      //     },
-      //   },
-      // ]);
-    },
-    removeLineItem() {
-      console.log('remove line item');
-      // return this.updateMyCart([
-      //   {
-      //     removeLineItem: {
-      //       lineItemId: this.lineItemId,
-      //     },
-      //   },
-      // ]);
-    },
-    increment() {
-      this.quantity_ += 1;
-    },
-    decrement() {
-      if (this.quantity_ > 1) {
-        this.quantity_ -= 1;
-      } else {
-        this.removeLineItem();
-      }
+    sku: {
+      type: String,
+      required: true,
     },
   },
 };

@@ -49,6 +49,7 @@
         <LineItemQuantityForm
           v-if="editable"
           :line-item-id="lineItem.lineId"
+          :sku="lineItem.variant.sku"
           :quantity="lineItem.quantity"
         />
         <div v-if="selectable">
