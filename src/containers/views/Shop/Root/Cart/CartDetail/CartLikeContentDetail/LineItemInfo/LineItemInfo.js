@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-//@todo: remove this eslint disable
-// import LineItemQuantityForm from '../../../cartdetail/LineItemQuantityForm/LineItemQuantityForm.vue';
-// import LineItemDeleteForm from '../../../cartdetail/LineItemDeleteForm/LineItemDeleteForm.vue';
-// import { totalPrice, variantAttributes, locale, productSlug } from '../../shared';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import config from '../../../../../../../../../sunrise.config';
 import LineItemQuantityForm from './LineItemQuantityForm/LineItemQuantityForm.vue';
@@ -11,7 +6,6 @@ export default {
   components: {
     LineItemQuantityForm,
     Remove,
-    // LineItemDeleteForm,
     BasePrice,
   },
   props: {
