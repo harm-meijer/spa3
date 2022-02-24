@@ -74,7 +74,7 @@ export default {
     },
     quantity: {
       type: Number,
-      required: true,
+      required: false,
     },
   },
 };

@@ -2,15 +2,15 @@
 //@todo: remove this eslint disable
 // import LineItemQuantityForm from '../../../cartdetail/LineItemQuantityForm/LineItemQuantityForm.vue';
 // import LineItemDeleteForm from '../../../cartdetail/LineItemDeleteForm/LineItemDeleteForm.vue';
-// import Remove from '../../../cartdetail/LineItemQuantityForm/Remove/Remove.vue';
 // import { totalPrice, variantAttributes, locale, productSlug } from '../../shared';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import config from '../../../../../../../../../sunrise.config';
 import LineItemQuantityForm from './LineItemQuantityForm/LineItemQuantityForm.vue';
+import Remove from './LineItemQuantityForm/Remove/Remove.vue';
 export default {
   components: {
     LineItemQuantityForm,
-    // Remove,
+    Remove,
     // LineItemDeleteForm,
     BasePrice,
   },

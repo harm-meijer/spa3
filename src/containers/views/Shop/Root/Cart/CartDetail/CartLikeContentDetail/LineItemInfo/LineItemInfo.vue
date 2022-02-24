@@ -6,7 +6,7 @@
   <tbody>
     <tr>
       <td v-if="editable" class="product-remove">
-        <!-- <LineItemDeleteForm :line-item-id="lineItem.id" /> -->
+        <Remove :lineItemId="lineItem.lineId" />
       </td>
       <td v-if="selectable">
         <input
