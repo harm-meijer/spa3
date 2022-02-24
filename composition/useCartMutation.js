@@ -5,6 +5,7 @@ export {
   addLineItem,
   changeCartLineItemQuantity,
   removeLineItem,
+  addDiscountCode,
 } from './ct/useCartMutation';
 const useCartMutation = () => {
   const { location } = useLocation();

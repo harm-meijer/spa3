@@ -3,14 +3,15 @@ import useCart from 'hooks/useCart';
 import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import { computed } from 'vue';
 import CartLikeContentDetail from './CartLikeContentDetail/CartLikeContentDetail.vue';
+import AddDiscountCodeForm from './AddDiscountCodeForm/AddDiscountCodeForm.vue';
 // import CartLikePriceDetail from '../../common/CartLike/CartLikePriceDetail/CartLikePriceDetail.vue';
 // import AddDiscountCodeForm from '../AddDiscountCodeForm/AddDiscountCodeForm.vue';
-
 export default {
   name: 'CartDetail',
   components: {
     Spinner,
     CartLikeContentDetail,
+    AddDiscountCodeForm,
   },
   //@todo: move up and move this to presentation
   setup() {
