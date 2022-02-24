@@ -35,6 +35,20 @@ export const addLineItem = (sku, quantity) => [
   },
 ];
 
+export const changeCartLineItemQuantity = (
+  id,
+  quantity
+) => [
+  {
+    changeLineItemQuantity: { lineItemId: id, quantity },
+  },
+];
+export const removeLineItem = (lineItemId) => [
+  {
+    removeLineItem: { lineItemId },
+  },
+];
+
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useCartMutation = ({ location, currency }) => {

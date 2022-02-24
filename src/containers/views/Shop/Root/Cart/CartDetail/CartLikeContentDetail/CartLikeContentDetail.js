@@ -21,11 +21,11 @@ export default {
   },
   setup() {
     const { t } = useI18n();
-    const selectReturnItem = (...args) => {
-      console.log('selectReturn', args);
+    const selectReturnItem = () => {
+      //@todo: return items not implemented
     };
-    const unselectReturnItem = (...args) => {
-      console.log('unselect return', args);
+    const unselectReturnItem = () => {
+      //@todo: return items not implemented
     };
     return { selectReturnItem, unselectReturnItem, t };
   },

@@ -1,9 +1,24 @@
 import { shallowRef, watch } from 'vue';
-// import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
 import useCartMutation, {
-  addLineItem,
+  changeCartLineItemQuantity,
+  removeLineItem as createRemoveAction,
 } from 'hooks/useCartMutation';
+
+//could be in lib
+const debounce = (fn, time = 500) => {
+  const current = {};
+  const check = { current };
+  return (...args) => {
+    const current = {};
+    check.current = current;
+    setTimeout(() => {
+      if (check.current === current) {
+        fn(...args);
+      }
+    }, time);
+  };
+};
 
 export default {
   name: 'LineItemQuantityForm',
@@ -15,26 +30,23 @@ export default {
   setup(props) {
     const quantity_ = shallowRef(props.quantity);
     const { mutateCart } = useCartMutation();
-    const changeLine = (quantity = 1) => {
+    const changeLine = debounce((quantity = 1) => {
       if (!quantity) {
-        console.log('do nothing');
         return;
       }
-      mutateCart(addLineItem(props.sku, quantity));
-    };
+      mutateCart(
+        changeCartLineItemQuantity(
+          props.lineItemId,
+          quantity
+        )
+      );
+    });
     watch(quantity_, (q) => changeLine(q));
     const changeLineItemQuantity = () => {
       return changeLine(quantity_.value);
     };
     const removeLineItem = () => {
-      console.log('remove line item');
-      // return this.updateMyCart([
-      //   {
-      //     removeLineItem: {
-      //       lineItemId: this.lineItemId,
-      //     },
-      //   },
-      // ]);
+      mutateCart(createRemoveAction(props.lineItemId));
     };
     const increment = () => {
       quantity_.value += 1;
@@ -62,10 +74,6 @@ export default {
     },
     quantity: {
       type: Number,
-      required: true,
-    },
-    sku: {
-      type: String,
       required: true,
     },
   },
