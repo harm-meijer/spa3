@@ -1,4 +1,4 @@
-options to composition / move code up and pass as prop / see what is shared / move to presentation :
+move code up and pass as prop / see what is shared / move to presentation :
 CartDetail.js
 CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/Remove/Remove.js
 CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/LineItemQuantityForm.js

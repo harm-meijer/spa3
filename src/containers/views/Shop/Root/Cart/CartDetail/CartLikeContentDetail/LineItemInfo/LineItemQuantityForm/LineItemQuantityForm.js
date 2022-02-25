@@ -1,24 +1,5 @@
 import { shallowRef, watch } from 'vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
-import useCartMutation, {
-  changeCartLineItemQuantity,
-  removeLineItem as createRemoveAction,
-} from 'hooks/useCartMutation';
-
-//could be in lib
-const debounce = (fn, time = 500) => {
-  const current = {};
-  const check = { current };
-  return (...args) => {
-    const current = {};
-    check.current = current;
-    setTimeout(() => {
-      if (check.current === current) {
-        fn(...args);
-      }
-    }, time);
-  };
-};
 
 export default {
   name: 'LineItemQuantityForm',
@@ -27,20 +8,27 @@ export default {
     // BaseForm,
     // BaseInput,
   },
+  props: {
+    lineItemId: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: false,
+    },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
+  },
   setup(props) {
     const quantity_ = shallowRef(props.quantity);
-    const { mutateCart } = useCartMutation();
-    const changeLine = debounce((quantity = 1) => {
-      if (!quantity || quantity < 0) {
-        return;
-      }
-      mutateCart(
-        changeCartLineItemQuantity(
-          props.lineItemId,
-          quantity
-        )
-      );
-    });
+    const { changeLine: cl, removeLineItem: rm } =
+      props.cartActions;
+    const changeLine = () =>
+      cl(props.lineItemId, quantity_.value);
+    const removeLineItem = () => rm(props.lineItemId);
     watch(quantity_, (q) => {
       if (q === '') {
         return;
@@ -52,9 +40,6 @@ export default {
     });
     const changeLineItemQuantity = () => {
       return changeLine(quantity_.value);
-    };
-    const removeLineItem = () => {
-      mutateCart(createRemoveAction(props.lineItemId));
     };
     const increment = () => {
       quantity_.value += 1;
@@ -70,15 +55,5 @@ export default {
       removeLineItem,
       changeLineItemQuantity,
     };
-  },
-  props: {
-    lineItemId: {
-      type: String,
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: false,
-    },
   },
 };

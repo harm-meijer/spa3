@@ -1,7 +1,3 @@
-import useCartMutation, {
-  removeDiscountCode,
-} from 'hooks/useCartMutation';
-
 //removeDiscountCode
 export default {
   props: {
@@ -11,9 +7,8 @@ export default {
     },
   },
   setup(props) {
-    const { mutateCart } = useCartMutation();
-    const removeDiscount = () =>
-      mutateCart(removeDiscountCode(props.codeId));
+    const { removeDiscount: rd } = props.cartActions;
+    const removeDiscount = () => rd(props.codeId);
     return { removeDiscount };
   },
 };

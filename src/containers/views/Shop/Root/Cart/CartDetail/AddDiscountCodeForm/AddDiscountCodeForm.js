@@ -5,9 +5,6 @@
 
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import useCartMutation, {
-  addDiscountCode,
-} from 'hooks/useCartMutation';
 
 export default {
   components: {
@@ -15,13 +12,17 @@ export default {
     // BaseInput,
     // ServerError,
   },
-  setup() {
+  props: {
+    cartActions: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
     const { t } = useI18n();
     const code = shallowRef('');
-    const { mutateCart } = useCartMutation();
-    const applyDiscount = () =>
-      mutateCart(addDiscountCode(code.value));
-
+    const { applyDiscount: ad } = props.cartActions;
+    const applyDiscount = () => ad(code.value);
     const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {
         return t('nonApplicable');

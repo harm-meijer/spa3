@@ -1,7 +1,5 @@
 import { useI18n } from 'vue-i18n';
-import useCart from 'hooks/useCart';
 import Spinner from 'presentation/components/Spinner/Spinner.vue';
-import { computed } from 'vue';
 import CartLikeContentDetail from './CartLikeContentDetail/CartLikeContentDetail.vue';
 import AddDiscountCodeForm from './AddDiscountCodeForm/AddDiscountCodeForm.vue';
 import CartLikePriceDetail from './CartLikePriceDetail/CartLikePriceDetail.vue';
@@ -14,21 +12,31 @@ export default {
     AddDiscountCodeForm,
     CartLikePriceDetail,
   },
-  //@todo: move up and move this to presentation
+  props: {
+    cart: {
+      type: Object,
+      required: false,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+    error: {
+      type: Object,
+      required: false,
+    },
+    cartNotEmpty: {
+      type: Boolean,
+      required: true,
+    },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
+  },
   setup() {
-    const { cart, loading, error } = useCart({
-      expand: { lineItems: true },
-    });
     const { t } = useI18n();
-    const cartNotEmpty = computed(
-      () =>
-        cart.value && Boolean(cart.value?.lineItems?.length)
-    );
     return {
-      cart,
-      loading,
-      error,
-      cartNotEmpty,
       t,
     };
   },

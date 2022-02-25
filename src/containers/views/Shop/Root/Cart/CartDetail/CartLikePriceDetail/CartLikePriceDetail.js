@@ -53,6 +53,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
   },
   setup(props) {
     const { t } = useI18n();

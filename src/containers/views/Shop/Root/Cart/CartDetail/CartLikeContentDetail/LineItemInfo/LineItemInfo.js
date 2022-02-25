@@ -26,6 +26,10 @@ export default {
       type: Boolean,
       default: () => false,
     },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
   },
   setup(props, { emit }) {
     const selected = shallowRef(false);

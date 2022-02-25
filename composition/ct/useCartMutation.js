@@ -114,4 +114,5 @@ const useCartMutation = ({ location, currency }) => {
     error,
   };
 };
+
 export default useCartMutation;

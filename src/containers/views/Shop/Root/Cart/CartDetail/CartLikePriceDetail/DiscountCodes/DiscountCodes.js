@@ -12,6 +12,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
   },
   setup() {
     const { t } = useI18n();

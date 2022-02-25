@@ -35,15 +35,19 @@
                   <CartLikeContentDetail
                     :cart="cart"
                     :editable="true"
+                    :cartActions="cartActions"
                   />
                   <div class="cart-shiping-update-wrapper">
-                    <AddDiscountCodeForm />
+                    <AddDiscountCodeForm
+                      :cartActions="cartActions"
+                    />
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <CartLikePriceDetail
                     :cart="cart"
                     :editable="true"
+                    :cartActions="cartActions"
                     class="total-price-calc"
                   />
                 </div>
