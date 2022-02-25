@@ -5,6 +5,10 @@ export default {
       type: String,
       required: true,
     },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
   },
   setup(props) {
     const { removeDiscount: rd } = props.cartActions;
