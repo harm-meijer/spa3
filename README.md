@@ -20,4 +20,5 @@ CartLikePriceDetail/CartLikePriceDetail.js
 ./src/containers/views/Shop/Root/Product/Product.js
 
 harm minicart
-harm product needs variant selector and wishlist
+harm product needs variant selector and wishlist DetailsSection logic up
+harm

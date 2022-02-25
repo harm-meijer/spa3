@@ -11,6 +11,8 @@ import { LOCATION } from '../../../../constants';
 import config from '../../../../../sunrise.config';
 import { getValue, move } from '../../../../lib';
 import i18n from '../../../../i18n';
+import MiniCart from 'presentation/Header/MiniCart/MiniCart.vue';
+import useMiniCart from 'hooks/useMinicart';
 
 const caseCorrected = (value = '', key = 'countries') => {
   //get case insensitive locale from sunrise config
@@ -127,6 +129,9 @@ const useInitRouteParams = () => {
   };
 };
 export default {
+  components: {
+    MiniCart,
+  },
   setup() {
     const { locale, location, setLocale, setLocation } =
       useInitRouteParams();
@@ -140,7 +145,8 @@ export default {
         i18n.global.locale = locale;
       }
     });
+    const miniCart = useMiniCart();
     const isMiniCartOpen = false;
-    return { paramsSet, isMiniCartOpen };
+    return { paramsSet, isMiniCartOpen, miniCart };
   },
 };

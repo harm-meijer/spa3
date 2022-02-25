@@ -5,6 +5,7 @@ import HeaderPresentation from 'presentation/Header/Header.vue';
 import { computed } from 'vue';
 import useSearch from 'hooks/useSearch';
 import sunriseConfig from '../../../../sunrise.config';
+import useMiniCart from 'hooks/useMinicart';
 export default {
   components: {
     HeaderPresentation,
@@ -25,8 +26,10 @@ export default {
     );
     const locations = Object.keys(sunriseConfig.countries);
     const locales = Object.keys(sunriseConfig.languages);
+    const miniCart = useMiniCart();
     return {
       ...locale,
+      miniCart,
       locales,
       ...location,
       locations,

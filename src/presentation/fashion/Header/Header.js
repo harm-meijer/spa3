@@ -1,7 +1,6 @@
 // import CategoriesMenu from "../CategoriesMenu";
 // import LoginButton from "../LoginButton/LoginButton.vue";
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
-// import MiniCart from "../MiniCart/MiniCart.vue";
 
 import Selector from './Selector/Selector.vue';
 import CategoriesMenu from 'containers/components/Header/CategoriesMenu';
@@ -35,6 +34,10 @@ export default {
     CategoriesMenu,
   },
   props: {
+    miniCart: {
+      type: Object,
+      required: true,
+    },
     shoppingLists: {
       type: Array,
       required: false,
@@ -60,14 +63,6 @@ export default {
       required: true,
     },
     toggleMobileMenu: {
-      type: Function,
-      required: true,
-    },
-    toggleMiniCart: {
-      type: Function,
-      required: true,
-    },
-    openMiniCart: {
       type: Function,
       required: true,
     },

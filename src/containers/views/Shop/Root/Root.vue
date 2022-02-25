@@ -8,7 +8,7 @@
   >
     <div @click="close()" class="body-overlay"></div>
     <!-- @todo: create the minicart -->
-    <!-- <MiniCart /> -->
+    <MiniCart :miniCart="miniCart" />
     <router-view name="header" />
     <router-view />
     <footer>

@@ -94,7 +94,7 @@
                     >
                       <a
                         href
-                        @click.prevent="openMiniCart"
+                        @click.prevent="miniCart.open"
                         data-test="mini-cart-open-button"
                         class="cart-active"
                       >
