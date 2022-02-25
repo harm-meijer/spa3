@@ -28,12 +28,10 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const quantity = shallowRef(1);
+    const showQuantityError = shallowRef(false);
     const { addLine } = props.cartActions;
     const addLineItem = () =>
       addLine(props.sku, quantity.value);
-    return { t, addLineItem, quantity };
+    return { t, addLineItem, quantity, showQuantityError };
   },
-  data: () => ({
-    showQuantityError: false,
-  }),
 };

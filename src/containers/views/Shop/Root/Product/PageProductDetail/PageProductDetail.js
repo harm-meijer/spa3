@@ -1,5 +1,7 @@
+//@todo: add to shopping list (breadcrumb can go)
 // import Breadcrumb from '../../common/Breadcrumb/Breadcrumb.vue';
 // import AddToShoppingList from '../../productoverview/AddToShoppingList/AddToShoppingList.vue';
+import { ref } from 'vue';
 import ProductInfo from './ProductInfo/ProductInfo.vue';
 
 export default {
@@ -22,17 +24,20 @@ export default {
       required: true,
     },
   },
-  data: () => ({
-    showAddToShoppingList: false,
-    productSku: null,
-  }),
-  methods: {
-    openAddToShoppingList() {
-      this.showAddToShoppingList = true;
-    },
-    closeAddToShoppingList() {
-      this.showAddToShoppingList = false;
-    },
+  setup() {
+    const showAddToShoppingList = ref(false);
+    const productSku = ref(null);
+    const openAddToShoppingList = () => {
+      showAddToShoppingList.value = true;
+    };
+    const closeAddToShoppingList = () => {
+      showAddToShoppingList.value = false;
+    };
+    return {
+      openAddToShoppingList,
+      closeAddToShoppingList,
+      productSku,
+    };
   },
   components: {
     // Breadcrumb,
