@@ -36,7 +36,7 @@
           ><span>Shopping list</span>
         </a>
 
-        <!-- <DetailsSection :sku="sku" /> -->
+        <DetailsSection :currentVariant="currentVariant" />
       </div>
     </div>
   </div>

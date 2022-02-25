@@ -37,6 +37,10 @@ const query = (expand) => gql`
             ? `variants {
           variantId: id
           sku
+          attributesRaw {
+            name
+            value
+          }
           scopedPrice {
             value {
               currencyCode
@@ -54,6 +58,10 @@ const query = (expand) => gql`
           sku
           images {
          	  url 
+          }
+          attributesRaw {
+            name
+            value
           }
           scopedPrice {
             value {
