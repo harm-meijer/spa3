@@ -1,5 +1,9 @@
 import { computed, shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import {
+  getAttributeValue,
+  productAttributes,
+} from 'containers/lib';
 
 export default {
   props: {
@@ -13,17 +17,15 @@ export default {
     const expanded = shallowRef([true, false]);
     //@todo: move to top and pass
     // const { locale } = useLocale();
-    const productAttributes = computed(() => {
+    const attributes = computed(() => {
       const attributes =
         props.currentVariant.attributesRaw.map(
           ({ name, value }) => [
             name,
-            //@todo: value is json, should make getValue (not getting reactive value)
-            value,
+            getAttributeValue(value, 'en'),
           ]
         );
-      // return productAttributes(attributes, locale);
-      return attributes;
+      return productAttributes(attributes, 'en');
     });
     const openAccordion = (e) => {
       const contextPanelGroup = window
@@ -44,13 +46,13 @@ export default {
         .removeClass('accordion-minus');
     };
     const toggle = (index) => {
-      const copy = [...this.expanded];
+      const copy = [...expanded.value];
       copy[index] = !copy[index];
-      this.expanded = copy;
+      expanded.value = copy;
     };
     return {
       expanded,
-      productAttributes,
+      attributes,
       openAccordion,
       toggle,
       t,

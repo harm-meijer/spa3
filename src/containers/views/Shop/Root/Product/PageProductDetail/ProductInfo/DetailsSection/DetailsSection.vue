@@ -34,7 +34,7 @@
           <div class="panel-body">
             <ul class="product-features-list">
               <li
-                v-for="attribute in productAttributes"
+                v-for="attribute in attributes"
                 data-test="product-attributes-list"
                 :key="attribute.name"
               >
