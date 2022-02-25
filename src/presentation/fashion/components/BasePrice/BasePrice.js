@@ -1,3 +1,4 @@
+import { computed } from 'vue';
 import BaseMoney from '../BaseMoney/BaseMoney.vue';
 
 export default {
@@ -10,15 +11,16 @@ export default {
       required: true,
     },
   },
-  computed: {
-    hasDiscount() {
-      return this.price?.discounted;
-    },
-    discountedPrice() {
-      return this.price?.discounted?.value;
-    },
-    originalPrice() {
-      return this?.price?.value;
-    },
+  setup(props) {
+    const hasDiscount = computed(() => {
+      return props?.price?.discounted;
+    });
+    const discountedPrice = computed(() => {
+      return props?.price?.discounted?.value;
+    });
+    const originalPrice = computed(() => {
+      return props?.price?.value;
+    });
+    return { hasDiscount, discountedPrice, originalPrice };
   },
 };
