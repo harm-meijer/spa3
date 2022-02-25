@@ -1,4 +1,7 @@
-see what is shared
+felipe will make home page style
+felipe footer style
+
+see what is shared:
 CartDetail.js
 CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/Remove/Remove.js
 CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/LineItemQuantityForm.js
@@ -9,3 +12,6 @@ CartLikePriceDetail/DiscountCodes/RemoveDiscountCodeForm/RemoveDiscountCodeForm.
 CartLikePriceDetail/DiscountCodes/DiscountCodes.js
 CartLikePriceDetail/CartLikePriceDetail.js
 ./Cart.js
+
+harm product (single product by sku) skip the variant selector
+harm minicart
