@@ -1,6 +1,7 @@
 import { useI18n } from 'vue-i18n';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import DiscountCodes from './DiscountCodes/DiscountCodes.vue';
+import { computed } from 'vue';
 // import { subTotal } from '../../shared';
 
 //@todo: this is probably shared with minicart
@@ -53,16 +54,13 @@ export default {
       default: false,
     },
   },
-  setup() {
+  setup(props) {
     const { t } = useI18n();
-    return { t };
-  },
-  computed: {
-    subtotal() {
-      return subTotal(this.cart);
-    },
-    taxes() {
-      const { taxedPrice } = this.cart;
+    const subtotal = computed(() => {
+      return subTotal(props.cart);
+    });
+    const taxes = computed(() => {
+      const { taxedPrice } = props.cart;
       if (taxedPrice) {
         return {
           value: {
@@ -77,9 +75,11 @@ export default {
         };
       }
       return null;
-    },
-    discountCodesExist() {
-      return this.cart.discountCodes?.length;
-    },
+    });
+    const discountCodesExist = computed(() => {
+      return props.cart.discountCodes?.length;
+    });
+
+    return { t, subtotal, taxes, discountCodesExist };
   },
 };

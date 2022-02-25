@@ -1,5 +1,4 @@
 // import { required } from 'vuelidate/lib/validators';
-// import cartMixin from '@/mixins/cartMixin';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
@@ -22,23 +21,14 @@ export default {
     const { mutateCart } = useCartMutation();
     const applyDiscount = () =>
       mutateCart(addDiscountCode(code.value));
-    return { t, applyDiscount, code };
-  },
-  methods: {
-    addDiscountCode() {
-      return this.updateMyCart({
-        addDiscountCode: {
-          code: this.form.code,
-        },
-      }).then(() => {
-        this.form.code = null;
-      });
-    },
-    getErrorMessage({ code }) {
+
+    const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {
-        return this.$t('nonApplicable');
+        return t('nonApplicable');
       }
-      return this.$t('unknownError');
-    },
+      return t('unknownError');
+    };
+
+    return { t, applyDiscount, code, getErrorMessage };
   },
 };

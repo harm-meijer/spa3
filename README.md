@@ -1,24 +1,11 @@
-# sunrise
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+options to composition / move code up and pass as prop / see what is shared / move to presentation :
+CartDetail.js
+CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/Remove/Remove.js
+CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/LineItemQuantityForm.js
+CartLikeContentDetail/LineItemInfo/LineItemInfo.js
+CartLikeContentDetail/CartLikeContentDetail.js
+AddDiscountCodeForm/AddDiscountCodeForm.js
+CartLikePriceDetail/DiscountCodes/RemoveDiscountCodeForm/RemoveDiscountCodeForm.js
+CartLikePriceDetail/DiscountCodes/DiscountCodes.js
+CartLikePriceDetail/CartLikePriceDetail.js
+./Cart.js
