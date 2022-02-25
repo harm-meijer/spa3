@@ -12,6 +12,12 @@ CartLikePriceDetail/DiscountCodes/RemoveDiscountCodeForm/RemoveDiscountCodeForm.
 CartLikePriceDetail/DiscountCodes/DiscountCodes.js
 CartLikePriceDetail/CartLikePriceDetail.js
 ./Cart.js
+./src/containers/views/Shop/Root/Product/PageProductDetail/PageProductDetail.js
+./src/containers/views/Shop/Root/Product/PageProductDetail/ProductInfo/DetailsSection/DetailsSection.js
+./src/containers/views/Shop/Root/Product/PageProductDetail/ProductInfo/ProductInfo.js
+./src/containers/views/Shop/Root/Product/PageProductDetail/ProductInfo/ProductGallery/ProductGallery.js
+./src/containers/views/Shop/Root/Product/PageProductDetail/ProductInfo/AddToCartForm/AddToCartForm.js
+./src/containers/views/Shop/Root/Product/Product.js
 
-harm product (single product by sku) skip the variant selector
 harm minicart
+harm product needs variant selector and wishlist
