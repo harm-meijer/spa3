@@ -20,23 +20,16 @@
         </a>
         <div class="cart-content">
           <h3>{{ t('miniCart') }}</h3>
-          <!-- <span v-if="cartNotEmpty">
+          <span v-if="cartNotEmpty">
             <ul>
               <li
-                v-for="lineItem in sortedLineItems"
+                v-for="lineItem in cart.lineItems"
                 :key="lineItem.id"
                 data-test="mini-cart-line-item"
                 class="single-product-cart"
               >
                 <div class="cart-img">
-                  <router-link
-                    :to="
-                      productRoute(
-                        productSlug(lineItem),
-                        lineItem.variant.sku
-                      )
-                    "
-                  >
+                  <router-link :to="productRoute(lineItem)">
                     <img
                       :src="
                         displayedImageUrl(lineItem.variant)
@@ -48,31 +41,30 @@
                 <div class="cart-title">
                   <h4>
                     <router-link
-                      :to="
-                        productRoute(
-                          productSlug(lineItem),
-                          lineItem.variant.sku
-                        )
-                      "
+                      :to="productRoute(lineItem)"
                       data-test="cart-line-item-link"
                     >
-                      {{ nameFromLineItem(lineItem) }}
+                      {{ lineItemAttr(lineItem) }}
                     </router-link>
                   </h4>
                   <span data-test="cart-line-item-quantity">
                     {{ lineItem.quantity }} ×
                     <BasePrice
-                      :price="totalPrice(lineItem)"
-                  /></span>
+                      :price="{
+                        value: lineItem.totalPrice,
+                      }"
+                    />
+                  </span>
                 </div>
                 <LineItemDeleteForm
-                  :lineItemId="lineItem.id"
+                  :lineItemId="lineItem.lineId"
+                  :cartActions="cartActions"
                 />
               </li>
             </ul>
             <div class="cart-total">
               <h4>
-                {{ $t('subtotal') }}:
+                {{ t('subtotal') }}:
                 <BasePrice
                   :price="subtotal"
                   data-test="mini-cart-price"
@@ -85,19 +77,20 @@
                 @click="close"
                 class="btn-grey"
               >
-                {{ $t('viewBag') }}
+                {{ t('viewBag') }}
               </router-link>
-              <router-link
+              <!-- @todo: create the checkout route -->
+              <!-- <router-link
                 :to="{ name: 'checkout' }"
                 data-test="checkout-button"
                 @click="close"
-                >{{ $t('checkout') }}</router-link
-              >
+                >{{ t('checkout') }}</router-link
+              > -->
             </div>
-          </span> -->
-          <!-- <span v-if="!cartNotEmpty">
-            <h5>{{ $t('emptyCart') }}</h5>
-          </span> -->
+          </span>
+          <span v-if="!cartNotEmpty">
+            <h5>{{ t('emptyCart') }}</h5>
+          </span>
         </div>
       </div>
     </div>
