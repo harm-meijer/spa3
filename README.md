@@ -1,4 +1,4 @@
-move code up and pass as prop / see what is shared / move to presentation :
+see what is shared
 CartDetail.js
 CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/Remove/Remove.js
 CartLikeContentDetail/LineItemInfo/LineItemQuantityForm/LineItemQuantityForm.js

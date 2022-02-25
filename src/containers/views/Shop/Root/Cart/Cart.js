@@ -1,7 +1,7 @@
 import useCart from 'hooks/useCart';
 import { computed } from 'vue';
-import { useCartActions } from '../../../../../../composition/useCartMutation';
-import CartDetail from './CartDetail/CartDetail.vue';
+import { useCartActions } from 'hooks/useCartMutation';
+import CartDetail from 'presentation/CartDetail/CartDetail.vue';
 //resolve-path could be scr/presentation/fashion
 // import PresentationComponent from 'resolve-path/Cart/Cart.vue';
 

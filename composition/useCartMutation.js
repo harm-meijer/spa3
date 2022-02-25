@@ -23,7 +23,7 @@ const useCartMutation = () => {
 export default useCartMutation;
 
 export const useCartActions = () => {
-  const debounce = (fn, time = 500) => {
+  const debounce = (fn, time = 200) => {
     const current = {};
     const check = { current };
     return (...args) => {

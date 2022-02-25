@@ -1,6 +1,6 @@
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { computed, shallowRef, watch } from 'vue';
-import config from '../../../../../../../../../sunrise.config';
+import config from '../../../../../../sunrise.config';
 import LineItemQuantityForm from './LineItemQuantityForm/LineItemQuantityForm.vue';
 import Remove from './LineItemQuantityForm/Remove/Remove.vue';
 export default {
