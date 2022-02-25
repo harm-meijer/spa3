@@ -6,7 +6,7 @@
   <div class="row" v-if="currentVariant">
     <div class="col-lg-5">
       <div class="product-details-tab">
-        <!-- <ProductGallery :sku="sku" /> -->
+        <ProductGallery :currentVariant="currentVariant" />
       </div>
     </div>
     <div class="col-lg-7">

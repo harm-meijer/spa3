@@ -8,6 +8,7 @@
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import AddToCartForm from './AddToCartForm/AddToCartForm.vue';
 import DetailsSection from './DetailsSection/DetailsSection.vue';
+import ProductGallery from './ProductGallery/ProductGallery.vue';
 export default {
   name: 'ProductInfo',
   props: {
@@ -36,7 +37,7 @@ export default {
   },
   components: {
     DetailsSection,
-    // ProductGallery,
+    ProductGallery,
     // SocialMediaLinks,
     AddToCartForm,
     BasePrice,
