@@ -50,6 +50,8 @@ export const useCartActions = () => {
   const remove = (lineItemId) => {
     mutateCart(removeLineItem(lineItemId));
   };
+  const addLine = (sku, quantity) =>
+    mutateCart(addLineItem(sku, quantity));
   const applyDiscount = (code) =>
     mutateCart(addDiscountCode(code));
   const removeDiscount = (codeId) =>
@@ -60,5 +62,6 @@ export const useCartActions = () => {
     removeLineItem: remove,
     applyDiscount,
     removeDiscount,
+    addLine,
   };
 };

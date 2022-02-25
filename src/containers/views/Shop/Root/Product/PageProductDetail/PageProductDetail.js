@@ -13,6 +13,10 @@ export default {
       type: Object,
       required: false,
     },
+    cartActions: {
+      type: Object,
+      required: true,
+    },
     sku: {
       type: String,
       required: true,

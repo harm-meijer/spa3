@@ -2,6 +2,7 @@
 
 <template>
   <PageProductDetail
+    :cartActions="cartActions"
     :allVariants="allVariants"
     :currentVariant="currentVariant"
     :product="product"
@@ -11,7 +12,6 @@
     :changeSKU="changeSKU"
     :sku="sku"
     :skus="skus"
-    :changeLine="changeLine"
     :store="store"
     :setStore="setStore"
   />

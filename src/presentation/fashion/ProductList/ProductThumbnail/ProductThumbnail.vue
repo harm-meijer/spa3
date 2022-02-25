@@ -38,8 +38,8 @@
             @click.prevent="() => addToCart(product.sku)"
           >
             <i class="dl-icon-cart29"></i>
-            <span>{{ t('addToCart') }}</span></a
-          >
+            <span>{{ t('addToCart') }}</span>
+          </a>
         </div>
       </div>
       <div class="product-content text-center mt-15">

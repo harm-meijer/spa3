@@ -34,10 +34,7 @@ export default {
       }
       return require('presentation/assets/img/missing.svg');
     };
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: 'local',
-    });
+    const { t } = useI18n();
     const hasPrice = computed(
       () => props?.product?.masterVariant?.scopedPrice
     );

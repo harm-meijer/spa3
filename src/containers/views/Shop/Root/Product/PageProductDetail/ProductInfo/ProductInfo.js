@@ -6,7 +6,7 @@
 // import useProductQuery from '../../../composition/useProductQuery';
 // import { ref, watch } from 'vue-demi';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
-
+import AddToCartForm from './AddToCartForm/AddToCartForm.vue';
 export default {
   name: 'ProductInfo',
   props: {
@@ -16,7 +16,11 @@ export default {
     },
     currentVariant: {
       type: Object,
-      currentVariant: true,
+      required: true,
+    },
+    cartActions: {
+      type: Object,
+      required: true,
     },
   },
   setup(props, { emit }) {
@@ -33,7 +37,7 @@ export default {
     // DetailsSection,
     // ProductGallery,
     // SocialMediaLinks,
-    // AddToCartForm,
+    AddToCartForm,
     BasePrice,
     // VariantSelector,
   },

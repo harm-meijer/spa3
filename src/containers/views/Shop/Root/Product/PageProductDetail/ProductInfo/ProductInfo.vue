@@ -23,13 +23,14 @@
         <!-- <VariantSelector :sku="sku" /> -->
         <!-- @todo: calculate in stock -->
         <!-- <div v-if="availableQ">
-          {{ $t('available') }}: {{ availableQuantity }}
+          {{ t('available') }}: {{ availableQuantity }}
         </div> -->
-        <!-- <AddToCartForm
+        <AddToCartForm
           :sku="sku"
-          :isOnStock="isOnStock"
-          :availableQuantity="availableQuantity"
-        /> -->
+          :isOnStock="true"
+          :availableQuantity="10"
+          :cartActions="cartActions"
+        />
         <a href @click.prevent="openAddToShoppingList">
           <i class="dl-icon-heart"></i
           ><span>Shopping list</span>

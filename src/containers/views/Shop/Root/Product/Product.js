@@ -2,11 +2,9 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
-import useCartMutation, {
-  addLineItem,
-} from 'hooks/useCartMutation';
 import useStore from 'hooks/useStore';
 import PageProductDetail from './PageProductDetail/PageProductDetail.vue';
+import { useCartActions } from 'hooks/useCartMutation';
 // import { ALL } from '../../../../constants';
 const skus = [
   'M0E20000000EAT6',
@@ -52,11 +50,10 @@ export default {
     const changeSKU = (sku) => {
       move(router, route, { ...route.params, sku }, 'push');
     };
-    const { mutateCart } = useCartMutation();
-    const changeLine = (sku, quantity = 1) =>
-      mutateCart(addLineItem(sku, quantity));
+    const cartActions = useCartActions();
     const { store, setStore } = useStore();
     return {
+      cartActions,
       allVariants,
       currentVariant,
       store,
@@ -68,7 +65,6 @@ export default {
       changeSKU,
       sku,
       skus,
-      changeLine,
     };
   },
 };
