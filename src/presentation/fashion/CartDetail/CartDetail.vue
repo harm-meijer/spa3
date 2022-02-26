@@ -32,10 +32,10 @@
             <form>
               <div class="row">
                 <div class="col-lg-8">
-                  <!-- <CartLikeContentDetail
+                  <CartLikeContentDetail
                     :cart="cart"
                     :editable="true"
-                  /> -->
+                  />
                   <div class="cart-shiping-update-wrapper">
                     <!-- <AddDiscountCodeForm
                       :cartActions="cartActions"
@@ -43,12 +43,14 @@
                   </div>
                 </div>
                 <div class="col-lg-4">
-                  <!-- <CartLikePriceDetail
-                    :cart="cart"
-                    :editable="true"
-                    :cartActions="cartActions"
-                    class="total-price-calc"
-                  /> -->
+                  <CartLike v-slot="cartLike">
+                    <CartLikePriceDetail
+                      :cart="cart"
+                      :editable="true"
+                      :cartLike="cartLike"
+                      class="total-price-calc"
+                    />
+                  </CartLike>
                 </div>
               </div>
             </form>

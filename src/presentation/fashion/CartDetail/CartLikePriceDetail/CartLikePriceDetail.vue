@@ -15,7 +15,7 @@
           data-test="cart-subtotal-price"
         >
           <span>
-            <BasePrice :price="subtotal" />
+            <BasePrice :price="subtotal(cart)" />
           </span>
         </div>
       </div>
@@ -29,16 +29,16 @@
           data-test="cart-taxes-amount"
         >
           <span>
-            <BasePrice :price="taxes" />
+            <BasePrice :price="taxes(cart)" />
           </span>
         </div>
       </div>
-      <!-- <DiscountCodes
-        v-if="discountCodesExist > 0"
+      <DiscountCodes
+        v-if="discountCodesExist(cart)"
         :cart="cart"
         :editable="editable"
-        :cartActions="cartActions"
-      /> -->
+        :cartLike="cartLike"
+      />
     </div>
     <div class="cart-total-wrap">
       <div class="single-cart-total-left col-sm-6">

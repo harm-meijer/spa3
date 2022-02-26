@@ -12,7 +12,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    cartActions: {
+    cartLike: {
       type: Object,
       required: true,
     },
