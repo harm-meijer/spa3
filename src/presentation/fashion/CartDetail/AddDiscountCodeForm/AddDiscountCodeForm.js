@@ -13,7 +13,7 @@ export default {
     // ServerError,
   },
   props: {
-    cartActions: {
+    cartLike: {
       type: Object,
       required: true,
     },
@@ -21,7 +21,7 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const code = shallowRef('');
-    const { applyDiscount: ad } = props.cartActions;
+    const { applyDiscount: ad } = props.cartLike.cartTools;
     const applyDiscount = () => ad(code.value);
     const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {
