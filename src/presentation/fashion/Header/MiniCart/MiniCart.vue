@@ -3,10 +3,10 @@
 <script src="./MiniCart.js"></script>
 
 <template>
-  <span>
+  <span v-if="cart">
     <div
       class="sidebar-cart-active"
-      :class="{ inside: miniCart.isOpen.value }"
+      :class="{ inside: isOpen }"
       data-test="mini-cart-content"
     >
       <div class="sidebar-cart-all">
@@ -49,24 +49,23 @@
                   </h4>
                   <span data-test="cart-line-item-quantity">
                     {{ lineItem.quantity }} ×
-                    <BasePrice
-                      :price="{
-                        value: lineItem.totalPrice,
-                      }"
-                    />
+                    <BasePrice :price="total(lineItem)" />
                   </span>
                 </div>
-                <!-- <LineItemDeleteForm
-                  :lineItemId="lineItem.lineId"
-                  :cartActions="cartActions"
-                /> -->
+                <CartLike v-slot="cartLike">
+                  <LineItemDeleteForm
+                    :lineItemId="lineItem.lineId"
+                    :cartLike="cartLike"
+                  />
+                </CartLike>
               </li>
             </ul>
             <div class="cart-total">
               <h4>
+                <!-- @todo: when discounted the strikout style is not working -->
                 {{ t('subtotal') }}:
                 <BasePrice
-                  :price="subtotal"
+                  :price="subtotal(cart)"
                   data-test="mini-cart-price"
                 />
               </h4>

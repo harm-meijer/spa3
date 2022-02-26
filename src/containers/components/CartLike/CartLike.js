@@ -42,6 +42,19 @@ export default {
       Boolean(cart && Boolean(cart?.lineItems?.length));
 
     const total = (lineItem) => {
+      if (lineItem.price.discounted) {
+        return {
+          value: {
+            ...lineItem.price.value,
+            centAmount:
+              lineItem.price.value.centAmount *
+              lineItem.quantity,
+          },
+          discounted: {
+            value: lineItem.totalPrice,
+          },
+        };
+      }
       return { value: lineItem.totalPrice };
     };
     const lineItemAttr = (lineItem) => {

@@ -7,8 +7,8 @@
     :class="isMiniCartOpen ? 'overlay-active' : ''"
   >
     <div @click="close()" class="body-overlay"></div>
-    <!-- @todo: create the minicart -->
-    <MiniCart :miniCart="miniCart" />
+    <!-- @todo: gray overlay when minicart is open does not show -->
+    <MiniCart />
     <router-view name="header" />
     <router-view />
     <footer>

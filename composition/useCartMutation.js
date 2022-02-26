@@ -48,6 +48,7 @@ export const useCartActions = () => {
     }
   );
   const remove = (lineItemId) => {
+    //@todo: if cart is empty then remove it
     mutateCart(removeLineItem(lineItemId));
   };
   const addLine = (sku, quantity) =>
