@@ -12,10 +12,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    cartLike: {
-      type: Object,
-      required: true,
-    },
   },
   setup() {
     const { t } = useI18n();

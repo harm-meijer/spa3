@@ -37,7 +37,6 @@
         v-if="discountCodesExist(cart)"
         :cart="cart"
         :editable="editable"
-        :cartLike="cartLike"
       />
     </div>
     <div class="cart-total-wrap">

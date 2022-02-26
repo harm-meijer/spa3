@@ -22,11 +22,13 @@
           ({{ discountInfo.discountCode.name }})</span
         >
         <span>
-          <RemoveDiscountCodeForm
-            v-if="editable"
-            :codeId="discountInfo.discountCode.codeId"
-            :cartActions="cartActions"
-          />
+          <CartLike v-slot="cartLike">
+            <RemoveDiscountCodeForm
+              v-if="editable"
+              :codeId="discountInfo.discountCode.codeId"
+              :cartLike="cartLike"
+            />
+          </CartLike>
         </span>
       </div>
     </div>
