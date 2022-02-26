@@ -15,7 +15,7 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const expanded = shallowRef([true, false]);
-    //@todo: move to top and pass
+    //@todo: move to productLike, same as cartLike
     // const { locale } = useLocale();
     const attributes = computed(() => {
       const attributes =

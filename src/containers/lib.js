@@ -1,6 +1,5 @@
 import config from '../../sunrise.config';
 
-//@todo: need to implement for multiple types of attributes
 export const getAttributeValue = (attribute, locale) => {
   if (
     typeof attribute === 'object' &&
