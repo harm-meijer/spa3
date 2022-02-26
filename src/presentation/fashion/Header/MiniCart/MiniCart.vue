@@ -56,10 +56,10 @@
                     />
                   </span>
                 </div>
-                <LineItemDeleteForm
+                <!-- <LineItemDeleteForm
                   :lineItemId="lineItem.lineId"
                   :cartActions="cartActions"
-                />
+                /> -->
               </li>
             </ul>
             <div class="cart-total">

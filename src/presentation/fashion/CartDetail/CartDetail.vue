@@ -5,7 +5,7 @@
 <template>
   <div>
     <div
-      v-if="cartNotEmpty"
+      v-if="cartNotEmpty(cart)"
       class="breadcrumb-area bg-gray"
     >
       <div class="container-fluid">
@@ -24,7 +24,7 @@
     <Spinner v-if="loading" />
     <div
       class="cart-main-area pt-50 pb-100"
-      v-else-if="cartNotEmpty"
+      v-else-if="cartNotEmpty(cart)"
     >
       <div class="container-fluid pl-50 pr-50">
         <div class="row">
@@ -32,24 +32,23 @@
             <form>
               <div class="row">
                 <div class="col-lg-8">
-                  <CartLikeContentDetail
+                  <!-- <CartLikeContentDetail
                     :cart="cart"
                     :editable="true"
-                    :cartActions="cartActions"
-                  />
+                  /> -->
                   <div class="cart-shiping-update-wrapper">
-                    <AddDiscountCodeForm
+                    <!-- <AddDiscountCodeForm
                       :cartActions="cartActions"
-                    />
+                    /> -->
                   </div>
                 </div>
                 <div class="col-lg-4">
-                  <CartLikePriceDetail
+                  <!-- <CartLikePriceDetail
                     :cart="cart"
                     :editable="true"
                     :cartActions="cartActions"
                     class="total-price-calc"
-                  />
+                  /> -->
                 </div>
               </div>
             </form>
@@ -58,7 +57,7 @@
       </div>
     </div>
     <div
-      v-if="!cartNotEmpty"
+      v-if="!cartNotEmpty(cart)"
       class="empty-area mt-50 border-top-2 pt-120 pb-120"
     >
       <div class="container">

@@ -33,12 +33,12 @@
           </span>
         </div>
       </div>
-      <DiscountCodes
+      <!-- <DiscountCodes
         v-if="discountCodesExist > 0"
         :cart="cart"
         :editable="editable"
         :cartActions="cartActions"
-      />
+      /> -->
     </div>
     <div class="cart-total-wrap">
       <div class="single-cart-total-left col-sm-6">

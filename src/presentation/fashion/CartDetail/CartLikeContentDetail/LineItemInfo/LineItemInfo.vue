@@ -6,10 +6,12 @@
   <tbody>
     <tr>
       <td v-if="editable" class="product-remove">
-        <Remove
-          :lineItemId="lineItem.lineId"
-          :cartActions="cartActions"
-        />
+        <CartLike v-slot="cartLike">
+          <Remove
+            :lineItemId="lineItem.lineId"
+            :cartLike="cartLike"
+          />
+        </CartLike>
       </td>
       <td v-if="selectable">
         <input
@@ -38,7 +40,9 @@
         >
           {{ lineItem.name }}
         </router-link>
-        <b class="attributes">{{ lineItemAttr }}</b>
+        <b class="attributes">{{
+          lineItemAttr(lineItem)
+        }}</b>
         <span data-test="cart-line-item-sku">
           {{ lineItem.variant.sku }}
         </span>
@@ -49,12 +53,14 @@
         </span>
       </td>
       <td class="cart-quality">
-        <LineItemQuantityForm
-          v-if="editable"
-          :line-item-id="lineItem.lineId"
-          :quantity="lineItem.quantity"
-          :cartActions="cartActions"
-        />
+        <CartLike v-slot="cartLike">
+          <LineItemQuantityForm
+            v-if="editable"
+            :line-item-id="lineItem.lineId"
+            :quantity="lineItem.quantity"
+            :cartLike="cartLike"
+          />
+        </CartLike>
         <div v-if="selectable">
           <div class="cart-plus-minus">
             <input
@@ -77,7 +83,7 @@
         data-test="line-total"
       >
         <span>
-          <BasePrice :price="total" />
+          <BasePrice :price="total(lineItem)" />
         </span>
       </td>
     </tr>

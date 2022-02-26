@@ -1,9 +1,10 @@
 import { useI18n } from 'vue-i18n';
 import LineItemInfo from './LineItemInfo/LineItemInfo.vue';
-
+import CartLike from 'containers/components/CartLike/CartLike.vue';
 export default {
   components: {
     LineItemInfo,
+    CartLike,
   },
   props: {
     cart: {
@@ -17,10 +18,6 @@ export default {
     selectable: {
       type: Boolean,
       default: false,
-    },
-    cartActions: {
-      type: Object,
-      required: true,
     },
   },
   setup() {

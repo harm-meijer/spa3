@@ -17,7 +17,7 @@ export default {
       type: Number,
       required: false,
     },
-    cartActions: {
+    cartLike: {
       type: Object,
       required: true,
     },
@@ -25,7 +25,7 @@ export default {
   setup(props) {
     const quantity_ = shallowRef(props.quantity);
     const { changeLine: cl, removeLineItem: rm } =
-      props.cartActions;
+      props.cartLike.cartTools;
     const changeLine = () =>
       cl(props.lineItemId, quantity_.value);
     const removeLineItem = () => rm(props.lineItemId);

@@ -3,6 +3,8 @@ import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import CartLikeContentDetail from './CartLikeContentDetail/CartLikeContentDetail.vue';
 import AddDiscountCodeForm from './AddDiscountCodeForm/AddDiscountCodeForm.vue';
 import CartLikePriceDetail from './CartLikePriceDetail/CartLikePriceDetail.vue';
+import CartLike from 'containers/components/CartLike/CartLike.vue';
+
 // import AddDiscountCodeForm from '../AddDiscountCodeForm/AddDiscountCodeForm.vue';
 export default {
   name: 'CartDetail',
@@ -11,6 +13,7 @@ export default {
     CartLikeContentDetail,
     AddDiscountCodeForm,
     CartLikePriceDetail,
+    CartLike,
   },
   props: {
     cart: {
@@ -25,19 +28,16 @@ export default {
       type: Object,
       required: false,
     },
-    cartNotEmpty: {
-      type: Boolean,
-      required: true,
-    },
-    cartActions: {
+    cartLike: {
       type: Object,
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const { t } = useI18n();
     return {
       t,
+      ...props.cartLike.cartTools,
     };
   },
 };

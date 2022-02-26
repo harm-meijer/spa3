@@ -1,14 +1,15 @@
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { computed, shallowRef, watch } from 'vue';
-import config from '../../../../../../sunrise.config';
 import LineItemQuantityForm from 'presentation/components/LineItemQuantityForm/LineItemQuantityForm.vue';
 
 import Remove from 'presentation/components/LineItemQuantityForm/Remove/Remove.vue';
+import CartLike from 'containers/components/CartLike/CartLike.vue';
 export default {
   components: {
     LineItemQuantityForm,
     Remove,
     BasePrice,
+    CartLike,
   },
   props: {
     lineItem: {
@@ -27,28 +28,13 @@ export default {
       type: Boolean,
       default: () => false,
     },
-    cartActions: {
+    cartLike: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   setup(props, { emit }) {
     const selected = shallowRef(false);
-    const total = computed(() => {
-      return { value: props.lineItem.totalPrice };
-    });
-    const lineItemAttr = computed(() => {
-      const attributes =
-        props.lineItem.variant.attributesRaw
-          .filter(({ name }) =>
-            config.variantInProductName.includes(name)
-          )
-          .map(({ attributeDefinition, value }) => [
-            attributeDefinition.label,
-            value,
-          ]);
-      return attributes.join(', ');
-    });
     const item = computed(() =>
       props.selectable
         ? {
@@ -66,24 +52,8 @@ export default {
         emit('unselect-return-item', item);
       }
     });
-
-    const productRoute = (lineItem) => {
-      return {
-        name: 'product',
-        params: {
-          sku: lineItem.variant.sku,
-          productSlug: lineItem.productSlug,
-        },
-      };
-    };
-    const displayedImageUrl = (variant) => {
-      return variant?.images?.[0].url;
-    };
     return {
-      total,
-      lineItemAttr,
-      productRoute,
-      displayedImageUrl,
+      ...props.cartLike.cartTools,
     };
   },
 };

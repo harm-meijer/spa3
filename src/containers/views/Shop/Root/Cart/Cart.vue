@@ -2,11 +2,12 @@
 <i18n src="./Cart.json"></i18n>
 
 <template>
-  <CartDetail
-    :cart="cart"
-    :loading="loading"
-    :error="error"
-    :cartNotEmpty="cartNotEmpty"
-    :cartActions="cartActions"
-  />
+  <CartLike v-slot="cartLike">
+    <CartDetail
+      :cart="cart"
+      :loading="loading"
+      :error="error"
+      :cartLike="cartLike"
+    />
+  </CartLike>
 </template>

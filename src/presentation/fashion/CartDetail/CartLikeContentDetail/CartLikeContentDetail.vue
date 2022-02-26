@@ -21,17 +21,19 @@
           <th v-if="!selectable">{{ t('total') }}</th>
         </tr>
       </thead>
-      <LineItemInfo
-        :editable="editable"
-        :selectable="selectable"
-        v-for="lineItem in cart.lineItems"
-        :key="lineItem.id"
-        :lineItem="lineItem"
-        :cartActions="cartActions"
-        @select-return-item="selectReturnItem"
-        @unselect-return-item="unselectReturnItem"
-        data-test="cart-line-item"
-      />
+      <CartLike v-slot="cartLike">
+        <LineItemInfo
+          :editable="editable"
+          :selectable="selectable"
+          v-for="lineItem in cart.lineItems"
+          :key="lineItem.id"
+          :lineItem="lineItem"
+          @select-return-item="selectReturnItem"
+          @unselect-return-item="unselectReturnItem"
+          data-test="cart-line-item"
+          :cartLike="cartLike"
+        />
+      </CartLike>
     </table>
   </div>
 </template>
