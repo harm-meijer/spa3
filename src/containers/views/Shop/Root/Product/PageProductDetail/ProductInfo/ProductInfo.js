@@ -9,6 +9,8 @@ import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import AddToCartForm from './AddToCartForm/AddToCartForm.vue';
 import DetailsSection from './DetailsSection/DetailsSection.vue';
 import ProductGallery from './ProductGallery/ProductGallery.vue';
+import CartLike from 'containers/components/CartLike/CartLike.vue';
+
 export default {
   name: 'ProductInfo',
   props: {
@@ -17,10 +19,6 @@ export default {
       required: true,
     },
     currentVariant: {
-      type: Object,
-      required: true,
-    },
-    cartActions: {
       type: Object,
       required: true,
     },
@@ -38,6 +36,7 @@ export default {
   components: {
     DetailsSection,
     ProductGallery,
+    CartLike,
     // SocialMediaLinks,
     AddToCartForm,
     BasePrice,

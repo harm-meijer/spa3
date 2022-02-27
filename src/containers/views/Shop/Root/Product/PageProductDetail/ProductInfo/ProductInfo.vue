@@ -25,12 +25,14 @@
         <!-- <div v-if="availableQ">
           {{ t('available') }}: {{ availableQuantity }}
         </div> -->
-        <AddToCartForm
-          :sku="sku"
-          :isOnStock="true"
-          :availableQuantity="10"
-          :cartActions="cartActions"
-        />
+        <CartLike v-slot="cartLike">
+          <AddToCartForm
+            :sku="sku"
+            :isOnStock="true"
+            :availableQuantity="10"
+            :cartLike="cartLike"
+          />
+        </CartLike>
         <a href @click.prevent="openAddToShoppingList">
           <i class="dl-icon-heart"></i
           ><span>Shopping list</span>

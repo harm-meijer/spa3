@@ -20,7 +20,7 @@ export default {
       type: String,
       default: 'addToCart',
     },
-    cartActions: {
+    cartLike: {
       type: Object,
       required: true,
     },
@@ -29,7 +29,7 @@ export default {
     const { t } = useI18n();
     const quantity = shallowRef(1);
     const showQuantityError = shallowRef(false);
-    const { addLine } = props.cartActions;
+    const { addLine } = props.cartLike.cartTools;
     const addLineItem = () =>
       addLine(props.sku, quantity.value);
     return { t, addLineItem, quantity, showQuantityError };
