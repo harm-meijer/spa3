@@ -1,8 +1,11 @@
 import {
   computed,
   onBeforeMount,
+  onMounted,
+  onUnmounted,
   provide,
   ref,
+  shallowRef,
   watch,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -11,6 +14,7 @@ import { LOCATION } from '../../../../constants';
 import config from '../../../../../sunrise.config';
 import { getValue, move } from '../../../../lib';
 import i18n from '../../../../i18n';
+import useMiniCart from 'hooks/useMinicart';
 import MiniCart from 'containers/components/MiniCart/MiniCart.vue';
 
 const caseCorrected = (value = '', key = 'countries') => {
@@ -134,6 +138,12 @@ export default {
   setup() {
     const { locale, location, setLocale, setLocation } =
       useInitRouteParams();
+    const { close } = useMiniCart();
+    const keyUpListener = shallowRef((e) => {
+      if (e.key === 'Escape') {
+        close();
+      }
+    });
     provide(LOCALE, { locale, setLocale });
     provide(LOCATION, { location, setLocation });
     const paramsSet = computed(
@@ -143,6 +153,18 @@ export default {
       if (set) {
         i18n.global.locale = locale;
       }
+    });
+    onMounted(() => {
+      document.body.addEventListener(
+        'keyup',
+        keyUpListener.value
+      );
+    });
+    onUnmounted(() => {
+      document.body.removeEventListener(
+        'keyup',
+        keyUpListener.value
+      );
     });
     const isMiniCartOpen = false;
     return { paramsSet, isMiniCartOpen };
