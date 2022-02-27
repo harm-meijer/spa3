@@ -3,8 +3,8 @@ import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
 import useStore from 'hooks/useStore';
-import PageProductDetail from './PageProductDetail/PageProductDetail.vue';
-// import { ALL } from '../../../../constants';
+import PageProductDetail from 'presentation/PageProductDetail/PageProductDetail.vue';
+
 const skus = [
   'M0E20000000EAT6',
   'M0E20000000EATA',
