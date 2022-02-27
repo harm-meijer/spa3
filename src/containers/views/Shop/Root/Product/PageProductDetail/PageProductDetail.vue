@@ -12,7 +12,6 @@
       <ProductInfo
         :sku="sku"
         :currentVariant="currentVariant"
-        :cartActions="cartActions"
       />
     </div>
     <!-- <AddToShoppingList

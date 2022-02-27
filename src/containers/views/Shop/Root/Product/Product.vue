@@ -2,7 +2,6 @@
 
 <template>
   <PageProductDetail
-    :cartActions="cartActions"
     :allVariants="allVariants"
     :currentVariant="currentVariant"
     :product="product"
