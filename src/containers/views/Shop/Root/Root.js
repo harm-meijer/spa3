@@ -138,7 +138,7 @@ export default {
   setup() {
     const { locale, location, setLocale, setLocation } =
       useInitRouteParams();
-    const { close } = useMiniCart();
+    const { close, isOpen } = useMiniCart();
     const keyUpListener = shallowRef((e) => {
       if (e.key === 'Escape') {
         close();
@@ -166,7 +166,6 @@ export default {
         keyUpListener.value
       );
     });
-    const isMiniCartOpen = false;
-    return { paramsSet, isMiniCartOpen };
+    return { paramsSet, isOpen, close };
   },
 };
