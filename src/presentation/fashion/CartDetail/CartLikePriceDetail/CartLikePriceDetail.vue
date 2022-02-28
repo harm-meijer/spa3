@@ -53,12 +53,11 @@
       </div>
     </div>
     <div class="grand-btn">
-      <!-- @todo: make the checkout page -->
-      <!-- <router-link
+      <router-link
         :to="{ name: 'checkout' }"
         data-test="checkout-button"
         >{{ t('checkout') }}</router-link
-      > -->
+      >
     </div>
   </div>
 </template>

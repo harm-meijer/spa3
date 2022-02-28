@@ -78,13 +78,12 @@
               >
                 {{ t('viewBag') }}
               </router-link>
-              <!-- @todo: create the checkout route -->
-              <!-- <router-link
+              <router-link
                 :to="{ name: 'checkout' }"
                 data-test="checkout-button"
                 @click="close"
                 >{{ t('checkout') }}</router-link
-              > -->
+              >
             </div>
           </span>
           <span v-if="!cartNotEmpty">
