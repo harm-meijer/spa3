@@ -1,12 +1,13 @@
 // import CheckoutTopSection from "../CheckoutTopSection/CheckoutTopSection.vue";
 // import OrderOverview from "../OrderOverview/OrderOverview.vue";
-// import BillingDetails from "../BillingDetails/BillingDetails.vue";
+
+import BillingDetails from './BillingDetails/BillingDetails.vue';
 
 export default {
   components: {
     // CheckoutTopSection,
     // OrderOverview,
-    // BillingDetails,
+    BillingDetails,
   },
   props: {
     cartLike: {

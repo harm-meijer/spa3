@@ -3,7 +3,7 @@
 
 <template>
   <div class="billing-info-wrap mr-100">
-    <h3>{{ $t('billingDetails') }}</h3>
+    <h3>{{ t('billingDetails') }}</h3>
     <!-- <BaseAddressForm
       @update-address="updateBillingAddress"
       @valid-form="validBillingForm"
@@ -16,7 +16,7 @@
         type="checkbox"
         data-test="other-shipping-address"
       />
-      <span>{{ $t('differentAddress') }}</span>
+      <span>{{ t('differentAddress') }}</span>
     </div>
     <div
       v-if="differentAddress"

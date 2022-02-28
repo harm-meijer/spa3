@@ -3,15 +3,17 @@
 // import BaseAddressForm from '../BaseAddressForm/BaseAddressForm.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
 
+import { useI18n } from 'vue-i18n';
+
 export default {
   props: {
     billingAddress: {
       type: Object,
-      required: true,
+      required: false,
     },
     shippingAddress: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   components: {
@@ -19,6 +21,13 @@ export default {
     // BaseForm,
     // BaseAddressForm,
     // BaseInput,
+  },
+  setup() {
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: 'local',
+    });
+    return { t };
   },
   data: () => ({
     differentAddress: false,
