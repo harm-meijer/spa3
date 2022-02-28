@@ -1,8 +1,8 @@
 <style src="./style.css" scoped></style>
 <i18n src="./CartLikePriceDetail.txt" lang="yaml"></i18n>
 <script src="./CartLikePriceDetail.js"></script>
-
 <template>
+  <!-- @todo: move to components, it is shared with other components -->
   <div v-if="cart" class="grand-total-wrap">
     <h4>{{ t('cartTotals') }}</h4>
     <div class="grand-total-content">

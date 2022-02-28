@@ -2,12 +2,15 @@
 // import OrderOverview from "../OrderOverview/OrderOverview.vue";
 
 import BillingDetails from './BillingDetails/BillingDetails.vue';
+import OrderOverview from './OrderOverview/OrderOverview.vue';
+import CartLike from 'containers/components/CartLike/CartLike.vue';
 
 export default {
   components: {
     // CheckoutTopSection,
-    // OrderOverview,
+    OrderOverview,
     BillingDetails,
+    CartLike,
   },
   props: {
     cartLike: {
@@ -20,7 +23,10 @@ export default {
     },
   },
   setup(props) {
-    return { ...props.cartLike.cartTools };
+    const placeOrder = () => {
+      // @todo: need to implement in CartLike
+    };
+    return { ...props.cartLike.cartTools, placeOrder };
   },
   data: () => ({
     shippingMethod: null,
