@@ -4,6 +4,7 @@
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
 
 import { useI18n } from 'vue-i18n';
+import BaseAddressForm from './BaseAddressForm/BaseAddressForm.vue';
 
 export default {
   props: {
@@ -19,7 +20,7 @@ export default {
   components: {
     // ServerError,
     // BaseForm,
-    // BaseAddressForm,
+    BaseAddressForm,
     // BaseInput,
   },
   setup() {
