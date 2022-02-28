@@ -23,11 +23,11 @@
       class="checkout-ship-open mt-30"
       data-test="alt-shipping-address"
     >
-      <!-- <BaseAddressForm
+      <BaseAddressForm
         @update-address="updateShippingAddress"
         @valid-form="validShippingForm"
         :address="shippingAddress"
-      /> -->
+      />
     </div>
   </div>
 </template>
