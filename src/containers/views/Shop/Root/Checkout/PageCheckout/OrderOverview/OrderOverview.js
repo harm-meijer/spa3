@@ -1,12 +1,10 @@
 // @todo: add scrollbar
 // import VuePerfectScrollbar from "vue-perfect-scrollbar";
-// import ShippingMethod from "../ShippingMethod/ShippingMethod.vue";
 // import PaymentMethod from "../PaymentMethod/index";
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
-import CartLikePriceDetail from 'presentation/CartDetail/CartLikePriceDetail/CartLikePriceDetail.vue';
-import LineItemInfo from 'presentation/CartDetail/CartLikeContentDetail/LineItemInfo/LineItemInfo.vue';
 import { useI18n } from 'vue-i18n';
 import ShippingMethod from './ShippingMethod/ShippingMethod.vue';
+import CartLike from 'containers/components/CartLike/CartLike.vue';
 
 export default {
   props: {
@@ -24,11 +22,10 @@ export default {
     },
   },
   components: {
-    LineItemInfo,
     ShippingMethod,
-    // PaymentMethod,
-    CartLikePriceDetail,
     BasePrice,
+    CartLike,
+    // PaymentMethod,
     // VuePerfectScrollbar,
   },
   setup(props) {
@@ -36,7 +33,11 @@ export default {
     const placeOrder = () => {
       // @todo: need to implement in CartLike
     };
-    return { ...props.cartLike.cartTools, t, placeOrder };
+    return {
+      ...props.cartLike.cartTools,
+      t,
+      placeOrder,
+    };
   },
   data: () => ({
     paid: false,

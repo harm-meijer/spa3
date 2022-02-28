@@ -53,12 +53,14 @@
         <div class="shipping-content-left">
           <span class="bold-text">{{ t('shipping') }}</span>
         </div>
-        <!-- @todo: add shipping method -->
-        <ShippingMethod
-          @update-shipping="updateShippingMethod"
-          :cart="cart"
-          data-test="shipping-methods"
-        />
+        <CartLike v-slot="cartLike">
+          <ShippingMethod
+            @update-shipping="updateShippingMethod"
+            :cart="cart"
+            :cartLike="cartLike"
+            data-test="shipping-methods"
+          />
+        </CartLike>
       </div>
       <!-- @todo: need to add payment method component -->
       <!-- <PaymentMethod

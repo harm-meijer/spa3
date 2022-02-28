@@ -14,6 +14,10 @@ export default {
       type: Object,
       required: true,
     },
+    cartLike: {
+      type: Object,
+      required: true,
+    },
   },
   components: {
     // BaseLabel,
@@ -22,9 +26,13 @@ export default {
     BaseMoney,
     // BaseRadio,
   },
-  setup() {
+  setup(props) {
     const { total, loading, error, shippingMethods } =
       useShippingMethods();
+    console.log(
+      'Add set shipping method to cartTools',
+      props.cartLike.cartTools
+    );
     const price = (shippingMethod) => {
       //@todo: price above and zone rates??
       return shippingMethod?.zoneRates[0]
