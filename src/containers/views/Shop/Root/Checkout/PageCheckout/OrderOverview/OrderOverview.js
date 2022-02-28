@@ -6,6 +6,7 @@ import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import CartLikePriceDetail from 'presentation/CartDetail/CartLikePriceDetail/CartLikePriceDetail.vue';
 import LineItemInfo from 'presentation/CartDetail/CartLikeContentDetail/LineItemInfo/LineItemInfo.vue';
 import { useI18n } from 'vue-i18n';
+import ShippingMethod from './ShippingMethod/ShippingMethod.vue';
 
 export default {
   props: {
@@ -24,7 +25,7 @@ export default {
   },
   components: {
     LineItemInfo,
-    // ShippingMethod,
+    ShippingMethod,
     // PaymentMethod,
     CartLikePriceDetail,
     BasePrice,

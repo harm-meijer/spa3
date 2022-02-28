@@ -54,10 +54,11 @@
           <span class="bold-text">{{ t('shipping') }}</span>
         </div>
         <!-- @todo: add shipping method -->
-        <!-- <ShippingMethod
+        <ShippingMethod
           @update-shipping="updateShippingMethod"
+          :cart="cart"
           data-test="shipping-methods"
-        /> -->
+        />
       </div>
       <!-- @todo: need to add payment method component -->
       <!-- <PaymentMethod
