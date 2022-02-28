@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
 // import { required } from 'vuelidate/lib/validators';
 // import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
+import useShippingMethods from '../../../../../../../../../composition/useShippingMethods';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
@@ -22,9 +22,21 @@ export default {
     BaseMoney,
     // BaseRadio,
   },
-  setup(props) {
-    console.log(props.cart);
-    return {};
+  setup() {
+    const { total, loading, error, shippingMethods } =
+      useShippingMethods();
+    const price = (shippingMethod) => {
+      //@todo: price above and zone rates??
+      return shippingMethod?.zoneRates[0]
+        ?.shippingRates?.[0]?.price;
+    };
+    return {
+      total,
+      loading,
+      error,
+      shippingMethods,
+      price,
+    };
   },
   data: () => ({
     selectedShippingMethod: null,
@@ -62,18 +74,22 @@ export default {
   watch: {
     me(value) {
       this.selectedShippingMethod =
-        value?.activeCart?.shippingInfo?.shippingMethod?.id;
+        value?.activeCart?.shippingInfo?.shippingMethod?.methodId;
     },
-    shippingMethodsByLocation(value) {
-      if (!this.selectedShippingMethod) {
-        this.selectedShippingMethod =
-          value.find(
-            (shippingMethod) => shippingMethod.isDefault
-          )?.id || value[0]?.id;
-      }
-    },
+    // shippingMethodsByLocation(value) {
+    //   if (!this.selectedShippingMethod) {
+    //     this.selectedShippingMethod =
+    //       value.find(
+    //         (shippingMethod) => shippingMethod.isDefault
+    //       )?.id || value[0]?.id;
+    //   }
+    // },
     selectedShippingMethod() {
       if (!this.selectedShippingMethod) {
+        return;
+      }
+      //@todo: comes from CartLike, put in setup
+      if (this.selectedShippingMethod) {
         return;
       }
       this.updateMyCart([
@@ -86,63 +102,6 @@ export default {
           },
         },
       ]);
-    },
-  },
-  //@todo: write ShippingMethods hook
-  apollo: {
-    shippingMethodsByLocation: {
-      query: gql`
-        query checkoutShippingMethods(
-          $currency: Currency!
-          $country: Country!
-          $state: String
-          $locale: Locale
-        ) {
-          shippingMethodsByLocation(
-            currency: $currency
-            country: $country
-            state: $state
-          ) {
-            id
-            name
-            localizedDescription(locale: $locale)
-            isDefault
-            zoneRates {
-              shippingRates {
-                isMatching
-                freeAbove {
-                  centAmount
-                }
-                price {
-                  value {
-                    centAmount
-                    currencyCode
-                    fractionDigits
-                  }
-                  discounted {
-                    value {
-                      centAmount
-                      currencyCode
-                      fractionDigits
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          currency:
-            this.me.activeCart.totalPrice.currencyCode,
-          locale: 'en',
-          ...this.me.activeCart.shippingAddress,
-        };
-      },
-      skip() {
-        return !this.cart;
-      },
     },
   },
   // validations: {

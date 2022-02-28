@@ -4,7 +4,7 @@
 <template>
   <div class="payment-method">
     <div
-      v-for="shippingMethod in shippingMethodsByLocation"
+      v-for="shippingMethod in shippingMethods"
       :key="shippingMethod.id"
       class="pay-top sin-payment"
     >
@@ -12,7 +12,7 @@
         class="input-radio"
         v-model="selectedShippingMethod"
         type="radio"
-        :value="shippingMethod.id"
+        :value="shippingMethod.methodId"
         name="shipping_method"
       />
       <label data-test="checkout-form-shipping-method-name">
