@@ -34,7 +34,34 @@ export const addLineItem = (sku, quantity) => [
     addLineItem: { sku, quantity },
   },
 ];
-
+export const setBillingAddress = (address) => ({
+  setBillingAddress: {
+    address,
+  },
+});
+export const setShippingAddress = (address) => ({
+  setShippingAddress: {
+    address,
+  },
+});
+export const createMyOrderFromCart = (id, version) => {
+  return {
+    variables: {
+      id,
+      version,
+    },
+    mutation: gql`
+      mutation ($id: String!, $version: Long!) {
+        createMyOrderFromCart(
+          draft: { id: $id, version: $version }
+        ) {
+          cartId: id
+          version
+        }
+      }
+    `,
+  };
+};
 export const changeCartLineItemQuantity = (
   id,
   quantity
@@ -55,6 +82,16 @@ export const removeDiscountCode = (id) => [
   {
     removeDiscountCode: {
       discountCode: { id, typeId: 'discount-code' },
+    },
+  },
+];
+export const setShippingMethod = (shippingMethodId) => [
+  {
+    setShippingMethod: {
+      shippingMethod: {
+        typeId: 'shipping-method',
+        id: shippingMethodId,
+      },
     },
   },
 ];

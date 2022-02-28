@@ -95,7 +95,8 @@
         </label>
         <!-- @todo: use vuelidate -->
         <!-- :vuelidate="$v.form.country" -->
-        <select v-model="form.country" class="select">
+        <!-- country is set in useCartMutation -->
+        <!-- <select v-model="form.country" class="select">
           <option
             v-for="country in countries"
             :value="country.id"
@@ -103,7 +104,7 @@
           >
             {{ country.name }}
           </option>
-        </select>
+        </select> -->
       </div>
     </div>
     <div class="col-lg-6 col-md-6">

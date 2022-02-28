@@ -38,7 +38,7 @@ export default {
   watch: {
     differentAddress() {
       if (!this.differentAddress) {
-        this.newShippingAddress = this.newBillingAddress;
+        this.newShippingAddress = null;
         this.validShippingForm(true);
       } else {
         this.validShippingForm(false);

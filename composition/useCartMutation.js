@@ -7,13 +7,23 @@ import {
   removeLineItem,
   addDiscountCode,
   removeDiscountCode,
+  setShippingMethod,
+  setBillingAddress,
+  setShippingAddress,
+  createMyOrderFromCart,
 } from './ct/useCartMutation';
+import { getValue } from '../src/lib';
+import { apolloClient } from '../src/apollo';
 export {
   addLineItem,
   changeCartLineItemQuantity,
   removeLineItem,
   addDiscountCode,
   removeDiscountCode,
+  setShippingMethod,
+  setBillingAddress,
+  setShippingAddress,
+  createMyOrderFromCart,
 };
 const useCartMutation = () => {
   const { location } = useLocation();
@@ -23,6 +33,7 @@ const useCartMutation = () => {
 export default useCartMutation;
 
 export const useCartActions = () => {
+  const { location } = useLocation();
   const debounce = (fn, time = 200) => {
     const current = {};
     const check = { current };
@@ -57,6 +68,37 @@ export const useCartActions = () => {
     mutateCart(addDiscountCode(code));
   const removeDiscount = (codeId) =>
     mutateCart(removeDiscountCode(codeId));
+  const setShip = (shippingMethodId) =>
+    mutateCart(setShippingMethod(shippingMethodId));
+
+  const setBilling = (address) =>
+    mutateCart(setBillingAddress(address));
+
+  const setShipping = (address) =>
+    mutateCart(setShippingAddress(address));
+  const createMyOrder = ({
+    billingAddress,
+    shippingAddress,
+  }) => {
+    const actions = [
+      setBillingAddress({
+        ...getValue(billingAddress),
+        country: location.value,
+      }),
+      setShippingAddress({
+        ...(getValue(shippingAddress) ||
+          getValue(billingAddress)),
+        country: location.value,
+      }),
+    ];
+    return mutateCart(actions).then(({ data }) => {
+      const { id, version } = data.updateMyCart;
+      return apolloClient.mutate(
+        createMyOrderFromCart(id, version)
+      );
+    });
+  };
+
   return {
     error,
     changeLine,
@@ -64,5 +106,9 @@ export const useCartActions = () => {
     applyDiscount,
     removeDiscount,
     addLine,
+    setShippingMethod: setShip,
+    setBillingAddress: setBilling,
+    setShippingAddress: setShipping,
+    createMyOrderFromCart: createMyOrder,
   };
 };

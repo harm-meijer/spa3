@@ -13,8 +13,8 @@
           <div class="row">
             <div class="col-lg-7">
               <BillingDetails
-                :billingAddress="cart.billingAddress"
-                :shippingAddress="cart.shippingAddress"
+                :billingAddress="billingAddress"
+                :shippingAddress="shippingAddress"
                 @update-billing-details="updateBilling"
                 @update-shipping-details="updateShipping"
                 @valid-billing-form="setValidBillingForm"

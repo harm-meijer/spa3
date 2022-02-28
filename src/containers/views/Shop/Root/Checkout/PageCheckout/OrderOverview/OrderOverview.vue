@@ -53,20 +53,21 @@
         <div class="shipping-content-left">
           <span class="bold-text">{{ t('shipping') }}</span>
         </div>
-        <!-- @todo: add shipping method -->
-        <ShippingMethod
-          @update-shipping="updateShippingMethod"
-          :cart="cart"
-          data-test="shipping-methods"
-        />
+        <CartLike v-slot="cartLike">
+          <ShippingMethod
+            @update-shipping="updateShippingMethod"
+            :cart="cart"
+            :cartLike="cartLike"
+            data-test="shipping-methods"
+          />
+        </CartLike>
       </div>
-      <!-- @todo: need to add payment method component -->
-      <!-- <PaymentMethod
+      <PaymentMethod
         data-test="payment-methods"
-        v-bind:amount="amount"
+        v-bind:amount="cart.totalPrice"
         v-on:card-paid="cardPaid"
         :key="cart.totalPrice.centAmount"
-      /> -->
+      />
       <div class="your-order-info order-total">
         <ul>
           <li class="bold-text">

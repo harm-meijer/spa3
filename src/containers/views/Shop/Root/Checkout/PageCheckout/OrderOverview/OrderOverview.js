@@ -1,12 +1,12 @@
 // @todo: add scrollbar
 // import VuePerfectScrollbar from "vue-perfect-scrollbar";
-// import ShippingMethod from "../ShippingMethod/ShippingMethod.vue";
-// import PaymentMethod from "../PaymentMethod/index";
+import PaymentMethod from './PaymentMethod/PaymentMethod.vue';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
-import CartLikePriceDetail from 'presentation/CartDetail/CartLikePriceDetail/CartLikePriceDetail.vue';
-import LineItemInfo from 'presentation/CartDetail/CartLikeContentDetail/LineItemInfo/LineItemInfo.vue';
 import { useI18n } from 'vue-i18n';
+//@todo: split up in container and presentation
 import ShippingMethod from './ShippingMethod/ShippingMethod.vue';
+import CartLike from 'containers/components/CartLike/CartLike.vue';
+import { ref } from 'vue';
 
 export default {
   props: {
@@ -24,37 +24,36 @@ export default {
     },
   },
   components: {
-    LineItemInfo,
     ShippingMethod,
-    // PaymentMethod,
-    CartLikePriceDetail,
     BasePrice,
+    CartLike,
+    PaymentMethod,
     // VuePerfectScrollbar,
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { t } = useI18n();
-    const placeOrder = () => {
-      // @todo: need to implement in CartLike
-    };
-    return { ...props.cartLike.cartTools, t, placeOrder };
-  },
-  data: () => ({
-    paid: false,
-    paymentId: null,
-  }),
-  methods: {
-    cardPaid(paymentId) {
+    const paid = ref(false);
+    const paymentId = ref(null);
+    const cardPaid = (paymentId) => {
       if (paymentId) {
-        this.paymentId = paymentId;
+        paymentId.value = paymentId;
       }
-      this.paid = true;
-    },
-    updateShippingMethod(shippingId) {
-      this.$emit('update-shipping', shippingId);
-      this.$apollo.queries.me.refresh();
-    },
-    placeOrder() {
-      this.$emit('complete-order', this.paymentId);
-    },
+      paid.value = true;
+    };
+    const updateShippingMethod = (shippingId) => {
+      emit('update-shipping', shippingId);
+    };
+    const placeOrder = () => {
+      emit('complete-order', paymentId);
+    };
+    return {
+      ...props.cartLike.cartTools,
+      t,
+      cardPaid,
+      updateShippingMethod,
+      paymentId,
+      paid,
+      placeOrder,
+    };
   },
 };

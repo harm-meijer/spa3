@@ -1,7 +1,9 @@
-import gql from 'graphql-tag';
+//@todo: split up in presentation and component
 // import { required } from 'vuelidate/lib/validators';
 // import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
+import { ref, watch } from 'vue';
+import useShippingMethods from '../../../../../../../../../composition/useShippingMethods';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
@@ -14,6 +16,10 @@ export default {
       type: Object,
       required: true,
     },
+    cartLike: {
+      type: Object,
+      required: true,
+    },
   },
   components: {
     // BaseLabel,
@@ -23,12 +29,31 @@ export default {
     // BaseRadio,
   },
   setup(props) {
-    console.log(props.cart);
-    return {};
+    const { total, loading, error, shippingMethods } =
+      useShippingMethods();
+    const selectedShippingMethod = ref(
+      props.cart?.shippingInfo?.shippingMethod?.methodId
+    );
+    watch(selectedShippingMethod, (methodId) => {
+      if (!methodId) {
+        return;
+      }
+      props.cartLike.cartTools.setShippingMethod(methodId);
+    });
+    const price = (shippingMethod) => {
+      //@todo: price above and zone rates??
+      return shippingMethod?.zoneRates[0]
+        ?.shippingRates?.[0]?.price;
+    };
+    return {
+      total,
+      loading,
+      error,
+      shippingMethods,
+      price,
+      selectedShippingMethod,
+    };
   },
-  data: () => ({
-    selectedShippingMethod: null,
-  }),
   methods: {
     price(shippingMethod) {
       const shippingRate =
@@ -57,92 +82,6 @@ export default {
       return (
         totalPrice > shippingRate.freeAbove?.centAmount
       );
-    },
-  },
-  watch: {
-    me(value) {
-      this.selectedShippingMethod =
-        value?.activeCart?.shippingInfo?.shippingMethod?.id;
-    },
-    shippingMethodsByLocation(value) {
-      if (!this.selectedShippingMethod) {
-        this.selectedShippingMethod =
-          value.find(
-            (shippingMethod) => shippingMethod.isDefault
-          )?.id || value[0]?.id;
-      }
-    },
-    selectedShippingMethod() {
-      if (!this.selectedShippingMethod) {
-        return;
-      }
-      this.updateMyCart([
-        {
-          setShippingMethod: {
-            shippingMethod: {
-              typeId: 'shipping-method',
-              id: this.selectedShippingMethod,
-            },
-          },
-        },
-      ]);
-    },
-  },
-  //@todo: write ShippingMethods hook
-  apollo: {
-    shippingMethodsByLocation: {
-      query: gql`
-        query checkoutShippingMethods(
-          $currency: Currency!
-          $country: Country!
-          $state: String
-          $locale: Locale
-        ) {
-          shippingMethodsByLocation(
-            currency: $currency
-            country: $country
-            state: $state
-          ) {
-            id
-            name
-            localizedDescription(locale: $locale)
-            isDefault
-            zoneRates {
-              shippingRates {
-                isMatching
-                freeAbove {
-                  centAmount
-                }
-                price {
-                  value {
-                    centAmount
-                    currencyCode
-                    fractionDigits
-                  }
-                  discounted {
-                    value {
-                      centAmount
-                      currencyCode
-                      fractionDigits
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          currency:
-            this.me.activeCart.totalPrice.currencyCode,
-          locale: 'en',
-          ...this.me.activeCart.shippingAddress,
-        };
-      },
-      skip() {
-        return !this.cart;
-      },
     },
   },
   // validations: {

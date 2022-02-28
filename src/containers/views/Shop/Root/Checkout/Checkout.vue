@@ -2,6 +2,10 @@
 
 <template>
   <CartLike v-slot="cartLike">
-    <PageCheckout :cart="cart" :cartLike="cartLike" />
+    <PageCheckout
+      :cart="cart"
+      :cartLike="cartLike"
+      v-if="cart"
+    />
   </CartLike>
 </template>
