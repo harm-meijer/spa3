@@ -1,5 +1,7 @@
 <script src="./Checkout.js"></script>
 
 <template>
-  <h1>Checkout</h1>
+  <CartLike v-slot="cartLike">
+    <PageCheckout :cart="cart" :cartLike="cartLike" />
+  </CartLike>
 </template>
