@@ -7,6 +7,7 @@ import {
   removeLineItem,
   addDiscountCode,
   removeDiscountCode,
+  setShippingMethod,
 } from './ct/useCartMutation';
 export {
   addLineItem,
@@ -14,6 +15,7 @@ export {
   removeLineItem,
   addDiscountCode,
   removeDiscountCode,
+  setShippingMethod,
 };
 const useCartMutation = () => {
   const { location } = useLocation();
@@ -57,6 +59,8 @@ export const useCartActions = () => {
     mutateCart(addDiscountCode(code));
   const removeDiscount = (codeId) =>
     mutateCart(removeDiscountCode(codeId));
+  const setShip = (shippingMethodId) =>
+    mutateCart(setShippingMethod(shippingMethodId));
   return {
     error,
     changeLine,
@@ -64,5 +68,6 @@ export const useCartActions = () => {
     applyDiscount,
     removeDiscount,
     addLine,
+    setShippingMethod: setShip,
   };
 };

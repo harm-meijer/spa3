@@ -58,6 +58,16 @@ export const removeDiscountCode = (id) => [
     },
   },
 ];
+export const setShippingMethod = (shippingMethodId) => [
+  {
+    setShippingMethod: {
+      shippingMethod: {
+        typeId: 'shipping-method',
+        id: shippingMethodId,
+      },
+    },
+  },
+];
 
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature

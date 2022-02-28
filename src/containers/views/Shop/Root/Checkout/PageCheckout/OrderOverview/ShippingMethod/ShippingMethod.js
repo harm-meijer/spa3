@@ -1,6 +1,8 @@
+//@todo: split up in presentation and component
 // import { required } from 'vuelidate/lib/validators';
 // import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
+import { ref, watch } from 'vue';
 import useShippingMethods from '../../../../../../../../../composition/useShippingMethods';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
@@ -29,10 +31,15 @@ export default {
   setup(props) {
     const { total, loading, error, shippingMethods } =
       useShippingMethods();
-    console.log(
-      'Add set shipping method to cartTools',
-      props.cartLike.cartTools
+    const selectedShippingMethod = ref(
+      props.cart?.shippingInfo?.shippingMethod?.methodId
     );
+    watch(selectedShippingMethod, (methodId) => {
+      if (!methodId) {
+        return;
+      }
+      props.cartLike.cartTools.setShippingMethod(methodId);
+    });
     const price = (shippingMethod) => {
       //@todo: price above and zone rates??
       return shippingMethod?.zoneRates[0]
@@ -44,11 +51,9 @@ export default {
       error,
       shippingMethods,
       price,
+      selectedShippingMethod,
     };
   },
-  data: () => ({
-    selectedShippingMethod: null,
-  }),
   methods: {
     price(shippingMethod) {
       const shippingRate =
@@ -77,39 +82,6 @@ export default {
       return (
         totalPrice > shippingRate.freeAbove?.centAmount
       );
-    },
-  },
-  watch: {
-    me(value) {
-      this.selectedShippingMethod =
-        value?.activeCart?.shippingInfo?.shippingMethod?.methodId;
-    },
-    // shippingMethodsByLocation(value) {
-    //   if (!this.selectedShippingMethod) {
-    //     this.selectedShippingMethod =
-    //       value.find(
-    //         (shippingMethod) => shippingMethod.isDefault
-    //       )?.id || value[0]?.id;
-    //   }
-    // },
-    selectedShippingMethod() {
-      if (!this.selectedShippingMethod) {
-        return;
-      }
-      //@todo: comes from CartLike, put in setup
-      if (this.selectedShippingMethod) {
-        return;
-      }
-      this.updateMyCart([
-        {
-          setShippingMethod: {
-            shippingMethod: {
-              typeId: 'shipping-method',
-              id: this.selectedShippingMethod,
-            },
-          },
-        },
-      ]);
     },
   },
   // validations: {
