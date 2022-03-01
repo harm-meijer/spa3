@@ -2,7 +2,6 @@
 // import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
-//@todo: make this composition api
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 // import config from '../../../../../../../../../sunrise.config';
@@ -35,11 +34,11 @@ export default {
     );
     return { t, form };
   },
-  watch: {
-    validForm() {
-      this.$emit('valid-form', this.validForm);
-    },
-  },
+  // watch: {
+  //   validForm() {
+  //     this.$emit('valid-form', this.validForm);
+  //   },
+  // },
   computed: {
     // countries() {
     //   const configCountries = config.countries;
@@ -50,11 +49,11 @@ export default {
     //     : [];
     //   return countries.map(([id, name]) => ({ id, name }));
     // },
-    validForm() {
-      // @todo: use vuelidate
-      // return !this.$v.$invalid;
-      return true;
-    },
+    // validForm() {
+    //   // @todo: use vuelidate
+    //   // return !this.$v.$invalid;
+    //   return true;
+    // },
   },
   // created() {
   //   if (this.address) {
