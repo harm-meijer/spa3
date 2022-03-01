@@ -3,8 +3,6 @@
 // import { required } from 'vuelidate/lib/validators';
 // import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
-import { ref, watch } from 'vue';
-import useShippingMethods from 'hooks/useShippingMethods';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
@@ -12,12 +10,32 @@ import useShippingMethods from 'hooks/useShippingMethods';
 // import { locale } from '../../common/shared';
 export default {
   props: {
-    cart: {
-      type: Object,
+    total: {
+      type: Number,
+      required: false,
+    },
+    loading: {
+      type: Boolean,
       required: true,
     },
-    cartLike: {
+    error: {
       type: Object,
+      required: false,
+    },
+    shippingMethods: {
+      type: Array,
+      required: false,
+    },
+    price: {
+      type: Function,
+      required: true,
+    },
+    selectedShippingMethod: {
+      type: String,
+      required: true,
+    },
+    setSelectedShippingMethod: {
+      type: Function,
       required: true,
     },
   },
@@ -28,39 +46,4 @@ export default {
     BaseMoney,
     // BaseRadio,
   },
-  setup(props) {
-    //@todo: split up in container and presentation
-    const { total, loading, error, shippingMethods } =
-      useShippingMethods();
-    const selectedShippingMethod = ref(
-      props.cart?.shippingInfo?.shippingMethod?.methodId
-    );
-    watch(selectedShippingMethod, (methodId) => {
-      if (!methodId) {
-        return;
-      }
-      props.cartLike.cartTools.setShippingMethod(methodId);
-    });
-    const price = (shippingMethod) => {
-      return props.cart.totalPrice.centAmount >
-        (shippingMethod?.zoneRates[0]?.shippingRates?.[0]
-          ?.freeAbove?.centAmount || Infinity)
-        ? null
-        : shippingMethod?.zoneRates[0]?.shippingRates?.[0]
-            ?.price;
-    };
-    return {
-      total,
-      loading,
-      error,
-      shippingMethods,
-      price,
-      selectedShippingMethod,
-    };
-  },
-  // validations: {
-  //   form: {
-  //     shippingMethod: { required },
-  //   },
-  // },
 };

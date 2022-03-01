@@ -5,7 +5,7 @@
   <div class="payment-method">
     <div
       v-for="shippingMethod in shippingMethods"
-      :key="shippingMethod.id"
+      :key="shippingMethod.methodId"
       class="pay-top sin-payment"
     >
       <input
