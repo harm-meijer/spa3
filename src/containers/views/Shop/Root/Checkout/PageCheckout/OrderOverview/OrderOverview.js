@@ -1,8 +1,9 @@
 // @todo: add scrollbar
 // import VuePerfectScrollbar from "vue-perfect-scrollbar";
-// import PaymentMethod from "../PaymentMethod/index";
+import PaymentMethod from './PaymentMethod/PaymentMethod.vue';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { useI18n } from 'vue-i18n';
+//@todo: split up in container and presentation
 import ShippingMethod from './ShippingMethod/ShippingMethod.vue';
 import CartLike from 'containers/components/CartLike/CartLike.vue';
 
@@ -25,7 +26,7 @@ export default {
     ShippingMethod,
     BasePrice,
     CartLike,
-    // PaymentMethod,
+    PaymentMethod,
     // VuePerfectScrollbar,
   },
   setup(props) {

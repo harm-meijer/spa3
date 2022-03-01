@@ -62,13 +62,12 @@
           />
         </CartLike>
       </div>
-      <!-- @todo: need to add payment method component -->
-      <!-- <PaymentMethod
+      <PaymentMethod
         data-test="payment-methods"
-        v-bind:amount="amount"
+        v-bind:amount="cart.totalPrice"
         v-on:card-paid="cardPaid"
         :key="cart.totalPrice.centAmount"
-      /> -->
+      />
       <div class="your-order-info order-total">
         <ul>
           <li class="bold-text">
