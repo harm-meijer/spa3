@@ -1,7 +1,7 @@
 import useCart from 'hooks/useCart';
 // import CartDetail from 'presentation/CartDetail/CartDetail.vue';
 import CartLike from 'containers/components/CartLike/CartLike.vue';
-import PageCheckout from './PageCheckout/PageCheckout.vue';
+import PageCheckout from 'presentation/PageCheckout/PageCheckout.vue';
 import { computed } from 'vue';
 export default {
   name: 'Cart',
