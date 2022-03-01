@@ -1,9 +1,7 @@
-// import CheckoutTopSection from "../CheckoutTopSection/CheckoutTopSection.vue";
-// import OrderOverview from "../OrderOverview/OrderOverview.vue";
-
 import BillingDetails from './BillingDetails/BillingDetails.vue';
 import OrderOverview from './OrderOverview/OrderOverview.vue';
 import CartLike from 'containers/components/CartLike/CartLike.vue';
+import { ref } from 'vue';
 
 export default {
   components: {
@@ -26,32 +24,45 @@ export default {
     const placeOrder = () => {
       // @todo: need to implement in CartLike
     };
-    return { ...props.cartLike.cartTools, placeOrder };
-  },
-  data: () => ({
-    shippingMethod: null,
-    billingAddress: null,
-    shippingAddress: null,
-    orderComplete: false,
-    validBillingForm: false,
-    validShippingForm: true,
-    showError: false,
-  }),
-  methods: {
-    setValidBillingForm(valid) {
-      this.validBillingForm = valid;
-    },
-    setValidShippingForm(valid) {
-      this.validShippingForm = valid;
-    },
-    updateBilling(billingDetails) {
-      this.billingAddress = billingDetails;
-    },
-    updateShipping(shippingDetails) {
-      this.shippingAddress = shippingDetails;
-    },
-    updateShippingMethod(shippingId) {
-      this.shippingMethod = shippingId;
-    },
+    const shippingMethod = ref(null);
+    const billingAddress = ref(null);
+    const shippingAddress = ref(null);
+    const orderComplete = ref(false);
+    const validBillingForm = ref(false);
+    const validShippingForm = ref(true);
+    const showError = ref(false);
+
+    const setValidBillingForm = (valid) => {
+      validBillingForm.value = valid;
+    };
+    const setValidShippingForm = (valid) => {
+      validShippingForm.value = valid;
+    };
+    const updateBilling = (billingDetails) => {
+      billingAddress.value = billingDetails;
+    };
+    const updateShipping = (shippingDetails) => {
+      shippingAddress.value = shippingDetails;
+    };
+    const updateShippingMethod = (shippingId) => {
+      shippingMethod.value = shippingId;
+    };
+
+    return {
+      ...props.cartLike.cartTools,
+      placeOrder,
+      shippingMethod,
+      billingAddress,
+      shippingAddress,
+      orderComplete,
+      validBillingForm,
+      validShippingForm,
+      showError,
+      setValidBillingForm,
+      setValidShippingForm,
+      updateBilling,
+      updateShipping,
+      updateShippingMethod,
+    };
   },
 };
