@@ -6,7 +6,7 @@ export default {
   props: {
     money: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   setup(props) {
