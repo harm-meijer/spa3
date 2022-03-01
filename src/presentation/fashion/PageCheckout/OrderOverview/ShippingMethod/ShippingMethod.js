@@ -3,6 +3,7 @@
 // import { required } from 'vuelidate/lib/validators';
 // import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
+import { shallowRef, watch } from 'vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
@@ -45,5 +46,12 @@ export default {
     // BaseForm,
     BaseMoney,
     // BaseRadio,
+  },
+  setup(props) {
+    const method = shallowRef(props.selectedShippingMethod);
+    watch(method, (method) => {
+      props.setSelectedShippingMethod(method);
+    });
+    return { method };
   },
 };

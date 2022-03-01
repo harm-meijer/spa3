@@ -30,8 +30,9 @@ export default {
       }
       props.cartLike.cartTools.setShippingMethod(methodId);
     });
-    const setSelectedShippingMethod = (method) =>
-      (selectedShippingMethod.value = method);
+    const setSelectedShippingMethod = (method) => {
+      selectedShippingMethod.value = method;
+    };
     const price = (shippingMethod) => {
       return props.cart.totalPrice.centAmount >
         (shippingMethod?.zoneRates[0]?.shippingRates?.[0]

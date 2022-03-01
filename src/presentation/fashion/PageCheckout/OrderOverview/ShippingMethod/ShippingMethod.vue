@@ -10,7 +10,7 @@
     >
       <input
         class="input-radio"
-        v-model="selectedShippingMethod"
+        v-model="method"
         type="radio"
         :value="shippingMethod.methodId"
         name="shipping_method"
