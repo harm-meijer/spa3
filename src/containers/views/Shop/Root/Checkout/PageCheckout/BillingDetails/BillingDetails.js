@@ -3,6 +3,7 @@
 // import BaseAddressForm from '../BaseAddressForm/BaseAddressForm.vue';
 // import ServerError from '../../common/form/ServerError/ServerError.vue';
 //@todo: make this composition api
+import { computed, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import BaseAddressForm from './BaseAddressForm/BaseAddressForm.vue';
 
@@ -23,63 +24,70 @@ export default {
     BaseAddressForm,
     // BaseInput,
   },
-  setup() {
+  setup(_, { emit }) {
     const { t } = useI18n({
       inheritLocale: true,
       useScope: 'local',
     });
-    return { t };
-  },
-  data: () => ({
-    differentAddress: false,
-    newBillingAddress: null,
-    newShippingAddress: null,
-  }),
-  watch: {
-    differentAddress() {
-      if (!this.differentAddress) {
-        this.newShippingAddress = null;
-        this.validShippingForm(true);
+    const differentAddress = shallowRef(false);
+    const newBillingAddress = shallowRef(null);
+    const newShippingAddress = shallowRef(null);
+
+    const billingToJSON = computed(() => {
+      return JSON.stringify(newBillingAddress.value);
+    });
+    const shippingToJSON = computed(() => {
+      return JSON.stringify(newShippingAddress.value);
+    });
+    const unsetBillingAddress = () => {
+      return (newBillingAddress.value = null);
+    };
+    const updateBillingAddress = (address) => {
+      newBillingAddress.value = address;
+    };
+    const updateShippingAddress = (address) => {
+      newShippingAddress.value = address;
+    };
+    const validBillingForm = (valid) => {
+      emit('valid-billing-form', valid);
+    };
+    const validShippingForm = (valid) => {
+      emit('valid-shipping-form', valid);
+    };
+
+    watch(differentAddress, () => {
+      if (!differentAddress.value) {
+        newShippingAddress.value = null;
+        validShippingForm(true);
       } else {
-        this.validShippingForm(false);
+        validShippingForm(false);
       }
-    },
-    billingToJSON() {
-      this.$emit(
+    });
+    watch(billingToJSON, () => {
+      emit(
         'update-billing-details',
-        this.newBillingAddress
+        newBillingAddress.value
       );
-    },
-    shippingToJSON() {
-      this.$emit(
+    });
+    watch(shippingToJSON, () => {
+      emit(
         'update-shipping-details',
-        this.newShippingAddress
+        newShippingAddress.value
       );
-    },
-  },
-  computed: {
-    billingToJSON() {
-      return JSON.stringify(this.newBillingAddress);
-    },
-    shippingToJSON() {
-      return JSON.stringify(this.newShippingAddress);
-    },
-  },
-  methods: {
-    unsetBillingAddress() {
-      return this.setBillingAddress(null);
-    },
-    updateBillingAddress(address) {
-      this.newBillingAddress = address;
-    },
-    updateShippingAddress(address) {
-      this.newShippingAddress = address;
-    },
-    validBillingForm(valid) {
-      this.$emit('valid-billing-form', valid);
-    },
-    validShippingForm(valid) {
-      this.$emit('valid-shipping-form', valid);
-    },
+    });
+
+    return {
+      t,
+      billingToJSON,
+      shippingToJSON,
+      differentAddress,
+      newBillingAddress,
+      newShippingAddress,
+      unsetBillingAddress,
+      updateBillingAddress,
+      updateShippingAddress,
+      validBillingForm,
+      validShippingForm,
+    };
   },
 };
