@@ -21,12 +21,6 @@ export default {
     },
   },
   setup(props) {
-    const placeOrder = () => {
-      props.cartLike.cartTools.createMyOrderFromCart({
-        billingAddress,
-        shippingAddress,
-      });
-    };
     const shippingMethod = shallowRef(null);
     const billingAddress = shallowRef(null);
     const shippingAddress = shallowRef(null);
@@ -35,6 +29,14 @@ export default {
     const validShippingForm = shallowRef(true);
     const showError = shallowRef(false);
 
+    const placeOrder = () => {
+      props.cartLike.cartTools
+        .createMyOrderFromCart({
+          billingAddress,
+          shippingAddress,
+        })
+        .then(() => (orderComplete.value = true));
+    };
     const setValidBillingForm = (valid) => {
       validBillingForm.value = valid;
     };

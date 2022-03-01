@@ -39,9 +39,9 @@
     <div v-if="orderComplete" class="pt-80 pb-100">
       <div class="container">
         <div class="order-complete text-center">
-          <h2>{{ $t('thankYou') }}</h2>
+          <h2>{{ t('thankYou') }}</h2>
           <router-link class="mt-50" to="/">
-            {{ $t('continueShopping') }}
+            {{ t('continueShopping') }}
           </router-link>
         </div>
       </div>
