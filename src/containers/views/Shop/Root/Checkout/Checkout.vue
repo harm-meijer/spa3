@@ -5,7 +5,7 @@
     <PageCheckout
       :cart="cart"
       :cartLike="cartLike"
-      v-if="cart"
+      v-if="cartReady"
     />
   </CartLike>
 </template>

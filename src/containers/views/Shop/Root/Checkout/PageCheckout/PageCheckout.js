@@ -2,6 +2,8 @@ import BillingDetails from './BillingDetails/BillingDetails.vue';
 import OrderOverview from './OrderOverview/OrderOverview.vue';
 import CartLike from 'containers/components/CartLike/CartLike.vue';
 import { shallowRef } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 export default {
   components: {
@@ -17,10 +19,12 @@ export default {
     },
     cart: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   setup(props) {
+    const { t } = useI18n();
+    const router = useRouter();
     const shippingMethod = shallowRef(null);
     const billingAddress = shallowRef(null);
     const shippingAddress = shallowRef(null);
@@ -37,6 +41,9 @@ export default {
         })
         .then(() => (orderComplete.value = true));
     };
+    if (!props.cart) {
+      router.replace({ name: 'home' });
+    }
     const setValidBillingForm = (valid) => {
       validBillingForm.value = valid;
     };
@@ -72,6 +79,7 @@ export default {
       updateBilling,
       updateShipping,
       updateShippingMethod,
+      t,
     };
   },
 };

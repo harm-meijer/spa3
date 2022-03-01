@@ -13,7 +13,7 @@ import {
   createMyOrderFromCart,
 } from './ct/useCartMutation';
 import { getValue } from '../src/lib';
-import { apolloClient } from '../src/apollo';
+import { apolloClient, cache } from '../src/apollo';
 export {
   addLineItem,
   changeCartLineItemQuantity,
@@ -91,12 +91,14 @@ export const useCartActions = () => {
         country: location.value,
       }),
     ];
-    return mutateCart(actions).then(({ data }) => {
-      const { id, version } = data.updateMyCart;
-      return apolloClient.mutate(
-        createMyOrderFromCart(id, version)
-      );
-    });
+    return mutateCart(actions)
+      .then(({ data }) => {
+        const { id, version } = data.updateMyCart;
+        return apolloClient.mutate(
+          createMyOrderFromCart(id, version)
+        );
+      })
+      .then(() => cache.reset());
   };
 
   return {
