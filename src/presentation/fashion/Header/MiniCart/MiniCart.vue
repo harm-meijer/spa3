@@ -3,7 +3,7 @@
 <script src="./MiniCart.js"></script>
 
 <template>
-  <span v-if="cart">
+  <span>
     <div
       class="sidebar-cart-active"
       :class="{ inside: isOpen }"
@@ -20,7 +20,7 @@
         </a>
         <div class="cart-content">
           <h3>{{ t('miniCart') }}</h3>
-          <span v-if="cartNotEmpty">
+          <span v-if="cartNotEmpty(cart)">
             <ul>
               <li
                 v-for="lineItem in cart.lineItems"
@@ -86,7 +86,7 @@
               >
             </div>
           </span>
-          <span v-if="!cartNotEmpty">
+          <span v-if="!cartNotEmpty(cart)">
             <h5>{{ t('emptyCart') }}</h5>
           </span>
         </div>
