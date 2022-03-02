@@ -1,7 +1,10 @@
 //@todo: make container and presentation
 import useLocale from 'hooks/useLocale';
+import { shallowRef } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import config from '../../../../../../sunrise.config';
 import { getAttributeValue } from '../../../../../containers/lib';
+import { move } from '../../../../../lib';
 
 export default {
   props: {
@@ -15,8 +18,9 @@ export default {
     },
   },
   setup(props) {
+    const route = useRoute();
+    const router = useRouter();
     const { locale } = useLocale();
-    console.log('allvariants', props.allVariants);
     const tmpAttributes = props.allVariants
       .map(({ attributesRaw, sku }) =>
         attributesRaw.map(({ name, value }) => {
@@ -32,19 +36,76 @@ export default {
       .filter(({ label }) =>
         config.variantSelector.includes(label)
       );
-    const uniQueValues = tmpAttributes.reduce(
-      (acc, { label, value }) =>
-        acc.set(
-          label,
-          (acc.get(label) || []).concat(value)
-        ),
-      new Map()
+    const variants = shallowRef(
+      (() => {
+        const variants = tmpAttributes.reduce(
+          (acc, { label, value }) =>
+            acc.set(
+              label,
+              (acc.get(label) || []).concat(value)
+            ),
+          new Map()
+        );
+        variants.forEach((value, key) => {
+          if (new Set(value).size <= 1) {
+            variants.delete(key);
+          }
+        });
+        return variants;
+      })()
     );
-    uniQueValues.forEach((value, key) => {
-      if (new Set(value).size <= 1) {
-        uniQueValues.delete(key);
-      }
-    });
-    console.log('unique:', uniQueValues);
+    const validKeys = [...variants.value.keys()];
+    const score = shallowRef(
+      tmpAttributes
+        .filter(({ label }) => validKeys.includes(label))
+        .reduce(
+          (acc, { label, value, score, sku }) =>
+            acc.set(sku, {
+              ...acc.get(sku),
+              score: (acc.get(sku)?.score || 0) + score,
+              [label]: value,
+            }),
+          new Map()
+        )
+    );
+    const userSet = shallowRef({});
+    const setScore = (label, value) => {
+      //vue does not understand immutable
+      // eslint-disable-next-line no-unused-vars
+      const { [label]: _, ...rest } = userSet.value;
+      userSet.value = { ...rest, [label]: value };
+      const newScore = new Map(score.value);
+      newScore.forEach((v, sku) => {
+        const newV = { ...v };
+        if (v[label] === value) {
+          newV.score = 100;
+        } else if (v[label] === userSet.value[label]) {
+          newV.score = 20;
+        } else {
+          newV.score = 0;
+        }
+        //@todo: how about initial values?
+        newScore.set(sku, newV);
+      });
+      score.value = newScore;
+    };
+    const setVariant = () => {
+      let high = 0;
+      let sku;
+      score.value.forEach(({ score }, key) => {
+        if (score >= high) {
+          score = high;
+          sku = key;
+        }
+      });
+      move(router, route, { ...route.params, sku }, 'push');
+    };
+    const variantChange = (label, e) => {
+      setScore(label, e.target.value);
+      setVariant();
+    };
+    const isSelected = (label, value) =>
+      score.value.get(props.sku)[label] === value;
+    return { variants, variantChange, isSelected };
   },
 };
