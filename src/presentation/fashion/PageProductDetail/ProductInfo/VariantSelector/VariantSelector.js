@@ -94,7 +94,7 @@ export default {
       let sku;
       score.value.forEach(({ score }, key) => {
         if (score >= high) {
-          score = high;
+          high = score;
           sku = key;
         }
       });

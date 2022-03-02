@@ -37,6 +37,9 @@ const query = (expand) => gql`
             ? `variants {
           variantId: id
           sku
+          images {
+         	  url 
+          }
           attributesRaw {
             name
             value
