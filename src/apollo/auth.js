@@ -64,6 +64,8 @@ export const fetchWithToken = (url, options) => {
         authorization: `Bearer ${token}`,
       },
     }).then((response) => {
+      //@todo: a change may not produce 401 for brute force token trying
+      //  see how we can catch an invalid token instead
       if (response.status === 401) {
         return refreshToken({
           id: config.ct.auth.credentials.clientId,
@@ -82,6 +84,10 @@ export const fetchWithToken = (url, options) => {
 const refreshToken = group((au) => {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
   const auth = createAuth(au);
+  if (!refreshToken) {
+    resetToken();
+    return Promise.reject('no refresh token');
+  }
   return fetch(`${au.authUrl}/oauth/token`, {
     headers: {
       authorization: `Basic ${auth}`,
