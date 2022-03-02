@@ -25,6 +25,7 @@
               <h5>
                 <!-- @todo: do not use this, need variant info -->
                 {{ lineItem.name }}
+                {{ lineItemAttr(lineItem) }}
                 <span>× {{ lineItem.quantity }}</span>
               </h5>
             </div>

@@ -44,6 +44,7 @@
                       :to="productRoute(lineItem)"
                       data-test="cart-line-item-link"
                     >
+                      {{ lineItem.name }}
                       {{ lineItemAttr(lineItem) }}
                     </router-link>
                   </h4>

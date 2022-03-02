@@ -77,14 +77,14 @@ export default {
       const newScore = new Map(score.value);
       newScore.forEach((v, sku) => {
         const newV = { ...v };
-        if (v[label] === value) {
-          newV.score = 100;
-        } else if (v[label] === userSet.value[label]) {
-          newV.score = 20;
-        } else {
-          newV.score = 0;
-        }
-        //@todo: how about initial values?
+        newV.score =
+          v[label] === value
+            ? 100
+            : v[label] === userSet.value[label]
+            ? 20
+            : sku === props.sku
+            ? 10
+            : 0;
         newScore.set(sku, newV);
       });
       score.value = newScore;
