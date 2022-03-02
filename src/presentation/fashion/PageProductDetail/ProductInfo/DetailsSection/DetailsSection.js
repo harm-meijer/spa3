@@ -4,6 +4,7 @@ import {
   getAttributeValue,
   productAttributes,
 } from 'containers/lib';
+import useLocale from 'hooks/useLocale';
 
 export default {
   props: {
@@ -15,17 +16,17 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const expanded = shallowRef([true, false]);
-    //@todo: move to productLike, same as cartLike
-    // const { locale } = useLocale();
+    //@todo: split up in container and presentation
+    const { locale } = useLocale();
     const attributes = computed(() => {
       const attributes =
         props.currentVariant.attributesRaw.map(
           ({ name, value }) => [
             name,
-            getAttributeValue(value, 'en'),
+            getAttributeValue(value, locale.value),
           ]
         );
-      return productAttributes(attributes, 'en');
+      return productAttributes(attributes, locale.value);
     });
     const openAccordion = (e) => {
       const contextPanelGroup = window

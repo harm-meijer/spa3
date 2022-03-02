@@ -14,6 +14,7 @@ import {
 } from './ct/useCartMutation';
 import { getValue } from '../src/lib';
 import { apolloClient, cache } from '../src/apollo';
+import gql from 'graphql-tag';
 export {
   addLineItem,
   changeCartLineItemQuantity,
@@ -59,8 +60,38 @@ export const useCartActions = () => {
     }
   );
   const remove = (lineItemId) => {
-    //@todo: if cart is empty then remove it
-    mutateCart(removeLineItem(lineItemId));
+    mutateCart(removeLineItem(lineItemId)).then(
+      (result) => {
+        if (
+          result.data.updateMyCart.lineItems.length === 0
+        ) {
+          return (
+            apolloClient
+              .mutate({
+                mutation: gql`
+                  mutation deleteCart(
+                    $version: Long!
+                    $id: String!
+                  ) {
+                    deleteMyCart(
+                      version: $version
+                      id: $id
+                    ) {
+                      id
+                    }
+                  }
+                `,
+                variables: {
+                  id: result.data.updateMyCart.id,
+                  version: result.data.updateMyCart.version,
+                },
+              })
+              //@todo: maybe delete less then entire cache is better
+              .then(() => cache.reset())
+          );
+        }
+      }
+    );
   };
   const addLine = (sku, quantity) =>
     mutateCart(addLineItem(sku, quantity));

@@ -25,6 +25,10 @@ const mutation = gql`
     ) {
       id
       version
+      lineItems {
+        lineId: id
+        quantity
+      }
     }
   }
 `;

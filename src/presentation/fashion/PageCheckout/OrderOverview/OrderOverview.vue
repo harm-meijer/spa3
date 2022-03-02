@@ -23,7 +23,6 @@
           >
             <div class="single-order-content">
               <h5>
-                <!-- @todo: do not use this, need variant info -->
                 {{ lineItem.name }}
                 {{ lineItemAttr(lineItem) }}
                 <span>× {{ lineItem.quantity }}</span>
