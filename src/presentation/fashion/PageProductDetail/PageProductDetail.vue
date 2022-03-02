@@ -12,6 +12,7 @@
       <ProductInfo
         :sku="sku"
         :currentVariant="currentVariant"
+        :allVariants="allVariants"
       />
     </div>
     <!-- <AddToShoppingList

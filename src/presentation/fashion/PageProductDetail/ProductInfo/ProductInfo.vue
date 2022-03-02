@@ -20,7 +20,10 @@
         <h3>
           <BasePrice :price="currentVariant.scopedPrice" />
         </h3>
-        <!-- <VariantSelector :sku="sku" /> -->
+        <VariantSelector
+          :sku="sku"
+          :allVariants="allVariants"
+        />
         <!-- @todo: calculate in stock -->
         <!-- <div v-if="availableQ">
           {{ t('available') }}: {{ availableQuantity }}

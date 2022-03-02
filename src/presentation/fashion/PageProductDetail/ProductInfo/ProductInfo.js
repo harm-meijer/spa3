@@ -2,7 +2,7 @@
 // import SocialMediaLinks from '../SocialMediaLinks/SocialMediaLinks.vue';
 // import DetailsSection from '../DetailsSection/DetailsSection.vue';
 // import AddToCartForm from '../AddToCartForm/AddToCartForm.vue';
-// import VariantSelector from '../VariantSelector/VariantSelector.vue';
+import VariantSelector from './VariantSelector/VariantSelector.vue';
 // import useProductQuery from '../../../composition/useProductQuery';
 // import { ref, watch } from 'vue-demi';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
@@ -20,6 +20,10 @@ export default {
     },
     currentVariant: {
       type: Object,
+      required: true,
+    },
+    allVariants: {
+      type: Array,
       required: true,
     },
   },
@@ -40,6 +44,6 @@ export default {
     // SocialMediaLinks,
     AddToCartForm,
     BasePrice,
-    // VariantSelector,
+    VariantSelector,
   },
 };
