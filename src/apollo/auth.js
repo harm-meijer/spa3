@@ -63,22 +63,28 @@ export const fetchWithToken = (url, options) => {
         ...options.headers,
         authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      //@todo: a change may not produce 401 for brute force token trying
-      //  see how we can catch an invalid token instead
-      if (response.status === 401) {
-        return refreshToken({
-          id: config.ct.auth.credentials.clientId,
-          secret: config.ct.auth.credentials.clientSecret,
-          scope: config.ct.auth.scope,
-          projectKey: config.ct.auth.projectKey,
-          authUrl: config.ct.auth.host,
-        }).then(() => {
-          return fetchWithToken(url, options);
-        });
+    }).then(
+      (response) => {
+        //@todo: a change may not produce 401 for brute force token trying
+        //  see how we can catch an invalid token instead
+        if (response.status === 401) {
+          return refreshToken({
+            id: config.ct.auth.credentials.clientId,
+            secret: config.ct.auth.credentials.clientSecret,
+            scope: config.ct.auth.scope,
+            projectKey: config.ct.auth.projectKey,
+            authUrl: config.ct.auth.host,
+          }).then(() => {
+            return fetchWithToken(url, options);
+          });
+        }
+        return response;
+      },
+      (error) => {
+        resetToken();
+        return Promise.reject(error);
       }
-      return response;
-    });
+    );
   }, handleError);
 };
 const refreshToken = group((au) => {
@@ -98,6 +104,10 @@ const refreshToken = group((au) => {
   })
     .then((response) => response.json())
     .then((token) => {
+      if (token?.error) {
+        resetToken();
+        return Promise.reject(token.error);
+      }
       saveToken(token);
     });
 });

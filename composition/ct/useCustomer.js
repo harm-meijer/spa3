@@ -8,7 +8,7 @@ const loginMutation = gql`
   ) {
     customerSignMeIn(draft: $draft) {
       customer {
-        id
+        customerId: id
       }
     }
   }
@@ -24,9 +24,8 @@ export const loginVars = (email, password) => ({
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useCartMutation = ({ location, currency } = {}) => {
   false && location && currency;
-  const [l, { data, loading, error }] = useMutation({
-    mutation: loginMutation,
-  });
+  const [l, { data, loading, error }] =
+    useMutation(loginMutation);
   const login = (variables) => l({ variables });
   return {
     data,
