@@ -1,9 +1,8 @@
-import { cache } from '../../src/apollo';
+import { apolloClient, cache } from '../../src/apollo';
 import { getValue } from '../../src/lib';
 import useMutation from '../useMutationFacade';
 import useCart from '../useCart';
 import gql from 'graphql-tag';
-import { useEffect } from 'react';
 const create = gql`
   mutation creatCart($draft: MyCartDraft!) {
     createMyCart(draft: $draft) {
@@ -109,11 +108,6 @@ const useCartMutation = ({ location, currency }) => {
   const { cart, exist } = useCart({
     expand: { minimum: true },
   });
-  useEffect(() => {
-    if (getValue(data)) {
-      cache.reset();
-    }
-  }, [data]);
   const mutateCart = (actions) => {
     return Promise.resolve()
       .then(() => {
@@ -146,7 +140,32 @@ const useCartMutation = ({ location, currency }) => {
             id,
           },
         })
-      );
+      )
+      .then((result) => {
+        if (!result.data.updateMyCart.lineItems.length) {
+          return apolloClient.mutate({
+            mutation: gql`
+              mutation deleteCart(
+                $version: Long!
+                $id: String!
+              ) {
+                deleteMyCart(version: $version, id: $id) {
+                  id
+                }
+              }
+            `,
+            variables: {
+              id: result.data.updateMyCart.id,
+              version: result.data.updateMyCart.version,
+            },
+          });
+        }
+        return result;
+      }) //@todo: maybe delete less then entire cache is better
+      .then((result) => {
+        cache.reset();
+        return result;
+      });
   };
   return {
     mutateCart,
