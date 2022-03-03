@@ -4,6 +4,8 @@ import Footer from 'presentation/Footer/Footer.vue';
 import Products from 'containers/views/Shop/Root/Products/Products.vue';
 import Product from 'containers/views/Shop/Root/Product/Product.vue';
 import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
+import Login from 'containers/views/Shop/Root/Login/Login.vue';
+
 export default [
   {
     path: 'products/:categorySlug/:page?',
@@ -29,6 +31,15 @@ export default [
     // meta: { requiresCart },
     components: {
       default: Checkout,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  {
+    path: 'login',
+    name: 'login',
+    components: {
+      default: Login,
       header: Header,
       footer: Footer,
     },

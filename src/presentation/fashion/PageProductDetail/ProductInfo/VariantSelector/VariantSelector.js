@@ -72,6 +72,16 @@ export default {
     );
     const userSet = shallowRef({});
     const setScore = (label, value) => {
+      const previousScore = (v) => {
+        const pref = score.value.get(props.sku);
+        return Object.keys(pref)
+          .filter((key) => key !== 'score')
+          .reduce(
+            (acc, item) =>
+              v[item] === pref[item] ? acc + 1 : acc,
+            0
+          );
+      };
       //vue does not understand immutable
       // eslint-disable-next-line no-unused-vars
       const { [label]: _, ...rest } = userSet.value;
@@ -84,9 +94,8 @@ export default {
             ? 100
             : v[label] === userSet.value[label]
             ? 20
-            : sku === props.sku
-            ? 10
             : 0;
+        newV.score = newV.score + previousScore(v);
         newScore.set(sku, newV);
       });
       score.value = newScore;

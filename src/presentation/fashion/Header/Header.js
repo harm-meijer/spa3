@@ -1,5 +1,5 @@
 // import CategoriesMenu from "../CategoriesMenu";
-// import LoginButton from "../LoginButton/LoginButton.vue";
+import LoginButton from 'containers/components/Header/LoginButton/LoginButton.vue';
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
 
 import Selector from './Selector/Selector.vue';
@@ -32,6 +32,7 @@ export default {
   components: {
     Selector,
     CategoriesMenu,
+    LoginButton,
   },
   props: {
     miniCart: {

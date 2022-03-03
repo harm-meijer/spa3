@@ -88,7 +88,7 @@
                         <i class="dl-icon-search10"></i>
                       </a>
                     </div>
-                    <!-- <LoginButton /> -->
+                    <LoginButton />
                     <div
                       class="cart-wrap component-same ml-10"
                     >
