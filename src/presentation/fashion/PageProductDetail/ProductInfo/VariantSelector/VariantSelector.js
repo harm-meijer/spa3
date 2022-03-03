@@ -49,6 +49,8 @@ export default {
         variants.forEach((value, key) => {
           if (new Set(value).size <= 1) {
             variants.delete(key);
+          } else {
+            variants.set(key, [...new Set(value)]);
           }
         });
         return variants;
@@ -102,10 +104,19 @@ export default {
     };
     const variantChange = (label, e) => {
       setScore(label, e.target.value);
+    };
+    const changeAndSet = (label, e) => {
+      variantChange(label, e);
       setVariant();
     };
     const isSelected = (label, value) =>
       score.value.get(props.sku)[label] === value;
-    return { variants, variantChange, isSelected };
+    return {
+      variants,
+      variantChange,
+      isSelected,
+      setVariant,
+      changeAndSet,
+    };
   },
 };

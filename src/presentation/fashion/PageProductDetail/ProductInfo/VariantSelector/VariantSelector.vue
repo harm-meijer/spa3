@@ -1,19 +1,34 @@
 <script src="./VariantSelector.js"></script>
 
 <template>
-  <div v-for="[label, variants] in variants" :key="label">
-    <label>
-      {{ label }}
-      <select v-on:change="variantChange(label, $event)">
-        <option
-          v-for="variant in variants"
-          :key="variant"
-          :value="variant"
-          :selected="isSelected(label, variant)"
-        >
-          {{ variant }}
-        </option>
-      </select>
-    </label>
+  <div>
+    <ul
+      class="list-inline"
+      data-test="variant-selector-list"
+    >
+      <li
+        v-for="[label, variants] in variants"
+        :key="label"
+      >
+        <div class="pro-details-size">
+          <span style="margin-left: 3px">{{ label }}</span>
+          <select
+            v-on:change="changeAndSet(label, $event)"
+            class="select-product-detail"
+            :data-test="`attribute-select-${label}`"
+          >
+            <option
+              v-for="variant in variants"
+              :key="variant"
+              :value="variant"
+              :selected="isSelected(label, variant)"
+              data-test="attribute-select-option"
+            >
+              {{ variant }}
+            </option>
+          </select>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
