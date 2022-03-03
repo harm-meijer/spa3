@@ -1,6 +1,7 @@
 //@todo: make container and presentation
 import useLocale from 'hooks/useLocale';
 import { shallowRef } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import config from '../../../../../../sunrise.config';
 import { getAttributeValue } from '../../../../../containers/lib';
@@ -18,6 +19,7 @@ export default {
     },
   },
   setup(props) {
+    const { t } = useI18n();
     const route = useRoute();
     const router = useRouter();
     const { locale } = useLocale();
@@ -126,6 +128,7 @@ export default {
       isSelected,
       setVariant,
       changeAndSet,
+      t,
     };
   },
 };
