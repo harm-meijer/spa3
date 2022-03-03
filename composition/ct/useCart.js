@@ -2,35 +2,15 @@ import gql from 'graphql-tag';
 import useQueryFacade from '../useQueryFacade';
 import { useState, useEffect } from 'react';
 import { getValue } from '../../src/lib';
-const minimum = gql`
-  query myCart {
-    me {
-      activeCart {
-        cartId: id
-        version
-        lineItems {
-          lineId: id
-          quantity
-        }
-      }
-    }
-  }
-`;
 
 //@todo: we will worry about importing the partials
 //  when the cart route is done
-const createQuery = (expand) =>
-  expand.minimum
-    ? minimum
-    : gql`
+const query = gql`
   query myCart($locale: Locale!) {
     me {
       activeCart {
         cartId: id
         version
-        ${
-          expand.lineItems
-            ? `
         lineItems {
           lineId: id
           name(locale: $locale)
@@ -72,8 +52,6 @@ const createQuery = (expand) =>
               }
             }
           }
-        }`
-            : ''
         }
         totalPrice {
           centAmount
@@ -139,15 +117,9 @@ const createQuery = (expand) =>
 `;
 //this is the React api useQuery(query,options)
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
-const useCart = ({ expand = {}, locale }) => {
+const useCart = ({ locale }) => {
   const [cart, setCart] = useState();
   const [exist, setExist] = useState();
-  const [query, setQuery] = useState(
-    createQuery(getValue(expand))
-  );
-  useEffect(() => {
-    setQuery(createQuery(getValue(expand)));
-  }, [expand]);
 
   const { loading, error } = useQueryFacade(query, {
     variables: { locale },

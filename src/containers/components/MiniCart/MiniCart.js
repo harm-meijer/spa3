@@ -13,9 +13,7 @@ export default {
   },
   setup() {
     const { open, close, isOpen } = useMiniCart();
-    const { cart, loading, error } = useCart({
-      expand: { lineItems: true },
-    });
+    const { cart, loading, error } = useCart();
     return {
       cart,
       loading,

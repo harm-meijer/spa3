@@ -11,9 +11,7 @@ export default {
     CartLike,
   },
   setup() {
-    const { cart, loading, error } = useCart({
-      expand: { lineItems: true },
-    });
+    const { cart, loading, error } = useCart();
     return {
       cart,
       loading,

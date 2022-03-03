@@ -11,9 +11,7 @@ export default {
     PageCheckout,
   },
   setup() {
-    const { cart, loading, error } = useCart({
-      expand: { lineItems: true },
-    });
+    const { cart, loading, error } = useCart();
     const cartReady = computed(
       () => !loading.value && !error.value
     );

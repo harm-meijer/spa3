@@ -105,9 +105,7 @@ const useCartMutation = ({ location, currency }) => {
   const [mutateFunction, { data, loading, error }] =
     useMutation(mutation);
   const [createCart] = useMutation(create);
-  const { cart, exist } = useCart({
-    expand: { minimum: true },
-  });
+  const { cart, exist } = useCart();
   const mutateCart = (actions) => {
     return Promise.resolve()
       .then(() => {

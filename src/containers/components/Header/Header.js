@@ -13,9 +13,7 @@ export default {
   setup() {
     const locale = useLocale();
     const location = useLocation();
-    const { cart, exist } = useCart({
-      expand: { minimum: true },
-    });
+    const { cart, exist } = useCart();
     const search = useSearch();
     const totalCartItems = computed(() =>
       exist.value && cart.value
