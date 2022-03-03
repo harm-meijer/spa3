@@ -1,7 +1,6 @@
 import SlideContent from 'presentation/Banner/SlideContent.js';
 import BannerSlide from 'presentation/Banner/BannerSlide.vue';
-import 'vue3-carousel/dist/carousel.css';
-import { Carousel, Slide } from 'vue3-carousel';
+import { Slide } from 'vue3-carousel';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -16,7 +15,6 @@ export default {
   },
   components: {
     BannerSlide,
-    Carousel,
     Slide,
   },
   data() {
