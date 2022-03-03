@@ -132,8 +132,7 @@
                 <h6>{{ t('free_shipping_head') }}</h6>
                 <p>
                   {{ t('free_shipping_body') }}&nbsp;
-                  <!--TODO: Change currency based on Location, not language -->
-                  {{ t('currency') }}100
+                  {{ freeShippingValue }}
                 </p>
               </div>
             </div>
