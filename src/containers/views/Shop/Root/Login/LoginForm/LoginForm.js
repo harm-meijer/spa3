@@ -8,7 +8,7 @@
 
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import useCustomer, { loginVars } from 'hooks/useCustomer';
+import useCustomer from 'hooks/useCustomer';
 
 export default {
   components: {
@@ -25,9 +25,7 @@ export default {
       password: 'p@ssword',
     });
     const customerSignMeIn = () => {
-      login(
-        loginVars(form.value.email, form.value.password)
-      );
+      login(form.value.email, form.value.password);
     };
     return { form, customerSignMeIn, t };
   },

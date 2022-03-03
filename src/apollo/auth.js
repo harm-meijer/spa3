@@ -18,7 +18,8 @@ export const resetToken = () => {
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
 };
-const getToken = (au) => {
+const group = createGroup(createPromiseSessionCache());
+const getToken = group((au) => {
   const token = localStorage.getItem(ACCESS_TOKEN);
   if (token) {
     return Promise.resolve(token);
@@ -43,14 +44,12 @@ const getToken = (au) => {
     )
     .then(saveToken)
     .catch(handleError);
-};
-const group = createGroup(createPromiseSessionCache());
-const getTokenGrouped = group((auth) => getToken(auth));
+});
 export const handleError = (error) => {
   return Promise.reject(error);
 };
 export const fetchWithToken = (url, options) => {
-  return getTokenGrouped({
+  return getToken({
     id: config.ct.auth.credentials.clientId,
     secret: config.ct.auth.credentials.clientSecret,
     scope: config.ct.auth.scope,
@@ -111,4 +110,29 @@ const refreshToken = group((au) => {
       saveToken(token);
     });
 });
+
+export const login = (email, password) => {
+  const projectKey = config.ct.auth.projectKey;
+  const authUrl = config.ct.auth.host;
+  fetchWithToken(
+    `${authUrl}/oauth/${projectKey}/customers/token`,
+    {
+      body: new URLSearchParams({
+        username: email,
+        password,
+        grant_type: 'password',
+        scope: config.ct.auth.scope,
+      }),
+      method: 'POST',
+    }
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      console.log('response is', response);
+      // eslint-disable-next-line no-debugger
+      debugger;
+      saveToken(response);
+    })
+    .catch((whatNow) => console.log('what now', whatNow));
+};
 export default fetchWithToken;

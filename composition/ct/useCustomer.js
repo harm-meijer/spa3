@@ -2,6 +2,7 @@
 // import { getValue } from '../../src/lib';
 import useMutation from '../useMutationFacade';
 import gql from 'graphql-tag';
+import { login } from '../../src/apollo/auth';
 const loginMutation = gql`
   mutation customerSignMeIn(
     $draft: CustomerSignMeInDraft!
@@ -24,9 +25,10 @@ export const loginVars = (email, password) => ({
 // https://www.apollographql.com/docs/react/api/react/hooks/#function-signature
 const useCartMutation = ({ location, currency } = {}) => {
   false && location && currency;
+  //do we need to do this to transfer cart?
   const [l, { data, loading, error }] =
     useMutation(loginMutation);
-  const login = (variables) => l({ variables });
+  l;
   return {
     data,
     loading,
