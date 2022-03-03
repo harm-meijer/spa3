@@ -114,24 +114,25 @@ const refreshToken = group((au) => {
 export const login = (email, password) => {
   const projectKey = config.ct.auth.projectKey;
   const authUrl = config.ct.auth.host;
-  fetchWithToken(
-    `${authUrl}/oauth/${projectKey}/customers/token`,
-    {
-      body: new URLSearchParams({
-        username: email,
-        password,
-        grant_type: 'password',
-        scope: config.ct.auth.scope,
-      }),
-      method: 'POST',
-    }
-  )
-    .then((response) => response.json())
+  fetch(`${authUrl}/oauth/${projectKey}/customers/token`, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      authorization: `Basic ${localStorage.getItem(
+        ACCESS_TOKEN
+      )}`,
+    },
+    body: new URLSearchParams({
+      username: email,
+      password,
+      grant_type: 'password',
+      scope: config.ct.auth.scope,
+    }),
+    method: 'POST',
+  })
+    // .then((response) => response.json())
     .then((response) => {
       console.log('response is', response);
-      // eslint-disable-next-line no-debugger
-      debugger;
-      saveToken(response);
+      // saveToken(response);
     })
     .catch((whatNow) => console.log('what now', whatNow));
 };
