@@ -7,6 +7,14 @@ import {
 import config from '../../sunrise.config';
 
 const createAuth = (au) => encode(`${au.id}:${au.secret}`);
+const au = {
+  id: config.ct.auth.credentials.clientId,
+  secret: config.ct.auth.credentials.clientSecret,
+  scope: config.ct.auth.scope,
+  projectKey: config.ct.auth.projectKey,
+  authUrl: config.ct.auth.host,
+};
+
 const saveToken = ({ access_token, refresh_token }) => {
   access_token &&
     localStorage.setItem(ACCESS_TOKEN, access_token);
@@ -19,13 +27,13 @@ export const resetToken = () => {
   localStorage.removeItem(REFRESH_TOKEN);
 };
 const group = createGroup(createPromiseSessionCache());
-const getToken = group((au) => {
+const getToken = group(() => {
   const token = localStorage.getItem(ACCESS_TOKEN);
   if (token) {
     return Promise.resolve(token);
   }
-  const auth = createAuth(au);
   const scope = encodeURI(au.scope);
+  const auth = createAuth(au);
   return fetch(
     `${au.authUrl}/oauth/${au.projectKey}/anonymous/token`,
     {
@@ -49,13 +57,7 @@ export const handleError = (error) => {
   return Promise.reject(error);
 };
 export const fetchWithToken = (url, options) => {
-  return getToken({
-    id: config.ct.auth.credentials.clientId,
-    secret: config.ct.auth.credentials.clientSecret,
-    scope: config.ct.auth.scope,
-    projectKey: config.ct.auth.projectKey,
-    authUrl: config.ct.auth.host,
-  }).then((token) => {
+  return getToken().then((token) => {
     return fetch(url, {
       ...options,
       headers: {
@@ -112,28 +114,26 @@ const refreshToken = group((au) => {
 });
 
 export const login = (email, password) => {
-  const projectKey = config.ct.auth.projectKey;
-  const authUrl = config.ct.auth.host;
-  fetch(`${authUrl}/oauth/${projectKey}/customers/token`, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      authorization: `Basic ${localStorage.getItem(
-        ACCESS_TOKEN
-      )}`,
-    },
-    body: new URLSearchParams({
-      username: email,
-      password,
-      grant_type: 'password',
-      scope: config.ct.auth.scope,
-    }),
-    method: 'POST',
-  })
-    // .then((response) => response.json())
+  const auth = createAuth(au);
+  return fetch(
+    `${au.authUrl}/oauth/${au.projectKey}/customers/token`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        authorization: `Basic ${auth}`,
+      },
+      body: new URLSearchParams({
+        username: email,
+        password,
+        grant_type: 'password',
+        scope: config.ct.auth.scope,
+      }),
+      method: 'POST',
+    }
+  )
+    .then((response) => response.json())
     .then((response) => {
-      console.log('response is', response);
-      // saveToken(response);
-    })
-    .catch((whatNow) => console.log('what now', whatNow));
+      saveToken(response);
+    });
 };
 export default fetchWithToken;
