@@ -113,7 +113,7 @@ const refreshToken = group((au) => {
     });
 });
 
-export const login = (email, password) => {
+export const loginToken = (email, password) => {
   const auth = createAuth(au);
   return fetch(
     `${au.authUrl}/oauth/${au.projectKey}/customers/token`,
