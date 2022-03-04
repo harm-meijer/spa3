@@ -12,7 +12,7 @@ export default {
     label: String,
     customErrors: Object,
   },
-  setup(props) {
+  setup() {
     return {};
   },
   computed: {
