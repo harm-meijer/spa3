@@ -10,10 +10,7 @@
 const useCartMutation = ({ location, currency } = {}) => {
   false && location && currency;
   //do we need to do this to transfer cart?
-  return {
-    // login,
-    login: () => console.log('not from here please'),
-  };
+  return {};
 };
 
 export default useCartMutation;

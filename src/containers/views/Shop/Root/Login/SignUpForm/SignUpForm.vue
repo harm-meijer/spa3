@@ -7,7 +7,9 @@
     <h3>{{ t('title') }}</h3>
     <!-- <BaseForm :vuelidate="$v" :onSubmit="customerSignMeUp" #default="{ error }"> -->
     <form @submit.prevent="customerSignMeUp">
-      <!-- <ServerError :error="error" v-slot="{ graphQLError }">{{ getErrorMessage(graphQLError) }}</ServerError> -->
+      <ServerError :error="error" v-slot="{ graphQLError }">
+        {{ getErrorMessage(graphQLError) }}
+      </ServerError>
       <div class="login-register-form">
         <div class="row">
           <div class="col-sm-6 sin-login-register">

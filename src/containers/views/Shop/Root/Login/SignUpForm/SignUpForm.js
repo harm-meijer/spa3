@@ -2,7 +2,7 @@
 // import {
 //   required, email, minLength, sameAs,
 // } from 'vuelidate/lib/validators';
-// import ServerError from '../../common/form/ServerError/ServerError.vue';
+import ServerError from 'containers/components/ServerError/ServerError.vue';
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
@@ -11,7 +11,9 @@ import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 export default {
-  components: {},
+  components: {
+    ServerError,
+  },
   props: {
     tools: {
       type: Object,
@@ -20,6 +22,7 @@ export default {
   },
   setup(props) {
     const { t } = useI18n();
+    const error = shallowRef(null);
     const form = shallowRef({
       firstName: 'First Name',
       lastName: 'Last Name',
@@ -29,9 +32,23 @@ export default {
       agreeToTerms: true,
     });
     const customerSignMeUp = () => {
-      props.tools.tools.signup(form.value);
+      props.tools.tools.signup(form.value).catch((e) => {
+        error.value = e;
+      });
     };
-    return { t, form, customerSignMeUp };
+    const getErrorMessage = ({ code, field }) => {
+      if (code === 'DuplicateField' && field === 'email') {
+        return t('duplicatedEmail');
+      }
+      return t('unknownError');
+    };
+    return {
+      t,
+      form,
+      customerSignMeUp,
+      getErrorMessage,
+      error,
+    };
   },
   // validations: {
   //   form: {

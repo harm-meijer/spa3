@@ -1,6 +1,6 @@
 //@todo: implement vuelidate
 // import { required, email } from 'vuelidate/lib/validators';
-// import ServerError from '../../common/form/ServerError/ServerError.vue';
+import ServerError from 'containers/components/ServerError/ServerError.vue';
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
@@ -13,7 +13,7 @@ export default {
   components: {
     // BaseForm,
     // BaseInput,
-    // ServerError,
+    ServerError,
     // LoadingButton,
   },
   props: {
@@ -23,18 +23,30 @@ export default {
     },
   },
   setup(props) {
+    const error = shallowRef(null);
     const { t } = useI18n();
     const form = shallowRef({
       email: 'emma.noor@commercetools.com',
       password: 'p@ssword',
     });
     const customerSignMeIn = () => {
-      props.tools.tools.login(
-        form.value.email,
-        form.value.password
-      );
+      props.tools.tools
+        .login(form.value.email, form.value.password)
+        .catch((e) => (error.value = e));
     };
-    return { form, customerSignMeIn, t };
+    const getErrorMessage = ({ code }) => {
+      if (code === 'InvalidCredentials') {
+        return t('invalidCredentials');
+      }
+      return t('unknownError');
+    };
+    return {
+      form,
+      customerSignMeIn,
+      t,
+      error,
+      getErrorMessage,
+    };
   },
   // validations: {
   //   form: {

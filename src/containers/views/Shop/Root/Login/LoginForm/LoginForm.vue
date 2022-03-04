@@ -45,12 +45,12 @@
             </button>
           </div>
         </div>
-        <!-- <ServerError
+        <ServerError
           class="mb-20"
           :error="error"
           v-slot="{ graphQLError }"
           >{{ getErrorMessage(graphQLError) }}</ServerError
-        > -->
+        >
         <!-- </BaseForm> -->
       </form>
     </div>

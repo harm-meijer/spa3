@@ -1,5 +1,5 @@
 // import { required } from 'vuelidate/lib/validators';
-// import ServerError from '../../common/form/ServerError/ServerError.vue';
+import ServerError from 'containers/components/ServerError/ServerError.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 
@@ -10,7 +10,7 @@ export default {
   components: {
     // BaseForm,
     // BaseInput,
-    // ServerError,
+    ServerError,
   },
   props: {
     cartLike: {
@@ -21,8 +21,10 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const code = shallowRef('');
+    const error = shallowRef(null);
     const { applyDiscount: ad } = props.cartLike.cartTools;
-    const applyDiscount = () => ad(code.value);
+    const applyDiscount = () =>
+      ad(code.value).catch((e) => (error.value = e));
     const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {
         return t('nonApplicable');
@@ -30,6 +32,12 @@ export default {
       return t('unknownError');
     };
 
-    return { t, applyDiscount, code, getErrorMessage };
+    return {
+      t,
+      applyDiscount,
+      code,
+      getErrorMessage,
+      error,
+    };
   },
 };
