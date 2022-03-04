@@ -8,7 +8,6 @@
 
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import useCustomer from 'hooks/useCustomer';
 
 export default {
   components: {
@@ -17,15 +16,23 @@ export default {
     // ServerError,
     // LoadingButton,
   },
-  setup() {
-    const { login } = useCustomer();
+  props: {
+    tools: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
     const { t } = useI18n();
     const form = shallowRef({
       email: 'emma.noor@commercetools.com',
       password: 'p@ssword',
     });
     const customerSignMeIn = () => {
-      login(form.value.email, form.value.password);
+      props.tools.tools.login(
+        form.value.email,
+        form.value.password
+      );
     };
     return { form, customerSignMeIn, t };
   },

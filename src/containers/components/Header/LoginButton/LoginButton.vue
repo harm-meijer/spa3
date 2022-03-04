@@ -7,21 +7,22 @@
   <div class="header-login component-same ml-10">
     <span v-if="showLoggedIn">
       <!-- @todo: need to implement the profile route -->
-      <!-- <router-link
-        :to="{ name: 'user' }"
+      <!-- :to="{ name: 'user' }" -->
+      <router-link
+        :to="{ name: 'home' }"
         data-test="login-info-name"
       >
         <i class="dl-icon-user12"></i>
         <span class="target-text hidden-xs hidden-sm">{{
           t('myAccount')
         }}</span>
-      </router-link> -->
+      </router-link>
     </span>
-    <span v-if="showLoggedIn" class="hidden-xs">
+    <!-- <span v-if="showLoggedIn" class="hidden-xs">
       <a @click="logout" data-test="logout-button">
         <span>{{ t('signOut') }}</span>
       </a>
-    </span>
+    </span> -->
     <span v-else data-test="login-button">
       <router-link :to="{ name: 'login' }">
         <i class="dl-icon-user12"></i>

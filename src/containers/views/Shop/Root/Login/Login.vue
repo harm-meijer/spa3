@@ -14,7 +14,9 @@
     <div class="container">
       <div class="row login-register-row">
         <div class="col-lg-6 col-md-6">
-          <LoginForm />
+          <CustomerTools v-slot="tools">
+            <LoginForm :tools="tools" />
+          </CustomerTools>
         </div>
         <div class="col-lg-6 col-md-6">
           <!-- <SignUpForm /> -->
