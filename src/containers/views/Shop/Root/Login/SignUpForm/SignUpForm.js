@@ -4,7 +4,7 @@
 // } from 'vuelidate/lib/validators';
 import ServerError from 'containers/components/ServerError/ServerError.vue';
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
-// import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
+import BaseInput from 'containers/components/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 
 import { shallowRef } from 'vue';
@@ -13,6 +13,7 @@ import { useI18n } from 'vue-i18n';
 export default {
   components: {
     ServerError,
+    BaseInput,
   },
   props: {
     tools: {
@@ -42,7 +43,11 @@ export default {
       }
       return t('unknownError');
     };
+    const change = (key, val) => {
+      form.value = { ...form.value, [key]: val };
+    };
     return {
+      change,
       t,
       form,
       customerSignMeUp,

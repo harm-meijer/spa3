@@ -13,10 +13,11 @@
       <div class="login-register-form">
         <div class="row">
           <div class="col-sm-6 sin-login-register">
-            <!-- <BaseInput
-              :vuelidate="$v.form.firstName" -->
-            <input
-              v-model="form.firstName"
+            <!-- :vuelidate="$v.form.firstName" -->
+            <BaseInput
+              :vuelidate="{}"
+              :value="form.firstName"
+              @altered="(v) => change('firstName', v)"
               :label="t('firstName')"
               type="text"
               autocomplete="fname"
@@ -24,10 +25,11 @@
             />
           </div>
           <div class="col-sm-6 sin-login-register">
-            <!-- <BaseInput
-              :vuelidate="$v.form.lastName" -->
-            <input
-              v-model="form.lastName"
+            <!-- :vuelidate="$v.form.lastName" -->
+            <BaseInput
+              :vuelidate="{}"
+              :value="form.lastName"
+              @altered="(v) => change('lastName', v)"
               :label="t('secondName')"
               type="text"
               autocomplete="lname"
@@ -37,10 +39,11 @@
         </div>
         <div class="row">
           <div class="col-sm-12 sin-login-register">
-            <!-- <BaseInput
-              :vuelidate="$v.form.email" -->
-            <input
-              v-model="form.email"
+            <!-- :vuelidate="$v.form.email" -->
+            <BaseInput
+              :vuelidate="{}"
+              :value="form.email"
+              @altered="(v) => change('email', v)"
               :label="t('email')"
               type="email"
               autocomplete="username"
@@ -50,10 +53,11 @@
         </div>
         <div class="row">
           <div class="col-sm-6 sin-login-register">
-            <!-- <BaseInput
-              :vuelidate="$v.form.password" -->
-            <input
-              v-model="form.password"
+            <!-- :vuelidate="$v.form.password" -->
+            <BaseInput
+              :vuelidate="{}"
+              :value="form.password"
+              @altered="(v) => change('password', v)"
               :label="t('password')"
               type="password"
               autocomplete="off"
@@ -61,11 +65,12 @@
             />
           </div>
           <div class="col-sm-6 sin-login-register">
-            <!-- <BaseInput
-              :vuelidate="$v.form.repeatPassword"
+            <!-- :vuelidate="$v.form.repeatPassword"
               :customErrors="{ sameAsPassword: t('repeatPasswordError') }" -->
-            <input
-              v-model="form.repeatPassword"
+            <BaseInput
+              :vuelidate="{}"
+              :value="form.repeatPassword"
+              @altered="(v) => change('repeatPassword', v)"
               :label="t('repeatPassword')"
               type="password"
               autocomplete="off"
@@ -80,11 +85,12 @@
         <!--</div>-->
         <div class="row">
           <div class="col-sm-12 agree-to-terms">
-            <!-- <BaseInput
-              :vuelidate="$v.form.agreeToTerms"
+            <!-- :vuelidate="$v.form.agreeToTerms"
               :customErrors="{ mustBeAgreed: t('agreeToTermsError') }" -->
-            <input
-              v-model="form.agreeToTerms"
+            <BaseInput
+              :vuelidate="{}"
+              :value="form.agreeToTerms"
+              @altered="(v) => change('agreeToTerms', v)"
               :label="t('agreeTo')"
               type="checkbox"
               autocomplete="off"
