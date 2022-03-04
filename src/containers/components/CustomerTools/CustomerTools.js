@@ -9,6 +9,41 @@ export const loginVars = (email, password) => ({
     password,
   },
 });
+const signup = (form) => {
+  return apolloClient
+    .mutate({
+      mutation: gql`
+        mutation customerSignMeUp(
+          $draft: CustomerSignMeUpDraft!
+        ) {
+          customerSignMeUp(draft: $draft) {
+            customer {
+              id
+            }
+          }
+        }
+      `,
+      variables: {
+        draft: {
+          email: form.email,
+          password: form.password,
+          firstName: form.firstName,
+          lastName: form.lastName,
+        },
+      },
+    })
+    .then((data) => {
+      loginToken(form.email, form.password);
+      return data;
+    })
+    .then((result) => {
+      const id = result.data.customerSignMeUp.customer.id;
+      localStorage.setItem(CUSTOMER_ID, id);
+      customer.value = id;
+      () => cache.reset();
+      return result;
+    });
+};
 const login = (email, password) =>
   apolloClient
     .mutate({
@@ -46,6 +81,7 @@ export default {
     );
     const tools = {
       login,
+      signup,
       showLoggedIn,
     };
     return { tools };

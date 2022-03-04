@@ -19,7 +19,9 @@
           </CustomerTools>
         </div>
         <div class="col-lg-6 col-md-6">
-          <!-- <SignUpForm /> -->
+          <CustomerTools v-slot="tools">
+            <SignUpForm :tools="tools" />
+          </CustomerTools>
         </div>
       </div>
     </div>
