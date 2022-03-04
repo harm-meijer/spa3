@@ -1,6 +1,7 @@
-import SlideContent from 'presentation/Banner/SlideContent.js';
 import BannerSlide from 'presentation/Banner/BannerSlide.vue';
-import { Slide } from 'vue3-carousel';
+
+import { VueperSlides, VueperSlide } from 'vueperslides';
+import 'vueperslides/dist/vueperslides.css';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -15,11 +16,11 @@ export default {
   },
   components: {
     BannerSlide,
-    Slide,
+    VueperSlides,
+    VueperSlide,
   },
-  data() {
-    return {
-      slides: SlideContent,
-    };
-  },
+  data: () => ({
+    autoPlaying: true,
+    internalAutoPlaying: true,
+  }),
 };
