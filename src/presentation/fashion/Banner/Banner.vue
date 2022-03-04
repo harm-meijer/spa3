@@ -8,6 +8,8 @@
       class="slider-area"
       :arrows="false"
       :pause-on-hover="false"
+      :fade="true"
+      :bulletsOutside="true"
     >
       <vueper-slide v-for="i of 2" :key="i">
         <template v-slot:content>
@@ -28,8 +30,8 @@
                     <!--<h3 class="animated">{{t("midSeasonSale")}}</h3>
                 <h1 class="animated">{{t("up50")}}</h1>-->
                     <h3 class="animated">
-                      <!-- {{ h3Message }}-->
-                      Mockup test
+                      <!--{{ h3Message }} -->
+                      Mockup test message
                     </h3>
                     <!-- <h1 class="animated">
                     {{ h1Message }}
