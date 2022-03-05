@@ -16,8 +16,7 @@
             <!-- :vuelidate="$v.form.firstName" -->
             <BaseInput
               :vuelidate="{}"
-              :value="form.firstName"
-              @altered="(v) => change('firstName', v)"
+              v-model="form.firstName"
               :label="t('firstName')"
               type="text"
               autocomplete="fname"
@@ -28,8 +27,7 @@
             <!-- :vuelidate="$v.form.lastName" -->
             <BaseInput
               :vuelidate="{}"
-              :value="form.lastName"
-              @altered="(v) => change('lastName', v)"
+              v-model="form.lastName"
               :label="t('secondName')"
               type="text"
               autocomplete="lname"
@@ -42,7 +40,7 @@
             <!-- :vuelidate="$v.form.email" -->
             <BaseInput
               :vuelidate="{}"
-              :value="form.email"
+              v-model="form.email"
               @altered="(v) => change('email', v)"
               :label="t('email')"
               type="email"
@@ -56,7 +54,7 @@
             <!-- :vuelidate="$v.form.password" -->
             <BaseInput
               :vuelidate="{}"
-              :value="form.password"
+              v-model="form.password"
               @altered="(v) => change('password', v)"
               :label="t('password')"
               type="password"
@@ -69,7 +67,7 @@
               :customErrors="{ sameAsPassword: t('repeatPasswordError') }" -->
             <BaseInput
               :vuelidate="{}"
-              :value="form.repeatPassword"
+              v-model="form.repeatPassword"
               @altered="(v) => change('repeatPassword', v)"
               :label="t('repeatPassword')"
               type="password"
@@ -89,7 +87,7 @@
               :customErrors="{ mustBeAgreed: t('agreeToTermsError') }" -->
             <BaseInput
               :vuelidate="{}"
-              :value="form.agreeToTerms"
+              v-model="form.agreeToTerms"
               @altered="(v) => change('agreeToTerms', v)"
               :label="t('agreeTo')"
               type="checkbox"
