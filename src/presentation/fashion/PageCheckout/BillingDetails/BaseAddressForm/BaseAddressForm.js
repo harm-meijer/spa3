@@ -1,4 +1,4 @@
-// import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
+import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 // import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 import { ref, watch } from 'vue';
@@ -14,7 +14,7 @@ export default {
   },
   components: {
     // BaseForm,
-    // BaseInput,
+    BaseInput,
     // BaseSelect,
   },
   setup(_, { emit }) {

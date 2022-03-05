@@ -1,7 +1,7 @@
 // import { required } from 'vuelidate/lib/validators';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
-// import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
+import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 export default {
   components: {
     // BaseForm,
-    // BaseInput,
+    BaseInput,
     ServerError,
   },
   props: {

@@ -1,4 +1,3 @@
-// import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseAddressForm from '../BaseAddressForm/BaseAddressForm.vue';
 import { computed, shallowRef, watch } from 'vue';
@@ -19,7 +18,6 @@ export default {
   components: {
     // BaseForm,
     BaseAddressForm,
-    // BaseInput,
   },
   setup(_, { emit }) {
     const { t } = useI18n({

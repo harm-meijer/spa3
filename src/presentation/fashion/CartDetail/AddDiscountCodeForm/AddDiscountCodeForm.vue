@@ -7,16 +7,9 @@
   <form @submit.prevent="applyDiscount">
     <div class="discount-code">
       <!-- <input type="text" required name="name" :placeholder="t('code')" /> -->
-      <!-- <BaseInput
-        v-model="form.code"
-        :vuelidate="$v.form.code"
-        :placeholder="t('code')"
-        type="text"
-        id="promo-code"
-        data-test="discount-code-input"
-      /> -->
-      <input
+      <BaseInput
         v-model="code"
+        :vuelidate="{}"
         :placeholder="t('code')"
         type="text"
         id="promo-code"

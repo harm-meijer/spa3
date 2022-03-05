@@ -10,9 +10,9 @@
       <!-- #default="{ error }" -->
       <form @submit.prevent="customerSignMeIn">
         <div class="sin-login-register">
-          <!-- <BaseInput -->
           <!-- :vuelidate="$v.form.email" -->
-          <input
+          <BaseInput
+            :vuelidate="{}"
             v-model="form.email"
             :label="t('email')"
             type="email"
@@ -21,9 +21,9 @@
           />
         </div>
         <div class="sin-login-register">
-          <!-- <BaseInput -->
           <!-- :vuelidate="$v.form.password" -->
-          <input
+          <BaseInput
+            :vuelidate="{}"
             v-model="form.password"
             :label="t('password')"
             type="password"
