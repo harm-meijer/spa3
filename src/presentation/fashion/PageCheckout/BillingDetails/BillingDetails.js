@@ -1,7 +1,6 @@
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseAddressForm from '../BaseAddressForm/BaseAddressForm.vue';
-// import ServerError from '../../common/form/ServerError/ServerError.vue';
 import { computed, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import BaseAddressForm from './BaseAddressForm/BaseAddressForm.vue';
@@ -18,7 +17,6 @@ export default {
     },
   },
   components: {
-    // ServerError,
     // BaseForm,
     BaseAddressForm,
     // BaseInput,

@@ -6,7 +6,6 @@ import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 import { shallowRef, watch } from 'vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
-// import ServerError from '../../common/form/ServerError/ServerError.vue';
 // import MONEY_FRAGMENT from '../../Money.gql';
 // import { locale } from '../../common/shared';
 export default {
@@ -42,7 +41,6 @@ export default {
   },
   components: {
     // BaseLabel,
-    // ServerError,
     // BaseForm,
     BaseMoney,
     // BaseRadio,
