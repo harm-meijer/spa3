@@ -1,5 +1,5 @@
 // import { required } from 'vuelidate/lib/validators';
-import ServerError from 'containers/components/ServerError/ServerError.vue';
+import ServerError from 'presentation/components/ServerError/ServerError.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
 

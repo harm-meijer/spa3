@@ -2,9 +2,9 @@
 // import {
 //   required, email, minLength, sameAs,
 // } from 'vuelidate/lib/validators';
-import ServerError from 'containers/components/ServerError/ServerError.vue';
+import ServerError from 'presentation/components/ServerError/ServerError.vue';
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
-import BaseInput from 'containers/components/BaseInput/BaseInput.vue';
+import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 
 import { shallowRef } from 'vue';
