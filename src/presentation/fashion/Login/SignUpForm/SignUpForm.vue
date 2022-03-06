@@ -6,7 +6,11 @@
   <div class="login-register-wrap register-wrap">
     <h3>{{ t('title') }}</h3>
     <!-- <BaseForm :vuelidate="$v" :onSubmit="customerSignMeUp" #default="{ error }"> -->
-    <form @submit.prevent="customerSignMeUp">
+    <BaseForm
+      :vuelidate="{}"
+      :onSubmit="customerSignMeUp"
+      #default="{ error }"
+    >
       <ServerError :error="error" v-slot="{ graphQLError }">
         {{ getErrorMessage(graphQLError) }}
       </ServerError>
@@ -102,7 +106,6 @@
           </button>
         </div>
       </div>
-    </form>
-    <!-- </BaseForm> -->
+    </BaseForm>
   </div>
 </template>

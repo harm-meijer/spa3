@@ -5,7 +5,7 @@
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
-// import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
+import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -14,6 +14,7 @@ export default {
   components: {
     ServerError,
     BaseInput,
+    BaseForm,
   },
   props: {
     tools: {
@@ -23,7 +24,6 @@ export default {
   },
   setup(props) {
     const { t } = useI18n();
-    const error = shallowRef(null);
     const form = shallowRef({
       firstName: 'First Name',
       lastName: 'Last Name',
@@ -32,11 +32,9 @@ export default {
       repeatPassword: 'p@ssword',
       agreeToTerms: true,
     });
-    const customerSignMeUp = () => {
-      props.tools.tools.signup(form.value).catch((e) => {
-        error.value = e;
-      });
-    };
+    const customerSignMeUp = () =>
+      props.tools.tools.signup(form.value);
+
     const getErrorMessage = ({ code, field }) => {
       if (code === 'DuplicateField' && field === 'email') {
         return t('duplicatedEmail');
@@ -52,7 +50,6 @@ export default {
       form,
       customerSignMeUp,
       getErrorMessage,
-      error,
     };
   },
   // validations: {
