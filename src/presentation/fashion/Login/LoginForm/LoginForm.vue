@@ -8,7 +8,11 @@
       <!-- <BaseForm :onSubmit-->
       <!-- :vuelidate="$v" -->
       <!-- #default="{ error }" -->
-      <form @submit.prevent="customerSignMeIn">
+      <BaseForm
+        :vuelidate="{}"
+        :onSubmit="customerSignMeIn"
+        #default="{ error }"
+      >
         <div class="sin-login-register">
           <!-- :vuelidate="$v.form.email" -->
           <BaseInput
@@ -51,8 +55,7 @@
           v-slot="{ graphQLError }"
           >{{ getErrorMessage(graphQLError) }}</ServerError
         >
-        <!-- </BaseForm> -->
-      </form>
+      </BaseForm>
     </div>
   </div>
 </template>
