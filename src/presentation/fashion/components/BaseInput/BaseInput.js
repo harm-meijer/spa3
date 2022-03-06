@@ -28,13 +28,12 @@ export default {
           : e.target.value
       );
     };
-    return { updateValue, value, checked };
-  },
-  computed: {
-    errorClass() {
+    const errorClass = computed(() => {
       //@todo: implement vuelidate
       // return { error: this.vuelidate?.$error };
       return { error: null };
-    },
+    });
+
+    return { updateValue, value, checked, errorClass };
   },
 };

@@ -12,7 +12,7 @@
         {{ label }}
         <span
           v-if="required"
-          :title="$t('required')"
+          :title="t('required')"
           class="field-required"
           data-test="form-label-required"
         >
