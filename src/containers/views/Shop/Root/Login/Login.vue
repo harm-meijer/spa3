@@ -1,29 +1,5 @@
-<i18n src="./Login.txt" lang="yaml"></i18n>
-<style src="./Login.scss" lang="scss"></style>
 <script src="./Login.js"></script>
 
 <template>
-  <div
-    class="
-      login-register-area
-      section-padding-1
-      pt-50
-      pb-100
-    "
-  >
-    <div class="container">
-      <div class="row login-register-row">
-        <div class="col-lg-6 col-md-6">
-          <CustomerTools v-slot="tools">
-            <LoginForm :tools="tools" />
-          </CustomerTools>
-        </div>
-        <div class="col-lg-6 col-md-6">
-          <CustomerTools v-slot="tools">
-            <SignUpForm :tools="tools" />
-          </CustomerTools>
-        </div>
-      </div>
-    </div>
-  </div>
+  <LoginPresentation />
 </template>

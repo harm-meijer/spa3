@@ -4,8 +4,6 @@ import ServerError from 'presentation/components/ServerError/ServerError.vue';
 
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
-// import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
-//@todo: make a CartLike component for customer profile and editing
 
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
