@@ -4,11 +4,15 @@
 
 <template>
   <div class="product-dec-action-wrap pro-dec-action-2">
-    <form
+    <BaseForm
       v-if="isOnStock"
-      ref="form"
-      v-on:submit.prevent="addLineItem"
+      :vuelidate="{}"
+      :onSubmit="addLineItem"
+      #default="{ error }"
     >
+      <ServerError :error="error" class="server-error">{{
+        'unknownError'
+      }}</ServerError>
       <div class="quality-cart-wrap">
         <div class="quality-wrap">
           <input
@@ -41,7 +45,7 @@
           })
         }}
       </div>
-    </form>
+    </BaseForm>
 
     <div v-else>
       <div class="pro-cart-wrap">
