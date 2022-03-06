@@ -5,7 +5,7 @@
 <template>
   <div class="login-register-wrap register-wrap">
     <h3>{{ t('title') }}</h3>
-    <!-- <BaseForm :vuelidate="$v" :onSubmit="customerSignMeUp" #default="{ error }"> -->
+    <!-- :vuelidate="$v" -->
     <BaseForm
       :vuelidate="{}"
       :onSubmit="customerSignMeUp"
