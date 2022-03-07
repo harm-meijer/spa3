@@ -21,18 +21,18 @@ export default {
     internalAutoPlaying: true,
     slides: [
       {
-        id: 1,
         title: 'Slide 1',
         content: {
+          bgImage: 'banner1.jpg',
           h3Message: 'midSeasonSale',
           h1Message: 'up50',
           bttnText: 'shopNow',
         },
       },
       {
-        id: 2,
         title: 'Slide 2',
         content: {
+          bgImage: 'banner2.jpg',
           h3Message: 'checkout',
           h1Message: 'newCollection',
           bttnText: 'shopNow',
