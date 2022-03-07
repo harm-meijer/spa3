@@ -32,7 +32,7 @@ export default {
     },
     selectedShippingMethod: {
       type: String,
-      required: true,
+      required: false,
     },
     setSelectedShippingMethod: {
       type: Function,
