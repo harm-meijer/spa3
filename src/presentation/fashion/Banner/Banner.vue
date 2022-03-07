@@ -1,4 +1,5 @@
 <script src="./Banner.js" />
+<style src="./Banner.scss" lang="scss"></style>
 <i18n src="./Banner.txt" lang="yaml"></i18n>
 
 <template>
@@ -30,10 +31,10 @@
                     <!--<h3 class="animated">{{t("midSeasonSale")}}</h3>
                 <h1 class="animated">{{t("up50")}}</h1>-->
                     <h3 class="animated">
-                      {{ slide.content.h3Message }}
+                      {{ t(slide.content.h3Message) }}
                     </h3>
                     <h1 class="animated">
-                      {{ slide.content.h1Message }}
+                      {{ t(slide.content.h1Message) }}
                     </h1>
                     <div class="slider-btn-1">
                       <router-link
@@ -41,7 +42,7 @@
                         class="animated"
                         ><!--{t("shopNow")}}-->
                         {{
-                          slide.content.bttnText
+                          t(slide.content.bttnText)
                         }}</router-link
                       >
                     </div>

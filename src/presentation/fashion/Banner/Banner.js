@@ -1,4 +1,3 @@
-import BannerSlide from 'presentation/Banner/BannerSlide.vue';
 import { VueperSlides, VueperSlide } from 'vueperslides';
 import 'vueperslides/dist/vueperslides.css';
 import { useI18n } from 'vue-i18n';
@@ -14,7 +13,6 @@ export default {
     };
   },
   components: {
-    BannerSlide,
     VueperSlides,
     VueperSlide,
   },
@@ -26,22 +24,19 @@ export default {
         id: 1,
         title: 'Slide 1',
         content: {
-          h3Message: 'h3msg1',
-          h1Message: 'h1msg1',
+          h3Message: 'midSeasonSale',
+          h1Message: 'up50',
           bttnText: 'shopNow',
         },
-
-        message: ' This is slide 1 message',
       },
       {
         id: 2,
         title: 'Slide 2',
         content: {
-          h3Message: 'h3msg 2',
-          h1Message: 'h1msg 2',
+          h3Message: 'checkout',
+          h1Message: 'newCollection',
           bttnText: 'shopNow',
         },
-        message: 'this is slide 2 message',
       },
     ],
   }),
