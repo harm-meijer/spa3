@@ -9,7 +9,7 @@
       <!-- @todo: need to implement the profile route -->
       <!-- :to="{ name: 'user' }" -->
       <router-link
-        :to="{ name: 'home' }"
+        :to="{ name: 'user' }"
         data-test="login-info-name"
       >
         <i class="dl-icon-user12"></i>
