@@ -4,6 +4,10 @@ import Footer from 'presentation/Footer/Footer.vue';
 import Products from 'containers/views/Shop/Root/Products/Products.vue';
 import Product from 'containers/views/Shop/Root/Product/Product.vue';
 import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
+import Login from 'containers/views/Shop/Root/Login/Login.vue';
+import Home from 'containers/views/Shop/Root/Home/Home.vue';
+
+const requiresAuth = true;
 export default [
   {
     path: 'products/:categorySlug/:page?',
@@ -32,5 +36,56 @@ export default [
       header: Header,
       footer: Footer,
     },
+  },
+  {
+    path: 'login',
+    name: 'login',
+    components: {
+      default: Login,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  {
+    path: 'user',
+    meta: { requiresAuth },
+    components: {
+      default: Home,
+      header: Header,
+      footer: Footer,
+    },
+    children: [
+      {
+        path: 'dashboard',
+        alias: '',
+        name: 'user',
+        component: Home,
+      },
+      {
+        path: 'order/:id',
+        name: 'order',
+        component: Home,
+      },
+      {
+        path: 'return/:id',
+        name: 'return',
+        component: Home,
+      },
+      {
+        path: 'orders/:page?',
+        name: 'orders',
+        component: Home,
+      },
+      {
+        path: 'account',
+        name: 'account',
+        component: Home,
+      },
+      {
+        path: 'changepassword',
+        name: 'changepassword',
+        component: Home,
+      },
+    ],
   },
 ];

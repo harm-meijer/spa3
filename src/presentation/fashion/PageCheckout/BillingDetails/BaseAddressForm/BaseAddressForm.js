@@ -1,8 +1,7 @@
-// import BaseInput from '../../common/form/BaseInput/BaseInput.vue';
+import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 // import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
-// import ServerError from '../../common/form/ServerError/ServerError.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 // import config from '../../../../../../../../../sunrise.config';
 
@@ -15,8 +14,7 @@ export default {
   },
   components: {
     // BaseForm,
-    // ServerError,
-    // BaseInput,
+    BaseInput,
     // BaseSelect,
   },
   setup(_, { emit }) {
@@ -32,42 +30,17 @@ export default {
       },
       { deep: true }
     );
-    return { t, form };
+    const validForm = computed(() => {
+      // @todo: use vuelidate
+      // return !this.$v.$invalid;
+      return true;
+    });
+    watch(validForm, (validForm) => {
+      emit('valid-form', validForm);
+    });
+
+    return { t, form, validForm };
   },
-  // watch: {
-  //   validForm() {
-  //     this.$emit('valid-form', this.validForm);
-  //   },
-  // },
-  computed: {
-    // countries() {
-    //   const configCountries = config.countries;
-    //   const countries = configCountries
-    //     ? Object.entries(configCountries).filter(
-    //         ([id]) => id === this.$route.params.country
-    //       )
-    //     : [];
-    //   return countries.map(([id, name]) => ({ id, name }));
-    // },
-    // validForm() {
-    //   // @todo: use vuelidate
-    //   // return !this.$v.$invalid;
-    //   return true;
-    // },
-  },
-  // created() {
-  //   if (this.address) {
-  //     const { contactInfo, ...address } = this.address;
-  //     this.form.value = { ...contactInfo, ...address };
-  //     delete this.form.__typename;
-  //   }
-  //   if (!this.form.country) {
-  //     this.form.value = {
-  //       ...this.form,
-  //       country: this.$route.params.country,
-  //     };
-  //   }
-  // },
   //@todo: need vuelidata validation
   // validations: {
   //   form: {

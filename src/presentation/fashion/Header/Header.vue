@@ -88,7 +88,9 @@
                         <i class="dl-icon-search10"></i>
                       </a>
                     </div>
-                    <!-- <LoginButton /> -->
+                    <CustomerTools v-slot="tools">
+                      <LoginButton :tools="tools" />
+                    </CustomerTools>
                     <div
                       class="cart-wrap component-same ml-10"
                     >

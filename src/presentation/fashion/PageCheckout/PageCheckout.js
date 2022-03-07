@@ -1,5 +1,6 @@
 import BillingDetails from './BillingDetails/BillingDetails.vue';
 import OrderOverview from './OrderOverview/OrderOverview.vue';
+import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import CartLike from 'containers/components/CartLike/CartLike.vue';
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -11,6 +12,7 @@ export default {
     OrderOverview,
     BillingDetails,
     CartLike,
+    ServerError,
   },
   props: {
     cartLike: {
@@ -32,6 +34,7 @@ export default {
     const validBillingForm = shallowRef(false);
     const validShippingForm = shallowRef(true);
     const showError = shallowRef(false);
+    const error = shallowRef(null);
 
     const placeOrder = () => {
       props.cartLike.cartTools
@@ -39,7 +42,12 @@ export default {
           billingAddress,
           shippingAddress,
         })
-        .then(() => (orderComplete.value = true));
+        .then(
+          () => (orderComplete.value = true),
+          (e) => {
+            error.value = e;
+          }
+        );
     };
     if (!props.cart) {
       router.replace({ name: 'home' });
@@ -79,6 +87,7 @@ export default {
       updateBilling,
       updateShipping,
       updateShippingMethod,
+      error,
       t,
     };
   },

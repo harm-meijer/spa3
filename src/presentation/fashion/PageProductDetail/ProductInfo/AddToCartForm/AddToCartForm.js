@@ -1,5 +1,7 @@
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
+import ServerError from 'presentation/components/ServerError/ServerError.vue';
 
 export default {
   name: 'AddToCartForm',
@@ -24,6 +26,10 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    BaseForm,
+    ServerError,
   },
   setup(props) {
     const { t } = useI18n();

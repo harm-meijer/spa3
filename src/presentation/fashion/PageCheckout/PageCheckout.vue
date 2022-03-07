@@ -31,6 +31,11 @@
                   :cartLike="cartLike"
                 />
               </CartLike>
+              <ServerError
+                :error="error"
+                class="server-error"
+                >{{ 'unknownError' }}</ServerError
+              >
             </div>
           </div>
         </div>

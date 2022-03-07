@@ -7,6 +7,14 @@ import {
 import config from '../../sunrise.config';
 
 const createAuth = (au) => encode(`${au.id}:${au.secret}`);
+const au = {
+  id: config.ct.auth.credentials.clientId,
+  secret: config.ct.auth.credentials.clientSecret,
+  scope: config.ct.auth.scope,
+  projectKey: config.ct.auth.projectKey,
+  authUrl: config.ct.auth.host,
+};
+
 const saveToken = ({ access_token, refresh_token }) => {
   access_token &&
     localStorage.setItem(ACCESS_TOKEN, access_token);
@@ -18,13 +26,14 @@ export const resetToken = () => {
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
 };
-const getToken = (au) => {
+const group = createGroup(createPromiseSessionCache());
+const getToken = group(() => {
   const token = localStorage.getItem(ACCESS_TOKEN);
   if (token) {
     return Promise.resolve(token);
   }
-  const auth = createAuth(au);
   const scope = encodeURI(au.scope);
+  const auth = createAuth(au);
   return fetch(
     `${au.authUrl}/oauth/${au.projectKey}/anonymous/token`,
     {
@@ -43,42 +52,40 @@ const getToken = (au) => {
     )
     .then(saveToken)
     .catch(handleError);
-};
-const group = createGroup(createPromiseSessionCache());
-const getTokenGrouped = group((auth) => getToken(auth));
+});
 export const handleError = (error) => {
   return Promise.reject(error);
 };
 export const fetchWithToken = (url, options) => {
-  return getTokenGrouped({
-    id: config.ct.auth.credentials.clientId,
-    secret: config.ct.auth.credentials.clientSecret,
-    scope: config.ct.auth.scope,
-    projectKey: config.ct.auth.projectKey,
-    authUrl: config.ct.auth.host,
-  }).then((token) => {
+  return getToken().then((token) => {
     return fetch(url, {
       ...options,
       headers: {
         ...options.headers,
         authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      //@todo: a change may not produce 401 for brute force token trying
-      //  see how we can catch an invalid token instead
-      if (response.status === 401) {
-        return refreshToken({
-          id: config.ct.auth.credentials.clientId,
-          secret: config.ct.auth.credentials.clientSecret,
-          scope: config.ct.auth.scope,
-          projectKey: config.ct.auth.projectKey,
-          authUrl: config.ct.auth.host,
-        }).then(() => {
-          return fetchWithToken(url, options);
-        });
+    }).then(
+      (response) => {
+        //@todo: a change may not produce 401 for brute force token trying
+        //  see how we can catch an invalid token instead
+        if (response.status === 401) {
+          return refreshToken({
+            id: config.ct.auth.credentials.clientId,
+            secret: config.ct.auth.credentials.clientSecret,
+            scope: config.ct.auth.scope,
+            projectKey: config.ct.auth.projectKey,
+            authUrl: config.ct.auth.host,
+          }).then(() => {
+            return fetchWithToken(url, options);
+          });
+        }
+        return response;
+      },
+      (error) => {
+        resetToken();
+        return Promise.reject(error);
       }
-      return response;
-    });
+    );
   }, handleError);
 };
 const refreshToken = group((au) => {
@@ -98,7 +105,35 @@ const refreshToken = group((au) => {
   })
     .then((response) => response.json())
     .then((token) => {
+      if (token?.error) {
+        resetToken();
+        return Promise.reject(token.error);
+      }
       saveToken(token);
     });
 });
+
+export const loginToken = (email, password) => {
+  const auth = createAuth(au);
+  return fetch(
+    `${au.authUrl}/oauth/${au.projectKey}/customers/token`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        authorization: `Basic ${auth}`,
+      },
+      body: new URLSearchParams({
+        username: email,
+        password,
+        grant_type: 'password',
+        scope: config.ct.auth.scope,
+      }),
+      method: 'POST',
+    }
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      saveToken(response);
+    });
+};
 export default fetchWithToken;
