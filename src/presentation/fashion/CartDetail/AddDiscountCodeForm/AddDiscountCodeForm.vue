@@ -3,20 +3,16 @@
 <script src="./AddDiscountCodeForm.js"></script>
 
 <template>
-  <!-- <BaseForm :vuelidate="$v" :onSubmit="addDiscountCode" #default="{ error }"> -->
-  <form @submit.prevent="applyDiscount">
+  <!-- @todo: use vuelidate -->
+  <BaseForm
+    :vuelidate="{}"
+    :onSubmit="applyDiscount"
+    #default="{ error }"
+  >
     <div class="discount-code">
-      <!-- <input type="text" required name="name" :placeholder="t('code')" /> -->
-      <!-- <BaseInput
-        v-model="form.code"
-        :vuelidate="$v.form.code"
-        :placeholder="t('code')"
-        type="text"
-        id="promo-code"
-        data-test="discount-code-input"
-      /> -->
-      <input
+      <BaseInput
         v-model="code"
+        :vuelidate="{}"
         :placeholder="t('code')"
         type="text"
         id="promo-code"
@@ -30,11 +26,11 @@
         {{ t('apply') }}
       </button>
     </div>
-    <!-- <ServerError
+    <ServerError
       :error="error"
       v-slot="{ graphQLError }"
       class="server-error"
-    >{{ getErrorMessage(graphQLError) }}</ServerError> -->
-    <!-- </BaseForm> -->
-  </form>
+      >{{ getErrorMessage(graphQLError) }}</ServerError
+    >
+  </BaseForm>
 </template>

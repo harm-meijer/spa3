@@ -1,4 +1,5 @@
 <script src="./VariantSelector.js"></script>
+<i18n src="./VariantSelector.txt" lang="yaml"></i18n>
 
 <template>
   <div>
@@ -11,7 +12,9 @@
         :key="label"
       >
         <div class="pro-details-size">
-          <span style="margin-left: 3px">{{ label }}</span>
+          <span style="margin-left: 3px">{{
+            t(label)
+          }}</span>
           <select
             v-on:change="changeAndSet(label, $event)"
             class="select-product-detail"
