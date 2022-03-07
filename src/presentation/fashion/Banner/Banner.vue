@@ -11,11 +11,11 @@
       :fade="true"
       :bulletsOutside="true"
     >
-      <vueper-slide v-for="i of 2" :key="i">
-        <template v-slot:content>
+      <vueper-slide v-for="(slide, i) in slides" :key="i">
+        <template v-slot:content="">
           <div
             class="single-slider bg-img slider-height-2 align-items-center custom-d-flex"
-            :style="`background-image:url(${require(`presentation/assets/img/banner${i}.jpg`)});`"
+            :style="`background-image:url(${require(`presentation/assets/img/banner${slide.id}.jpg`)});`"
           >
             <div class="container">
               <div
@@ -30,19 +30,21 @@
                     <!--<h3 class="animated">{{t("midSeasonSale")}}</h3>
                 <h1 class="animated">{{t("up50")}}</h1>-->
                     <h3 class="animated">
-                      <!--{{ h3Message }} -->
-                      Mockup test message
+                      {{ slide.content.h3Message }}
                     </h3>
-                    <!-- <h1 class="animated">
-                    {{ h1Message }}
-                  </h1>
-                  <div class="slider-btn-1">
-                    <router-link
-                      :to="{ name: 'home' }"
-                      class="animated"
-
-                      {{ bttnText }}</router-link
-                    >-->
+                    <h1 class="animated">
+                      {{ slide.content.h1Message }}
+                    </h1>
+                    <div class="slider-btn-1">
+                      <router-link
+                        :to="{ name: 'home' }"
+                        class="animated"
+                        ><!--{t("shopNow")}}-->
+                        {{
+                          slide.content.bttnText
+                        }}</router-link
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
