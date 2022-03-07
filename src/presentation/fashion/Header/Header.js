@@ -1,5 +1,5 @@
 // import CategoriesMenu from "../CategoriesMenu";
-import LoginButton from 'containers/components/Header/LoginButton/LoginButton.vue';
+import LoginButton from './LoginButton/LoginButton.vue';
 import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue';
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
 
