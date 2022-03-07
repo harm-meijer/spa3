@@ -7,7 +7,6 @@ import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
 import Login from 'containers/views/Shop/Root/Login/Login.vue';
 import Home from 'containers/views/Shop/Root/Home/Home.vue';
 
-//@todo: implement router.beforeEach to redirect to login
 const requiresAuth = true;
 export default [
   {

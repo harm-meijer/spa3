@@ -71,7 +71,7 @@ const login = (email, password) =>
       () => cache.reset();
       return result;
     });
-const CUSTOMER_ID = 'CUSTOMER_ID';
+export const CUSTOMER_ID = 'CUSTOMER_ID';
 const customer = ref(localStorage.getItem(CUSTOMER_ID));
 export default {
   name: 'CustomerTools',
