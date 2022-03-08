@@ -1,7 +1,11 @@
 import gql from 'graphql-tag';
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { apolloClient, cache } from '../../../apollo';
-import { loginToken, logout } from '../../../apollo/auth';
+import {
+  loginToken,
+  logout as lo,
+} from '../../../apollo/auth';
 import { CUSTOMER_ID } from '../../../constants';
 
 export const loginVars = (email, password) => ({
@@ -45,7 +49,7 @@ const signup = (form) => {
       return result;
     });
 };
-const login = (email, password) =>
+const li = (email, password) =>
   apolloClient
     .mutate({
       mutation: gql`
@@ -76,9 +80,20 @@ const customer = ref(localStorage.getItem(CUSTOMER_ID));
 export default {
   name: 'CustomerTools',
   setup() {
+    const router = useRouter();
     const showLoggedIn = computed(() =>
       Boolean(customer.value)
     );
+    const logout = () => {
+      lo();
+      customer.value = null;
+      cache.reset();
+      router.push({ name: 'login' });
+    };
+    const login = (email, password) =>
+      li(email, password).then(() =>
+        router.push({ name: 'user' })
+      );
     const tools = {
       login,
       signup,
