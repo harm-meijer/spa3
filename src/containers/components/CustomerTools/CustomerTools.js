@@ -1,7 +1,8 @@
 import gql from 'graphql-tag';
 import { computed, ref } from 'vue';
 import { apolloClient, cache } from '../../../apollo';
-import { loginToken } from '../../../apollo/auth';
+import { loginToken, logout } from '../../../apollo/auth';
+import { CUSTOMER_ID } from '../../../constants';
 
 export const loginVars = (email, password) => ({
   draft: {
@@ -71,7 +72,6 @@ const login = (email, password) =>
       () => cache.reset();
       return result;
     });
-export const CUSTOMER_ID = 'CUSTOMER_ID';
 const customer = ref(localStorage.getItem(CUSTOMER_ID));
 export default {
   name: 'CustomerTools',
@@ -83,6 +83,7 @@ export default {
       login,
       signup,
       showLoggedIn,
+      logout,
     };
     return { tools };
   },

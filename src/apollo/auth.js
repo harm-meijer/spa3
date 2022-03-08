@@ -1,5 +1,9 @@
 import { encode } from 'js-base64';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
+import {
+  ACCESS_TOKEN,
+  CUSTOMER_ID,
+  REFRESH_TOKEN,
+} from '../constants';
 import {
   createGroup,
   createPromiseSessionCache,
@@ -135,5 +139,9 @@ export const loginToken = (email, password) => {
     .then((response) => {
       saveToken(response);
     });
+};
+export const logout = () => {
+  resetToken();
+  localStorage.removeItem(CUSTOMER_ID);
 };
 export default fetchWithToken;

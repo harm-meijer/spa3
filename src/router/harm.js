@@ -1,10 +1,10 @@
-//import Home from '../views/Shop/Root/Home/Home.vue';
 import Header from 'containers/components/Header/Header.vue';
 import Footer from 'presentation/Footer/Footer.vue';
 import Products from 'containers/views/Shop/Root/Products/Products.vue';
 import Product from 'containers/views/Shop/Root/Product/Product.vue';
 import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
 import Login from 'containers/views/Shop/Root/Login/Login.vue';
+import User from 'containers/views/Shop/Root/User/User.vue';
 import Home from 'containers/views/Shop/Root/Home/Home.vue';
 
 const requiresAuth = true;
@@ -50,7 +50,7 @@ export default [
     path: 'user',
     meta: { requiresAuth },
     components: {
-      default: Home,
+      default: User,
       header: Header,
       footer: Footer,
     },

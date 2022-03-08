@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { CUSTOMER_ID } from '../containers/components/CustomerTools/CustomerTools';
+import { CUSTOMER_ID } from '../constants';
 import routes from './routes';
 const router = createRouter({
   history: createWebHistory(),
