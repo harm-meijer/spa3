@@ -1,7 +1,7 @@
 import { encode } from 'js-base64';
 import {
   ACCESS_TOKEN,
-  CUSTOMER_ID,
+  CUSTOMER,
   REFRESH_TOKEN,
 } from '../constants';
 import {
@@ -142,6 +142,6 @@ export const loginToken = (email, password) => {
 };
 export const logout = () => {
   resetToken();
-  localStorage.removeItem(CUSTOMER_ID);
+  localStorage.removeItem(CUSTOMER);
 };
 export default fetchWithToken;

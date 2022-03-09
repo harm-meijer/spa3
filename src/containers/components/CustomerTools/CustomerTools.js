@@ -6,7 +6,7 @@ import {
   loginToken,
   logout as lo,
 } from '../../../apollo/auth';
-import { CUSTOMER_ID } from '../../../constants';
+import { CUSTOMER } from '../../../constants';
 
 export const loginVars = (email, password) => ({
   draft: {
@@ -24,6 +24,10 @@ const signup = (form) => {
           customerSignMeUp(draft: $draft) {
             customer {
               id
+              firstName
+              lastName
+              email
+              customerNumber
             }
           }
         }
@@ -42,9 +46,9 @@ const signup = (form) => {
       return data;
     })
     .then((result) => {
-      const id = result.data.customerSignMeUp.customer.id;
-      localStorage.setItem(CUSTOMER_ID, id);
-      customer.value = id;
+      const c = result.data.customerSignMeUp.customer;
+      localStorage.setItem(CUSTOMER, JSON.stringify(c));
+      customer.value = c;
       () => cache.reset();
       return result;
     });
@@ -59,6 +63,10 @@ const li = (email, password) =>
           customerSignMeIn(draft: $draft) {
             customer {
               id
+              firstName
+              lastName
+              email
+              customerNumber
             }
           }
         }
@@ -70,13 +78,15 @@ const li = (email, password) =>
       return data;
     })
     .then((result) => {
-      const id = result.data.customerSignMeIn.customer.id;
-      localStorage.setItem(CUSTOMER_ID, id);
-      customer.value = id;
+      const c = result.data.customerSignMeIn.customer;
+      localStorage.setItem(CUSTOMER, JSON.stringify(c));
+      customer.value = c;
       () => cache.reset();
       return result;
     });
-const customer = ref(localStorage.getItem(CUSTOMER_ID));
+const customer = ref(
+  JSON.parse(localStorage.getItem(CUSTOMER))
+);
 export default {
   name: 'CustomerTools',
   setup() {
@@ -98,6 +108,7 @@ export default {
       login,
       signup,
       showLoggedIn,
+      customer,
       logout,
     };
     return { tools };

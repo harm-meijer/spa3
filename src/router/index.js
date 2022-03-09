@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { CUSTOMER_ID } from '../constants';
+import { CUSTOMER } from '../constants';
 import routes from './routes';
 const router = createRouter({
   history: createWebHistory(),
@@ -11,7 +11,7 @@ router.beforeEach(async (to, from, next) => {
   );
   if (
     routeRequiresAuth &&
-    !localStorage.getItem(CUSTOMER_ID)
+    !localStorage.getItem(CUSTOMER)
   ) {
     next({ name: 'login' });
   } else {

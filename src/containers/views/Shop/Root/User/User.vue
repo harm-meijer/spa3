@@ -24,7 +24,10 @@
                       class="tab-content"
                       id="myaccountContent"
                     >
-                      <router-view class="my-account-tab" />
+                      <router-view
+                        class="my-account-tab"
+                        v-bind="tools"
+                      />
                     </div>
                   </div>
                   <!-- My Account Tab Content End -->

@@ -6,7 +6,8 @@ import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
 import Login from 'containers/views/Shop/Root/Login/Login.vue';
 import User from 'containers/views/Shop/Root/User/User.vue';
 import Home from 'containers/views/Shop/Root/Home/Home.vue';
-
+import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashboard.vue';
+import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
 const requiresAuth = true;
 export default [
   {
@@ -59,7 +60,7 @@ export default [
         path: 'dashboard',
         alias: '',
         name: 'user',
-        component: Home,
+        component: TabDashboard,
       },
       {
         path: 'order/:id',
@@ -79,7 +80,7 @@ export default [
       {
         path: 'account',
         name: 'account',
-        component: Home,
+        component: TabAccountDetails,
       },
       {
         path: 'changepassword',
