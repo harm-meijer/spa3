@@ -3,6 +3,8 @@ import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { required, email } from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
 // import config from '../../../../../../../../../sunrise.config';
 
 export default {
@@ -32,27 +34,27 @@ export default {
     );
     const validForm = computed(() => {
       // @todo: use vuelidate
-      // return !this.$v.$invalid;
+      //return !this.v$.$invalid;
       return true;
     });
     watch(validForm, (validForm) => {
       emit('valid-form', validForm);
     });
 
-    return { t, form, validForm };
+    return { t, form, validForm, v$: useVuelidate() };
   },
   //@todo: need vuelidata validation
-  // validations: {
-  //   form: {
-  //     firstName: { required },
-  //     lastName: { required },
-  //     streetName: { required },
-  //     additionalStreetInfo: {},
-  //     postalCode: { required },
-  //     city: { required },
-  //     country: { required },
-  //     phone: {},
-  //     email: { required, email },
-  //   },
-  // },
+  validations: {
+    form: {
+      firstName: { required },
+      lastName: { required },
+      streetName: { required },
+      additionalStreetInfo: {},
+      postalCode: { required },
+      city: { required },
+      country: { required },
+      phone: {},
+      email: { required, email },
+    },
+  },
 };
