@@ -22,20 +22,10 @@ export default {
     const form = shallowRef({
       ...props.tools.customer.value,
     });
-    return { t, form };
-  },
-  methods: {
-    updateCustomerProfile() {
-      //@todo: update customer
-      return Promise.reject(new Error('not yet implented'));
-      // return this.updateMyCustomer([
-      //   { changeEmail: { email: this.form.email } },
-      //   {
-      //     setFirstName: { firstName: this.form.firstName },
-      //   },
-      //   { setLastName: { lastName: this.form.lastName } },
-      // ]);
-    },
+    const updateCustomerProfile = () => {
+      return props.tools.updateUser(form.value);
+    };
+    return { t, form, updateCustomerProfile };
   },
   // validations: {
   //   form: {

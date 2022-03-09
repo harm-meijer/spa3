@@ -9,7 +9,6 @@ export default {
   },
   setup(props) {
     const { t } = useI18n();
-
     return { t, ...props.tools };
   },
 };
