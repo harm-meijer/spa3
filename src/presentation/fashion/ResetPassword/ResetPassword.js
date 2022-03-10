@@ -22,15 +22,23 @@ export default {
       type: Function,
       required: true,
     },
+    token: {
+      type: String,
+      required: true,
+    },
   },
   setup(props) {
     const { t } = useI18n();
     const newPassword = shallowRef('p@ssword');
     const confirmPassword = shallowRef('p@ssword');
-    const resetPassword = () => {
-      console.log(props.tools);
-      return Promise.reject('not implemented');
-    };
+    const resetPassword = () =>
+      props.tools.tools
+        .resetPassword({
+          token: props.token,
+          newPassword: newPassword.value,
+        })
+        .then(props.gotoLogin);
+
     function getErrorMessage({ code }) {
       if (code === 'InvalidSubject') {
         return t('invalidSubject');

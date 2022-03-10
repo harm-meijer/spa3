@@ -1,6 +1,6 @@
 import ResetPasswordPresentation from 'presentation/ResetPassword/ResetPassword.vue';
 import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
   components: {
@@ -9,12 +9,14 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const route = useRoute();
     const gotoLogin = () =>
       router.push({
         name: 'login',
       });
     return {
       gotoLogin,
+      token: route.params.token,
     };
   },
   // validations: {
