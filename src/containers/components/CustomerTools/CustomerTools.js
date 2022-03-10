@@ -31,6 +31,27 @@ const createResetToken = (email) =>
       email,
     },
   });
+//
+const resetPassword = ({ token, newPassword }) =>
+  apolloClient.mutate({
+    mutation: gql`
+      mutation resetPassword(
+        $tokenValue: String!
+        $newPassword: String!
+      ) {
+        customerResetPassword(
+          tokenValue: $tokenValue
+          newPassword: $newPassword
+        ) {
+          firstName
+        }
+      }
+    `,
+    variables: {
+      tokenValue: token,
+      newPassword,
+    },
+  });
 const signup = (form) => {
   return apolloClient
     .mutate({
@@ -207,6 +228,7 @@ export default {
       updateUser,
       logout,
       createResetToken,
+      resetPassword,
       updateMyCustomerPassword,
     };
     return { tools };

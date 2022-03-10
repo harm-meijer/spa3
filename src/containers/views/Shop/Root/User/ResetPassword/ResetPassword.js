@@ -1,38 +1,20 @@
-// import { required, sameAs } from 'vuelidate/lib/validators';
-import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
-import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
-import ServerError from 'presentation/components/ServerError/ServerError.vue';
-import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.vue';
-import { useI18n } from 'vue-i18n';
-import { shallowRef } from 'vue';
+import ResetPasswordPresentation from 'presentation/ResetPassword/ResetPassword.vue';
+import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue';
+import { useRouter } from 'vue-router';
 
 export default {
   components: {
-    BaseForm,
-    BaseInput,
-    LoadingButton,
-    ServerError,
+    ResetPasswordPresentation,
+    CustomerTools,
   },
   setup() {
-    const { t } = useI18n();
-    const newPassword = shallowRef('p@ssword');
-    const confirmPassword = shallowRef('p@ssword');
-    const resetPassword = () => {
-      return Promise.reject(new Error('not implemented'));
-    };
-    function getErrorMessage({ code }) {
-      if (code === 'InvalidSubject') {
-        return t('invalidSubject');
-      }
-      return t('unknownError');
-    }
-
+    const router = useRouter();
+    const gotoLogin = () =>
+      router.push({
+        name: 'login',
+      });
     return {
-      t,
-      newPassword,
-      confirmPassword,
-      resetPassword,
-      getErrorMessage,
+      gotoLogin,
     };
   },
   // validations: {
