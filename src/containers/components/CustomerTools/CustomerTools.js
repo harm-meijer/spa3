@@ -127,6 +127,45 @@ const li = (email, password) =>
       cache.reset();
       return result;
     });
+const updateMyCustomerPassword = ({
+  currentPassword,
+  newPassword,
+}) => {
+  return apolloClient
+    .mutate({
+      mutation: gql`
+        mutation changePassword(
+          $version: Long!
+          $currentPassword: String!
+          $newPassword: String!
+        ) {
+          customerChangeMyPassword(
+            version: $version
+            currentPassword: $currentPassword
+            newPassword: $newPassword
+          ) {
+            customerId: id
+            firstName
+            lastName
+            email
+            customerNumber
+            version
+          }
+        }
+      `,
+      variables: {
+        version: customer.value.version,
+        currentPassword,
+        newPassword,
+      },
+    })
+    .then((result) => {
+      const c = result.data.customerChangeMyPassword;
+      saveCustomerState(c);
+      return loginToken(c.email, newPassword);
+    });
+};
+
 const customer = ref(
   JSON.parse(localStorage.getItem(CUSTOMER))
 );
@@ -154,6 +193,7 @@ export default {
       customer,
       updateUser,
       logout,
+      updateMyCustomerPassword,
     };
     return { tools };
   },

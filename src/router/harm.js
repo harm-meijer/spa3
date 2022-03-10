@@ -8,7 +8,7 @@ import User from 'containers/views/Shop/Root/User/User.vue';
 import Home from 'containers/views/Shop/Root/Home/Home.vue';
 import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashboard.vue';
 import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
-import ResetPassword from 'containers/views/Shop/Root/User/ResetPassword/ResetPassword.vue';
+import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword/TabChangePassword.vue';
 const requiresAuth = true;
 export default [
   {
@@ -86,7 +86,7 @@ export default [
       {
         path: 'changepassword',
         name: 'changepassword',
-        component: ResetPassword,
+        component: TabChangePassword,
       },
     ],
   },
