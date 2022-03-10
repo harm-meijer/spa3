@@ -34,10 +34,9 @@
           />
         </div>
         <div class="lost-password mb-20">
-          <!-- @todo: make forgot password -->
-          <!-- <router-link :to="{ name: 'forgot-password' }">{{
+          <router-link :to="{ name: 'forgot-password' }">{{
             t('forgotPassword')
-          }}</router-link> -->
+          }}</router-link>
         </div>
 
         <div class="login-register-btn-remember">

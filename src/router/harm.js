@@ -9,6 +9,7 @@ import Home from 'containers/views/Shop/Root/Home/Home.vue';
 import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashboard.vue';
 import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
 import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword/TabChangePassword.vue';
+import ForgotPassword from 'presentation/Login/ForgotPassword/ForgotPassword.vue';
 const requiresAuth = true;
 export default [
   {
@@ -44,6 +45,15 @@ export default [
     name: 'login',
     components: {
       default: Login,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  {
+    path: 'forgot-password',
+    name: 'forgot-password',
+    components: {
+      default: ForgotPassword,
       header: Header,
       footer: Footer,
     },
