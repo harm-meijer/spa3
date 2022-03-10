@@ -4,7 +4,7 @@ import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.v
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import { useI18n } from 'vue-i18n';
 import { shallowRef } from 'vue';
-//import resetPassword
+
 export default {
   components: {
     BaseForm,
@@ -12,17 +12,34 @@ export default {
     LoadingButton,
     ServerError,
   },
-  setup() {
+  props: {
+    tools: {
+      type: Object,
+      required: true,
+    },
+    gotoResetToken: {
+      type: Function,
+      required: true,
+    },
+  },
+  setup(props) {
     const { t } = useI18n();
-    const email = shallowRef(null);
+    const email = shallowRef('emma.noor@commercetools.com');
     const createToken = () => {
-      return Promise.reject(new Error('not implemented'));
+      return props.tools.tools
+        .createResetToken(email.value)
+        .then((result) =>
+          props.gotoResetToken(
+            result.data.customerCreatePasswordResetToken
+              .value
+          )
+        );
     };
     const getErrorMessage = ({ code }) => {
       if (code === 'InvalidSubject') {
-        return this.$t('invalidSubject');
+        return t('invalidSubject');
       }
-      return this.$t('unknownError');
+      return t('unknownError');
     };
 
     return { createToken, getErrorMessage, email, t };
