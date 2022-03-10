@@ -2,6 +2,7 @@
 <script src="./ResetPassword.js"></script>
 
 <template>
+  <!-- @todo: split into presentation and container -->
   <div class="my-account">
     <div class="container">
       <div class="my-account-title">

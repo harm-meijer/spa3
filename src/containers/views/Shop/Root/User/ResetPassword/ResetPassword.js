@@ -4,6 +4,7 @@ import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.vue';
 import { useI18n } from 'vue-i18n';
+import { shallowRef } from 'vue';
 
 export default {
   components: {
@@ -14,37 +15,25 @@ export default {
   },
   setup() {
     const { t } = useI18n();
-    return { t };
-  },
-  data: () => ({
-    newPassword: null,
-    confirmPassword: null,
-  }),
-  methods: {
-    resetPassword() {
-      return Promise.reject(new Error('Not Implemented'));
-      // const tokenValue = this.$route.params.token;
-      // return this.$apollo.mutate({
-      //   mutation: gql`
-      //     mutation resetPassword($tokenValue: String!, $newPassword: String!) {
-      //       customerResetPassword(tokenValue: $tokenValue, newPassword: $newPassword) {
-      //         firstName
-      //       }
-      //     }`,
-      //   variables: {
-      //     tokenValue,
-      //     newPassword: this.newPassword,
-      //   },
-      // }).then(
-      //   ()=>changeRoute("/login",this,false,false)
-      // )
-    },
-    getErrorMessage({ code }) {
+    const newPassword = shallowRef('p@ssword');
+    const confirmPassword = shallowRef('p@ssword');
+    const resetPassword = () => {
+      return Promise.reject(new Error('not implemented'));
+    };
+    function getErrorMessage({ code }) {
       if (code === 'InvalidSubject') {
-        return this.$t('invalidSubject');
+        return t('invalidSubject');
       }
-      return this.$t('unknownError');
-    },
+      return t('unknownError');
+    }
+
+    return {
+      t,
+      newPassword,
+      confirmPassword,
+      resetPassword,
+      getErrorMessage,
+    };
   },
   // validations: {
   //   newPassword: { required },

@@ -10,6 +10,7 @@ import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashbo
 import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
 import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword/TabChangePassword.vue';
 import ForgotPassword from 'containers/views/ForgotPassword/ForgotPassword.vue';
+import ResetPassword from 'containers/views/Shop/Root/User/ResetPassword/ResetPassword.vue';
 const requiresAuth = true;
 export default [
   {
@@ -62,7 +63,7 @@ export default [
     path: 'reset-password/:token',
     name: 'reset-password',
     components: {
-      default: Footer,
+      default: ResetPassword,
       header: Header,
       footer: Footer,
     },
