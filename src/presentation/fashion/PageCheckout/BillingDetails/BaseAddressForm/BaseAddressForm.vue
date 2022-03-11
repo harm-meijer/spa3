@@ -20,7 +20,6 @@
       <div
         v-for="error of v$.form.firstName.$silentErrors"
         :key="error.$message"
-        :invalid="true"
       >
         <div>{{ error.$message }}</div>
       </div>
