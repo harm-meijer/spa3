@@ -12,10 +12,17 @@
         <!-- @todo: use vuelidate -->
         <!-- :vuelidate="$v.form.firstName" -->
         <input
-          v-model="form.firstName"
+          v-model="v$.form.firstName.$model"
           type="text"
           data-test="address-form-firstName"
         />
+      </div>
+      <div
+        v-for="error of v$.form.firstName.$silentErrors"
+        :key="error.$message"
+        :invalid="true"
+      >
+        <div>{{ error.$message }}</div>
       </div>
     </div>
     <div class="col-lg-6 col-md-6">
@@ -27,10 +34,16 @@
         <!-- @todo: use vuelidate
         :vuelidate="$v.form.lastName" -->
         <input
-          v-model="form.lastName"
+          v-model="v$.form.lastName.$model"
           type="text"
           data-test="address-form-lastName"
         />
+      </div>
+      <div
+        v-for="error of v$.form.lastName.$silentErrors"
+        :key="error.$message"
+      >
+        <div>{{ error.$message }}</div>
       </div>
     </div>
 
@@ -44,11 +57,17 @@
         <!-- :vuelidate="$v.form.streetName" -->
         <input
           class="billing-address"
-          v-model="form.streetName"
+          v-model="v$.form.streetName.$model"
           :placeholder="t('streetName')"
           type="text"
           data-test="address-form-streetName"
         />
+        <div
+          v-for="error of v$.form.streetName.$silentErrors"
+          :key="error.$message"
+        >
+          <div>{{ error.$message }}</div>
+        </div>
         <input
           v-model="form.additionalStreetInfo"
           :placeholder="t('additional')"
@@ -66,10 +85,16 @@
         <!-- @todo: use vuelidate -->
         <!-- :vuelidate="$v.form.postalCode" -->
         <input
-          v-model="form.postalCode"
+          v-model="v$.form.postalCode.$model"
           type="text"
           data-test="address-form-postalCode"
         />
+      </div>
+      <div
+        v-for="error of v$.form.postalCode.$silentErrors"
+        :key="error.$message"
+      >
+        <div>{{ error.$message }}</div>
       </div>
     </div>
     <div class="col-lg-6 col-md-6">
@@ -81,10 +106,16 @@
         <!-- @todo: use vuelidate -->
         <!-- :vuelidate="$v.form.city" -->
         <input
-          v-model="form.city"
+          v-model="v$.form.city.$model"
           type="text"
           data-test="address-form-city"
         />
+      </div>
+      <div
+        v-for="error of v$.form.city.$silentErrors"
+        :key="error.$message"
+      >
+        <div>{{ error.$message }}</div>
       </div>
     </div>
     <div class="col-lg-12" style="display: none">
@@ -115,7 +146,7 @@
         <!-- @todo: use vuelidate -->
         <!-- :vuelidate="$v.form.phone" -->
         <input
-          v-model="form.phone"
+          v-model="v$.form.phone.$model"
           type="tel"
           data-test="address-form-phone"
         />
@@ -130,10 +161,16 @@
         <!-- @todo: use vuelidate -->
         <!-- :vuelidate="$v.form.email" -->
         <input
-          v-model="form.email"
+          v-model="v$.form.email.$model"
           type="email"
           data-test="address-form-email"
         />
+      </div>
+      <div
+        v-for="error of v$.form.email.$silentErrors"
+        :key="error.$message"
+      >
+        <div>{{ error.$message }}</div>
       </div>
     </div>
   </div>

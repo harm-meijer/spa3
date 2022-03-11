@@ -29,9 +29,12 @@ export default {
           'update-address',
           JSON.parse(JSON.stringify(form))
         );
+        console.log(form);
+        console.log(v$);
       },
       { deep: true }
     );
+    const v$ = useVuelidate();
     const validForm = computed(() => {
       // @todo: use vuelidate
       //return !this.v$.$invalid;
@@ -41,20 +44,23 @@ export default {
       emit('valid-form', validForm);
     });
 
-    return { t, form, validForm, v$: useVuelidate() };
+    return { t, form, validForm, v$ };
   },
+
   //@todo: need vuelidata validation
-  validations: {
-    form: {
-      firstName: { required },
-      lastName: { required },
-      streetName: { required },
-      additionalStreetInfo: {},
-      postalCode: { required },
-      city: { required },
-      country: { required },
-      phone: {},
-      email: { required, email },
-    },
+  validations() {
+    return {
+      form: {
+        firstName: { required, $lazy: true },
+        lastName: { required, $lazy: true },
+        streetName: { required, $lazy: true },
+        additionalStreetInfo: {},
+        postalCode: { required, $lazy: true },
+        city: { required, $lazy: true },
+        country: { required, $lazy: true },
+        phone: {},
+        email: { required, email, $lazy: true },
+      },
+    };
   },
 };
