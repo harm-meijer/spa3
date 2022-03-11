@@ -29,8 +29,8 @@ export default {
           'update-address',
           JSON.parse(JSON.stringify(form))
         );
-        console.log(form);
-        console.log(v$);
+        //Invalid flag for form???
+        console.log(v$.value.form.$invalid);
       },
       { deep: true }
     );
