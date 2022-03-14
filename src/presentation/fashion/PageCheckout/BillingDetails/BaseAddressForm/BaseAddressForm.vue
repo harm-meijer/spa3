@@ -9,8 +9,6 @@
           {{ t('firstName') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.firstName" -->
         <input
           v-model="v.firstName.$model"
           type="text"
@@ -30,8 +28,6 @@
           {{ t('lastName') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate
-        :vuelidate="$v.lastName" -->
         <input
           v-model="v.lastName.$model"
           type="text"
@@ -52,8 +48,6 @@
           {{ t('address') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.streetName" -->
         <input
           class="billing-address"
           v-model="v.streetName.$model"
@@ -81,8 +75,6 @@
           {{ t('postCode') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.postalCode" -->
         <input
           v-model="v.postalCode.$model"
           type="text"
@@ -102,8 +94,6 @@
           {{ t('city') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.city" -->
         <input
           v-model="v.city.$model"
           type="text"
@@ -142,8 +132,6 @@
         <label>
           {{ t('phone') }}
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.phone" -->
         <input
           v-model="v.phone.$model"
           type="tel"
@@ -157,8 +145,6 @@
           {{ t('email') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.email" -->
         <input
           v-model="v.email.$model"
           type="email"

@@ -1,9 +1,7 @@
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
-// import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
-// import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
+// import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';ß
 import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-// import config from '../../../../../../../../../sunrise.config';
 
 export default {
   props: {
@@ -17,7 +15,6 @@ export default {
     },
   },
   components: {
-    // BaseForm,
     BaseInput,
     // BaseSelect,
   },
@@ -32,8 +29,6 @@ export default {
           'update-address',
           JSON.parse(JSON.stringify(form))
         );
-        //Invalid flag for form???
-        console.log(v.value.$invalid);
       },
       { deep: true }
     );

@@ -37,7 +37,14 @@ export default {
     const error = shallowRef(null);
 
     const placeOrder = () => {
-      props.cartLike.cartTools
+      console.log(
+        'should check if form is valid:',
+        validBillingForm.value
+      );
+      if (!validBillingForm.value) {
+        return Promise.resolve();
+      }
+      return props.cartLike.cartTools
         .createMyOrderFromCart({
           billingAddress,
           shippingAddress,
