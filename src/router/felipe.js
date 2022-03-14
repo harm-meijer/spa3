@@ -14,7 +14,7 @@ export default [
     },
   },
   {
-    path: 'home',
+    path: '',
     name: 'home',
     components: {
       default: Home,

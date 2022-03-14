@@ -1,4 +1,4 @@
-import ref from 'vue';
+import { ref } from 'vue';
 import { required, email } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 
