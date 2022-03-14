@@ -2,8 +2,8 @@
 // import BaseAddressForm from '../BaseAddressForm/BaseAddressForm.vue';
 import { computed, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import CartLike from 'containers/components/CartLike/CartLike';
 import BaseAddressForm from './BaseAddressForm/BaseAddressForm.vue';
-
 export default {
   props: {
     billingAddress: {
@@ -18,8 +18,9 @@ export default {
   components: {
     // BaseForm,
     BaseAddressForm,
+    CartLike,
   },
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const { t } = useI18n({
       inheritLocale: true,
       useScope: 'local',

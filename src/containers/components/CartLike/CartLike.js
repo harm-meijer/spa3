@@ -1,4 +1,5 @@
 import { useCartActions } from 'hooks/useCartMutation';
+import useBaseAddress from 'hooks/useBaseAddress';
 import config from '../../../../sunrise.config';
 function subTotal(cartLike) {
   const { currencyCode, fractionDigits } =
@@ -104,7 +105,7 @@ export default {
     const discountCodesExist = (cart) => {
       return Boolean(cart.discountCodes?.length);
     };
-
+    const baseAddress = useBaseAddress();
     const cartTools = {
       ...cartActions,
       cartNotEmpty,
@@ -114,6 +115,7 @@ export default {
       displayedImageUrl,
       subtotal,
       taxes,
+      baseAddress,
       discountCodesExist,
     };
     return {
