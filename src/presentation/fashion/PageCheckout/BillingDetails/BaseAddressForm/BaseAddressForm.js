@@ -33,14 +33,12 @@ export default {
           JSON.parse(JSON.stringify(form))
         );
         //Invalid flag for form???
-        console.log(v.value.form.$invalid);
+        console.log(v.value.$invalid);
       },
       { deep: true }
     );
     const validForm = computed(() => {
-      // @todo: use vuelidate
-      //return !this.v$.$invalid;
-      return true;
+      return !v.value.$invalid;
     });
     watch(validForm, (validForm) => {
       emit('valid-form', validForm);

@@ -10,15 +10,15 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.firstName" -->
+        <!-- :vuelidate="$v.firstName" -->
         <input
-          v-model="v$.form.firstName.$model"
+          v-model="v.firstName.$model"
           type="text"
           data-test="address-form-firstName"
         />
       </div>
       <div
-        v-for="error of v$.form.firstName.$silentErrors"
+        v-for="error of v.firstName.$silentErrors"
         :key="error.$message"
       >
         <div>{{ error.$message }}</div>
@@ -31,15 +31,15 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate
-        :vuelidate="$v.form.lastName" -->
+        :vuelidate="$v.lastName" -->
         <input
-          v-model="v$.form.lastName.$model"
+          v-model="v.lastName.$model"
           type="text"
           data-test="address-form-lastName"
         />
       </div>
       <div
-        v-for="error of v$.form.lastName.$silentErrors"
+        v-for="error of v.lastName.$silentErrors"
         :key="error.$message"
       >
         <div>{{ error.$message }}</div>
@@ -53,16 +53,16 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.streetName" -->
+        <!-- :vuelidate="$v.streetName" -->
         <input
           class="billing-address"
-          v-model="v$.form.streetName.$model"
+          v-model="v.streetName.$model"
           :placeholder="t('streetName')"
           type="text"
           data-test="address-form-streetName"
         />
         <div
-          v-for="error of v$.form.streetName.$silentErrors"
+          v-for="error of v.streetName.$silentErrors"
           :key="error.$message"
         >
           <div>{{ error.$message }}</div>
@@ -82,15 +82,15 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.postalCode" -->
+        <!-- :vuelidate="$v.postalCode" -->
         <input
-          v-model="v$.form.postalCode.$model"
+          v-model="v.postalCode.$model"
           type="text"
           data-test="address-form-postalCode"
         />
       </div>
       <div
-        v-for="error of v$.form.postalCode.$silentErrors"
+        v-for="error of v.postalCode.$silentErrors"
         :key="error.$message"
       >
         <div>{{ error.$message }}</div>
@@ -103,15 +103,15 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.city" -->
+        <!-- :vuelidate="$v.city" -->
         <input
-          v-model="v$.form.city.$model"
+          v-model="v.city.$model"
           type="text"
           data-test="address-form-city"
         />
       </div>
       <div
-        v-for="error of v$.form.city.$silentErrors"
+        v-for="error of v.city.$silentErrors"
         :key="error.$message"
       >
         <div>{{ error.$message }}</div>
@@ -124,7 +124,7 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.country" -->
+        <!-- :vuelidate="$v.country" -->
         <!-- country is set in useCartMutation -->
         <!-- <select v-model="form.country" class="select">
           <option
@@ -143,9 +143,9 @@
           {{ t('phone') }}
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.phone" -->
+        <!-- :vuelidate="$v.phone" -->
         <input
-          v-model="v$.form.phone.$model"
+          v-model="v.phone.$model"
           type="tel"
           data-test="address-form-phone"
         />
@@ -158,15 +158,15 @@
           <abbr class="required" title="required">*</abbr>
         </label>
         <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.form.email" -->
+        <!-- :vuelidate="$v.email" -->
         <input
-          v-model="v$.form.email.$model"
+          v-model="v.email.$model"
           type="email"
           data-test="address-form-email"
         />
       </div>
       <div
-        v-for="error of v$.form.email.$silentErrors"
+        v-for="error of v.email.$silentErrors"
         :key="error.$message"
       >
         <div>{{ error.$message }}</div>
