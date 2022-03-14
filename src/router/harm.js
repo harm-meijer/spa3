@@ -1,12 +1,16 @@
-//import Home from '../views/Shop/Root/Home/Home.vue';
 import Header from 'containers/components/Header/Header.vue';
 import Footer from 'presentation/Footer/Footer.vue';
 import Products from 'containers/views/Shop/Root/Products/Products.vue';
 import Product from 'containers/views/Shop/Root/Product/Product.vue';
 import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
 import Login from 'containers/views/Shop/Root/Login/Login.vue';
+import User from 'containers/views/Shop/Root/User/User.vue';
 import Home from 'containers/views/Shop/Root/Home/Home.vue';
-
+import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashboard.vue';
+import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
+import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword/TabChangePassword.vue';
+import ForgotPassword from 'containers/views/ForgotPassword/ForgotPassword.vue';
+import ResetPassword from 'containers/views/Shop/Root/User/ResetPassword/ResetPassword.vue';
 const requiresAuth = true;
 export default [
   {
@@ -47,10 +51,28 @@ export default [
     },
   },
   {
+    path: 'forgot-password',
+    name: 'forgot-password',
+    components: {
+      default: ForgotPassword,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  {
+    path: 'reset-password/:token',
+    name: 'reset-password',
+    components: {
+      default: ResetPassword,
+      header: Header,
+      footer: Footer,
+    },
+  },
+  {
     path: 'user',
     meta: { requiresAuth },
     components: {
-      default: Home,
+      default: User,
       header: Header,
       footer: Footer,
     },
@@ -59,7 +81,7 @@ export default [
         path: 'dashboard',
         alias: '',
         name: 'user',
-        component: Home,
+        component: TabDashboard,
       },
       {
         path: 'order/:id',
@@ -79,12 +101,12 @@ export default [
       {
         path: 'account',
         name: 'account',
-        component: Home,
+        component: TabAccountDetails,
       },
       {
         path: 'changepassword',
         name: 'changepassword',
-        component: Home,
+        component: TabChangePassword,
       },
     ],
   },

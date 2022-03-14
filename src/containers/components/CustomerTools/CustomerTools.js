@@ -1,14 +1,57 @@
 import gql from 'graphql-tag';
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { apolloClient, cache } from '../../../apollo';
-import { loginToken } from '../../../apollo/auth';
-
+import {
+  loginToken,
+  logout as lo,
+} from '../../../apollo/auth';
+import { CUSTOMER } from '../../../constants';
+const saveCustomerState = (c) => {
+  localStorage.setItem(CUSTOMER, JSON.stringify(c));
+  customer.value = c;
+  () => cache.reset();
+};
 export const loginVars = (email, password) => ({
   draft: {
     email,
     password,
   },
 });
+const createResetToken = (email) =>
+  apolloClient.mutate({
+    mutation: gql`
+      mutation createResetToken($email: String!) {
+        customerCreatePasswordResetToken(email: $email) {
+          value
+        }
+      }
+    `,
+    variables: {
+      email,
+    },
+  });
+//
+const resetPassword = ({ token, newPassword }) =>
+  apolloClient.mutate({
+    mutation: gql`
+      mutation resetPassword(
+        $tokenValue: String!
+        $newPassword: String!
+      ) {
+        customerResetPassword(
+          tokenValue: $tokenValue
+          newPassword: $newPassword
+        ) {
+          firstName
+        }
+      }
+    `,
+    variables: {
+      tokenValue: token,
+      newPassword,
+    },
+  });
 const signup = (form) => {
   return apolloClient
     .mutate({
@@ -18,7 +61,12 @@ const signup = (form) => {
         ) {
           customerSignMeUp(draft: $draft) {
             customer {
-              id
+              customerId: id
+              firstName
+              lastName
+              email
+              version
+              customerNumber
             }
           }
         }
@@ -33,18 +81,56 @@ const signup = (form) => {
       },
     })
     .then((data) => {
-      loginToken(form.email, form.password);
-      return data;
+      return loginToken(form.email, form.password).then(
+        () => data
+      );
     })
     .then((result) => {
-      const id = result.data.customerSignMeUp.customer.id;
-      localStorage.setItem(CUSTOMER_ID, id);
-      customer.value = id;
-      () => cache.reset();
+      saveCustomerState(
+        result.data.customerSignMeUp.customer
+      );
       return result;
     });
 };
-const login = (email, password) =>
+const updateUser = ({
+  version,
+  firstName,
+  lastName,
+  email,
+}) =>
+  apolloClient
+    .mutate({
+      mutation: gql`
+        mutation updateMyCustomer(
+          $actions: [MyCustomerUpdateAction!]!
+          $version: Long!
+        ) {
+          updateMyCustomer(
+            version: $version
+            actions: $actions
+          ) {
+            customerId: id
+            version
+            email
+            firstName
+            lastName
+            version
+          }
+        }
+      `,
+      variables: {
+        version,
+        actions: [
+          { changeEmail: { email } },
+          { setFirstName: { firstName } },
+          { setLastName: { lastName } },
+        ],
+      },
+    })
+    .then((result) => {
+      saveCustomerState(result.data.updateMyCustomer);
+    });
+const li = (email, password) =>
   apolloClient
     .mutate({
       mutation: gql`
@@ -53,7 +139,12 @@ const login = (email, password) =>
         ) {
           customerSignMeIn(draft: $draft) {
             customer {
-              id
+              customerId: id
+              firstName
+              lastName
+              email
+              customerNumber
+              version
             }
           }
         }
@@ -61,28 +152,84 @@ const login = (email, password) =>
       variables: loginVars(email, password),
     })
     .then((data) => {
-      loginToken(email, password);
-      return data;
+      return loginToken(email, password).then(() => data);
     })
     .then((result) => {
-      const id = result.data.customerSignMeIn.customer.id;
-      localStorage.setItem(CUSTOMER_ID, id);
-      customer.value = id;
-      () => cache.reset();
+      saveCustomerState(
+        result.data.customerSignMeIn.customer
+      );
+      cache.reset();
       return result;
     });
-export const CUSTOMER_ID = 'CUSTOMER_ID';
-const customer = ref(localStorage.getItem(CUSTOMER_ID));
+const updateMyCustomerPassword = ({
+  currentPassword,
+  newPassword,
+}) => {
+  return apolloClient
+    .mutate({
+      mutation: gql`
+        mutation changePassword(
+          $version: Long!
+          $currentPassword: String!
+          $newPassword: String!
+        ) {
+          customerChangeMyPassword(
+            version: $version
+            currentPassword: $currentPassword
+            newPassword: $newPassword
+          ) {
+            customerId: id
+            firstName
+            lastName
+            email
+            customerNumber
+            version
+          }
+        }
+      `,
+      variables: {
+        version: customer.value.version,
+        currentPassword,
+        newPassword,
+      },
+    })
+    .then((result) => {
+      const c = result.data.customerChangeMyPassword;
+      saveCustomerState(c);
+      return loginToken(c.email, newPassword);
+    });
+};
+
+const customer = ref(
+  JSON.parse(localStorage.getItem(CUSTOMER))
+);
 export default {
   name: 'CustomerTools',
   setup() {
+    const router = useRouter();
     const showLoggedIn = computed(() =>
       Boolean(customer.value)
     );
+    const logout = () => {
+      lo();
+      customer.value = null;
+      cache.reset();
+      router.push({ name: 'login' });
+    };
+    const login = (email, password) =>
+      li(email, password).then(() =>
+        router.push({ name: 'user' })
+      );
     const tools = {
       login,
       signup,
       showLoggedIn,
+      customer,
+      updateUser,
+      logout,
+      createResetToken,
+      resetPassword,
+      updateMyCustomerPassword,
     };
     return { tools };
   },
