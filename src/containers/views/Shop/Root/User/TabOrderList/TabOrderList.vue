@@ -27,11 +27,10 @@
             data-test="order-list"
           >
             <td data-test="order-date">
-              <!-- @todo: implement basedate -->
-              <!-- <BaseDate
+              <BaseDate
                 :date="order.createdAt"
                 :format="'short'"
-              /> -->
+              />
             </td>
             <td data-test="total-price">
               <BaseMoney :money="order.totalPrice" />
