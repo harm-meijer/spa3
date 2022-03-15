@@ -13,23 +13,21 @@ export default {
     Spinner,
     Pagination,
   },
-  props: {},
+  props: {
+    tools: {
+      type: Object,
+      required: true,
+    },
+  },
   setup(props) {
+    const { loading, orders, total } =
+      props.tools.useMyOrders();
     const { t } = useI18n();
-    const isLoading = computed(() => {
-      return true || props;
-    });
     const page = computed(() => {
       return 1;
     });
-    const orders = computed(() => {
-      return isLoading.value ? [] : [];
-    });
     const orderListNotEmpty = computed(() => {
-      return false;
-    });
-    const total = computed(() => {
-      return 0;
+      return Boolean(orders.value.length);
     });
 
     function translateStatus(state) {
@@ -47,7 +45,7 @@ export default {
 
     return {
       t,
-      isLoading,
+      loading,
       page,
       orders,
       orderListNotEmpty,

@@ -5,7 +5,7 @@
 <template>
   <div class="myaccount-content">
     <h3>{{ t('orders') }}</h3>
-    <Spinner v-if="isLoading" />
+    <Spinner v-if="loading" />
     <div
       class="myaccount-table table-responsive text-center"
       v-else-if="orderListNotEmpty"

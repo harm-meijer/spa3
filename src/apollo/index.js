@@ -19,6 +19,13 @@ export const cache = new InMemoryCache({
     //   //   responseObject
     //   // )}:${JSON.stringify(responseObject.scopedPrice)}`;
     // }
+    if (responseObject.__typename === 'Me') {
+      //both orders and active cart are identified as "Me" this breaks
+      //  apollo cache
+      return 'activeCart' in responseObject
+        ? 'activeCart'
+        : 'orders';
+    }
     return defaultDataIdFromObject(responseObject);
   },
 });

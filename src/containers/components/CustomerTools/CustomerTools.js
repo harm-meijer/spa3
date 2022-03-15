@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { computed, ref } from 'vue';
+import { computed, ref, shallowRef } from 'vue';
 import { useRouter } from 'vue-router';
 import { apolloClient, cache } from '../../../apollo';
 import {
@@ -34,48 +34,60 @@ const createResetToken = (email) =>
 //
 const useMyOrders = () => {
   //@todo: get this from usePaging passing url page
+  const error = shallowRef(null);
+  const orders = shallowRef(null);
+  const total = shallowRef(null);
+  const loading = shallowRef(true);
   const limit = 1;
   const offset = 0;
-  return apolloClient.query({
-    query: gql`
-      query MyOrders($limit: Int, $offset: Int) {
-        me {
-          orders(
-            sort: "createdAt desc"
-            limit: $limit
-            offset: $offset
-          ) {
-            total
-            results {
-              orderId: id
-              orderNumber
-              totalPrice {
-                centAmount
-                currencyCode
-                fractionDigits
-              }
-              createdAt
-              shipmentState
-              paymentState
-              paymentInfo {
-                payments {
-                  paymentStatus {
-                    interfaceCode
+  apolloClient
+    .query({
+      query: gql`
+        query MyOrders($limit: Int, $offset: Int) {
+          MyOrders: me {
+            orders(
+              sort: "createdAt desc"
+              limit: $limit
+              offset: $offset
+            ) {
+              total
+              results {
+                orderId: id
+                orderNumber
+                totalPrice {
+                  centAmount
+                  currencyCode
+                  fractionDigits
+                }
+                createdAt
+                shipmentState
+                paymentState
+                paymentInfo {
+                  payments {
+                    paymentStatus {
+                      interfaceCode
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
-    `,
-    variables() {
-      return {
-        limit,
-        offset,
-      };
-    },
-  });
+      `,
+      variables() {
+        return {
+          limit,
+          offset,
+        };
+      },
+    })
+    .then((result) => {
+      orders.value = result.data.MyOrders.orders.results;
+      total.value = result.data.MyOrders.orders.total;
+      loading.value = false;
+    })
+    .catch((e) => (error.value = e));
+  return { error, loading, orders, total };
 };
 const resetPassword = ({ token, newPassword }) =>
   apolloClient.mutate({
