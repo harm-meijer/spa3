@@ -20,7 +20,7 @@ export default {
     },
   },
   setup(props) {
-    const { loading, orders, total } =
+    const { setPage, loading, orders, total } =
       props.tools.useMyOrders();
     const { t } = useI18n();
     const page = computed(() => {
@@ -41,9 +41,6 @@ export default {
               ?.interfaceCode
           )
         : '';
-    }
-    function setPage(page) {
-      console.log('need to set page:', page);
     }
 
     return {

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { computed, ref, shallowRef } from 'vue';
+import { computed, ref, shallowRef, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import usePaging from '../../../../composition/usePaging';
 import { apolloClient, cache } from '../../../apollo';
@@ -35,60 +35,73 @@ const createResetToken = (email) =>
 //
 const useMyOrders = () => {
   const route = useRoute();
+  const router = useRouter();
   const page = computed(() =>
     Number(route.params.page || 1)
   );
+  const setPage = (page) =>
+    router.push({
+      ...route,
+      params: {
+        ...route.params,
+        page,
+      },
+    });
   const { limit, offset } = usePaging(page);
   const error = shallowRef(null);
   const orders = shallowRef(null);
   const total = shallowRef(null);
   const loading = shallowRef(true);
-  apolloClient
-    .query({
-      query: gql`
-        query MyOrders($limit: Int, $offset: Int) {
-          MyOrders: me {
-            orders(
-              sort: "createdAt desc"
-              limit: $limit
-              offset: $offset
-            ) {
-              total
-              results {
-                orderId: id
-                orderNumber
-                totalPrice {
-                  centAmount
-                  currencyCode
-                  fractionDigits
-                }
-                createdAt
-                shipmentState
-                paymentState
-                paymentInfo {
-                  payments {
-                    paymentStatus {
-                      interfaceCode
+  const fetchOrders = () =>
+    apolloClient
+      .query({
+        query: gql`
+          query MyOrders($limit: Int, $offset: Int) {
+            MyOrders: me {
+              orders(
+                sort: "createdAt desc"
+                limit: $limit
+                offset: $offset
+              ) {
+                total
+                results {
+                  orderId: id
+                  orderNumber
+                  totalPrice {
+                    centAmount
+                    currencyCode
+                    fractionDigits
+                  }
+                  createdAt
+                  shipmentState
+                  paymentState
+                  paymentInfo {
+                    payments {
+                      paymentStatus {
+                        interfaceCode
+                      }
                     }
                   }
                 }
               }
             }
           }
-        }
-      `,
-      variables: {
-        limit: limit.value,
-        offset: offset.value,
-      },
-    })
-    .then((result) => {
-      orders.value = result.data.MyOrders.orders.results;
-      total.value = result.data.MyOrders.orders.total;
-      loading.value = false;
-    })
-    .catch((e) => (error.value = e));
-  return { error, loading, orders, total };
+        `,
+        variables: {
+          limit: limit.value,
+          offset: offset.value,
+        },
+      })
+      .then((result) => {
+        orders.value = result.data.MyOrders.orders.results;
+        total.value = result.data.MyOrders.orders.total;
+        loading.value = false;
+      })
+      .catch((e) => (error.value = e));
+
+  watch(page, fetchOrders);
+  fetchOrders();
+  return { error, loading, orders, total, setPage };
 };
 const resetPassword = ({ token, newPassword }) =>
   apolloClient.mutate({
