@@ -47,21 +47,20 @@
       <div class="row pt-30">
         <div class="col-md-5 address-detail">
           <b>{{ t('shippingAddress') }}</b>
-          <!-- @todo: create baseaddress -->
-          <!-- <BaseAddress
+          <BaseAddress
             class="mt-15"
             :address="order.shippingAddress"
             data-test="summary-shipping-address"
-          /> -->
+          />
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-5 address-detail">
           <b>{{ t('billingAddress') }}</b>
-          <!-- <BaseAddress
+          <BaseAddress
             class="mt-15"
             :address="order.billingAddress"
             data-test="summary-billing-address"
-          /> -->
+          />
         </div>
       </div>
       <div class="row pt-30">

@@ -4,6 +4,7 @@ import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 import BaseDate from 'presentation/components/BaseDate/BaseDate.vue';
 import LineItemInfo from 'presentation/CartDetail/CartLikeContentDetail/LineItemInfo/LineItemInfo.vue';
 import CartLikeContentDetail from 'presentation/CartDetail/CartLikeContentDetail/CartLikeContentDetail.vue';
+import BaseAddress from 'presentation/components/BaseAddress/BaseAddress.vue';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -12,7 +13,7 @@ export default {
     CartLikeContentDetail,
     BaseDate,
     BaseMoney,
-    // BaseAddress,
+    BaseAddress,
     LineItemInfo,
   },
   props: {
