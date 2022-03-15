@@ -12,6 +12,7 @@ import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword
 import ForgotPassword from 'containers/views/ForgotPassword/ForgotPassword.vue';
 import ResetPassword from 'containers/views/Shop/Root/User/ResetPassword/ResetPassword.vue';
 import TabOrderList from 'containers/views/Shop/Root/User/TabOrderList/TabOrderList.vue';
+import TabOrderDetail from 'containers/views/Shop/Root/User/TabOrderDetail/TabOrderDetail.vue';
 const requiresAuth = true;
 export default [
   {
@@ -87,7 +88,7 @@ export default [
       {
         path: 'order/:id',
         name: 'order',
-        component: Home,
+        component: TabOrderDetail,
       },
       {
         path: 'return/:id',

@@ -1,5 +1,4 @@
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
-//@todo: need basedate
 import BaseDate from 'presentation/components/BaseDate/BaseDate.vue';
 import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import Pagination from 'presentation/components/Pagination/Pagination.vue';
