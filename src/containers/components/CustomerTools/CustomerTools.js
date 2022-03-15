@@ -32,6 +32,51 @@ const createResetToken = (email) =>
     },
   });
 //
+const useMyOrders = () => {
+  //@todo: get this from usePaging passing url page
+  const limit = 1;
+  const offset = 0;
+  return apolloClient.query({
+    query: gql`
+      query MyOrders($limit: Int, $offset: Int) {
+        me {
+          orders(
+            sort: "createdAt desc"
+            limit: $limit
+            offset: $offset
+          ) {
+            total
+            results {
+              orderId: id
+              orderNumber
+              totalPrice {
+                centAmount
+                currencyCode
+                fractionDigits
+              }
+              createdAt
+              shipmentState
+              paymentState
+              paymentInfo {
+                payments {
+                  paymentStatus {
+                    interfaceCode
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables() {
+      return {
+        limit,
+        offset,
+      };
+    },
+  });
+};
 const resetPassword = ({ token, newPassword }) =>
   apolloClient.mutate({
     mutation: gql`
@@ -229,6 +274,7 @@ export default {
       logout,
       createResetToken,
       resetPassword,
+      useMyOrders,
       updateMyCustomerPassword,
     };
     return { tools };
