@@ -23,7 +23,7 @@
         <tbody>
           <tr
             v-for="order in orders"
-            :key="order.id"
+            :key="order.orderId"
             data-test="order-list"
           >
             <td data-test="order-date">
@@ -46,7 +46,7 @@
               <router-link
                 :to="{
                   name: 'order',
-                  params: { id: order.id },
+                  params: { id: order.orderId },
                 }"
                 data-test="view-order-btn"
               >
@@ -57,7 +57,7 @@
         </tbody>
       </table>
       <Pagination
-        :pageSize="limit"
+        :pageSize="2"
         :total="total"
         :page="page"
         :setPage="setPage"

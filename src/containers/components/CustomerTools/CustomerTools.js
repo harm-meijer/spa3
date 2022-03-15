@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { computed, ref, shallowRef } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import usePaging from '../../../../composition/usePaging';
 import { apolloClient, cache } from '../../../apollo';
 import {
   loginToken,
@@ -33,13 +34,15 @@ const createResetToken = (email) =>
   });
 //
 const useMyOrders = () => {
-  //@todo: get this from usePaging passing url page
+  const route = useRoute();
+  const page = computed(() =>
+    Number(route.params.page || 1)
+  );
+  const { limit, offset } = usePaging(page);
   const error = shallowRef(null);
   const orders = shallowRef(null);
   const total = shallowRef(null);
   const loading = shallowRef(true);
-  const limit = 1;
-  const offset = 0;
   apolloClient
     .query({
       query: gql`
@@ -74,11 +77,9 @@ const useMyOrders = () => {
           }
         }
       `,
-      variables() {
-        return {
-          limit,
-          offset,
-        };
+      variables: {
+        limit: limit.value,
+        offset: offset.value,
       },
     })
     .then((result) => {

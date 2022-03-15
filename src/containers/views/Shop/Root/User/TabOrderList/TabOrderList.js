@@ -34,10 +34,13 @@ export default {
       return state ? t(state) : '-';
     }
     function paymentInfo(order) {
-      return t(
-        order?.paymentInfo?.payments?.[0]?.paymentStatus
-          ?.interfaceCode
-      );
+      return order?.paymentInfo?.payments?.[0]
+        ?.paymentStatus?.interfaceCode
+        ? t(
+            order?.paymentInfo?.payments?.[0]?.paymentStatus
+              ?.interfaceCode
+          )
+        : '';
     }
     function setPage(page) {
       console.log('need to set page:', page);
