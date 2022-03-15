@@ -1,6 +1,7 @@
+//@todo: move to presentation and dont wrap in customertools, just
+//   call useCustomerTools from presentation
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 import BaseDate from 'presentation/components/BaseDate/BaseDate.vue';
-
 import LineItemInfo from 'presentation/CartDetail/CartLikeContentDetail/LineItemInfo/LineItemInfo.vue';
 import CartLikeContentDetail from 'presentation/CartDetail/CartLikeContentDetail/CartLikeContentDetail.vue';
 import { computed } from 'vue';
@@ -26,9 +27,9 @@ export default {
     const subtotal = computed(() => {
       if (order.value) {
         const { currencyCode, fractionDigits } =
-          order.totalPrice;
+          order.value.totalPrice;
         return {
-          centAmount: order.lineItems.reduce(
+          centAmount: order.value.lineItems.reduce(
             (acc, li) => acc + li.totalPrice.centAmount,
             0
           ),
@@ -39,10 +40,13 @@ export default {
       return null;
     });
     const paymentInfo = computed(() => {
-      return t(
-        order.value?.paymentInfo?.payments?.[0]
-          ?.paymentStatus?.interfaceCode
-      );
+      return order.value?.paymentInfo?.payments?.[0]
+        ?.paymentStatus?.interfaceCode
+        ? t(
+            order.value?.paymentInfo?.payments?.[0]
+              ?.paymentStatus?.interfaceCode
+          )
+        : '';
     });
     return { t, subtotal, paymentInfo, order, loading };
   },

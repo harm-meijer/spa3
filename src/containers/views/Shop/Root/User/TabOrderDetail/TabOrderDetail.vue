@@ -21,11 +21,12 @@
             >{{ order.orderNumber }}
             <br />
           </span>
-          <BaseDate
+          <!-- @todo: base date is broken i18n does not work -->
+          <!-- <BaseDate
             :date="order.createdAt"
             :format="'short'"
             data-test="details-order-date"
-          />
+          /> -->
         </div>
         <div class="col-md-5">
           <router-link
@@ -84,7 +85,7 @@
       <div class="mt-40">
         <CartLikeContentDetail
           :editable="false"
-          :cartLike="order"
+          :cart="order"
         />
       </div>
       <div class="offset-md-6 text-right subtotal-price">
@@ -103,7 +104,7 @@
           <p class="col-md-6">{{ t('shipping') }}</p>
           <span class="col-md-6">
             <BaseMoney
-              :money="order.shippingInfo.price"
+              :money="order.shippingInfo?.price"
               data-test="cart-shipping-price"
             />
           </span>
