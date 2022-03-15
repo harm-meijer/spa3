@@ -52,7 +52,7 @@ const useMyOrder = () => {
                 orderNumber
                 createdAt
                 lineItems {
-                  id
+                  lineId: id
                   name(locale: $locale)
                   productSlug(locale: $locale)
                   quantity

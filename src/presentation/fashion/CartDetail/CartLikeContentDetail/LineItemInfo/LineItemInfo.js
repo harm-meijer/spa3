@@ -38,21 +38,22 @@ export default {
     const item = computed(() =>
       props.selectable
         ? {
-            lineItemId: this.lineItem.id,
-            quantity: this.lineItem.quantity,
-            shipmentState: 'Advised',
+            lineItemId: props.lineItem.lineId,
+            quantity: props.lineItem.quantity,
           }
         : null
     );
     watch(selected, (selected) => {
       if (selected === true) {
-        emit('select-return-item', item);
+        emit('select-return-item', item.value);
       }
-      if (this.selected === false) {
-        emit('unselect-return-item', item);
+      if (selected.value === false) {
+        emit('unselect-return-item', item.value);
       }
     });
     return {
+      selected,
+      item,
       ...props.cartLike.cartTools,
     };
   },
