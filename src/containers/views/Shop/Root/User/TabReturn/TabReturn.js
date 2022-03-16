@@ -38,28 +38,11 @@ export default {
       if (selectedItems.value.length === 0) {
         alert(t('alert'));
       } else {
-        console
-          .log('need mutate', {
-            mutation: `
-            mutation returnItems($id: String, $version: Long!, $items: [ReturnItemDraftType!]!){
-              updateOrder(version: $version, id: $id, actions:{
-                addReturnInfo: {
-                  items: $items
-                }
-              }){
-                orderNumber
-              }
-            }`,
-            variables: {
-              id: this.$route.params.id,
-              version: order.version,
-              items: selectedItems.value,
-            },
-          })
-          .then(() => {
-            // this.$router.push({ name: 'orders' })
-            // this.$modal.show('returnSuccess');
-          });
+        return props.tools.returnItems(
+          order.value.id,
+          order.value.version,
+          selectedItems.value
+        );
       }
     }
     return {

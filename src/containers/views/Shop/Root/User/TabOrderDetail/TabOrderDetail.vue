@@ -67,7 +67,7 @@
         <div class="col-md-5 address-detail">
           <b>{{ t('shippingMethod') }}</b>
           <p class="mt-15">
-            {{ order.shippingInfo?.shippingMethod.name }}
+            {{ order.shippingInfo?.shippingMethod?.name }}
             -
             {{
               order.shippingInfo?.shippingMethod

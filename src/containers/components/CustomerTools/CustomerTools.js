@@ -33,7 +33,6 @@ const createResetToken = (email) =>
       email,
     },
   });
-//
 const useMyOrder = () => {
   const loading = shallowRef(true);
   const error = shallowRef(null);
@@ -49,6 +48,7 @@ const useMyOrder = () => {
             me {
               order(id: $id) {
                 id
+                version
                 orderNumber
                 createdAt
                 lineItems {
@@ -179,6 +179,38 @@ const useMyOrder = () => {
   watch([id, locale], fetchOrder);
   fetchOrder();
   return { loading, error, order };
+};
+const returnItems = (id, version, items) => {
+  return apolloClient
+    .mutate({
+      mutation: gql`
+        mutation returnItems(
+          $id: String
+          $version: Long!
+          $items: [ReturnItemDraftType!]!
+        ) {
+          updateOrder(
+            version: $version
+            id: $id
+            actions: { addReturnInfo: { items: $items } }
+          ) {
+            orderNumber
+          }
+        }
+      `,
+      variables: {
+        id,
+        version,
+        items: items.map((item) => ({
+          ...item,
+          shipmentState: 'Advised',
+        })),
+      },
+    })
+    .then(() => {
+      cache.reset();
+      //@todo: move to order detail
+    });
 };
 const useMyOrders = () => {
   const route = useRoute();
@@ -449,6 +481,7 @@ export default {
       resetPassword,
       useMyOrders,
       useMyOrder,
+      returnItems,
       updateMyCustomerPassword,
     };
     return { tools };

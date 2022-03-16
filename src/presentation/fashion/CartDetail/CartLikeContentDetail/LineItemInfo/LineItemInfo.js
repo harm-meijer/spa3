@@ -47,7 +47,7 @@ export default {
       if (selected === true) {
         emit('select-return-item', item.value);
       }
-      if (selected.value === false) {
+      if (selected === false) {
         emit('unselect-return-item', item.value);
       }
     });
