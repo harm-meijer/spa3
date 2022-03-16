@@ -34,7 +34,6 @@ function subTotal(cartLike) {
     ...discounted,
   };
 }
-console.log('what is it?', useBaseAddress);
 export default {
   name: 'CartLike',
   setup() {
