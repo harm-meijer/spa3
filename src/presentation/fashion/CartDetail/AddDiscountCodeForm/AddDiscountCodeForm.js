@@ -3,7 +3,6 @@ import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 
-import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -20,7 +19,8 @@ export default {
   },
   setup(props) {
     const { t } = useI18n();
-    const code = shallowRef('');
+    const { code, v } =
+      props.cartLike.cartTools.discountCode;
     const { applyDiscount: ad } = props.cartLike.cartTools;
     const applyDiscount = () => ad(code.value);
     const getErrorMessage = ({ code }) => {
@@ -35,6 +35,7 @@ export default {
       applyDiscount,
       code,
       getErrorMessage,
+      v,
     };
   },
 };

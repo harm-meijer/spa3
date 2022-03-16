@@ -12,7 +12,6 @@
     <div class="discount-code">
       <BaseInput
         v-model="code"
-        :vuelidate="{}"
         :placeholder="t('code')"
         type="text"
         id="promo-code"
