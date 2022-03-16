@@ -107,7 +107,7 @@ export default {
     };
     const baseAddress = useBaseAddress();
     const discountCode = useDiscountCode();
-    console.log('what is discountCode', discountCode);
+
     const cartTools = {
       ...cartActions,
       cartNotEmpty,

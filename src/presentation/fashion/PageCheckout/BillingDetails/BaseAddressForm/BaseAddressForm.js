@@ -1,5 +1,5 @@
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
-// import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';ß
+// import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
 import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 

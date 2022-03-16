@@ -1,4 +1,3 @@
-// import { required } from 'vuelidate/lib/validators';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
