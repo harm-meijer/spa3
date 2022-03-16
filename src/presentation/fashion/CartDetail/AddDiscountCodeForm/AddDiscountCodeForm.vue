@@ -3,7 +3,11 @@
 <script src="./AddDiscountCodeForm.js"></script>
 
 <template>
-  <BaseForm :onSubmit="applyDiscount" #default="{ error }">
+  <BaseForm
+    :vuelidate="{}"
+    :onSubmit="applyDiscount"
+    #default="{ error }"
+  >
     <div class="discount-code">
       <BaseInput
         v-model="code"
