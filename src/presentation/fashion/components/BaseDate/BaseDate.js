@@ -1,0 +1,30 @@
+import { useI18n } from 'vue-i18n';
+import useLocation from 'hooks/useLocation';
+import { computed } from 'vue';
+
+export default {
+  props: {
+    date: {
+      type: String,
+      required: true,
+    },
+    format: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const { d } = useI18n();
+    const { location } = useLocation();
+    //@todo: find out why this isn't working,
+    //  https://kazupon.github.io/vue-i18n/guide/datetime.html
+    const formattedDate = computed(() => {
+      return d(
+        new Date(props.date),
+        props.format,
+        location.value
+      );
+    });
+    return { formattedDate };
+  },
+};

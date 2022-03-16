@@ -5,12 +5,14 @@ import Product from 'containers/views/Shop/Root/Product/Product.vue';
 import Checkout from 'containers/views/Shop/Root/Checkout/Checkout.vue';
 import Login from 'containers/views/Shop/Root/Login/Login.vue';
 import User from 'containers/views/Shop/Root/User/User.vue';
-import Home from 'containers/views/Shop/Root/Home/Home.vue';
 import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashboard.vue';
 import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
 import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword/TabChangePassword.vue';
 import ForgotPassword from 'containers/views/ForgotPassword/ForgotPassword.vue';
 import ResetPassword from 'containers/views/Shop/Root/User/ResetPassword/ResetPassword.vue';
+import TabOrderList from 'containers/views/Shop/Root/User/TabOrderList/TabOrderList.vue';
+import TabOrderDetail from 'containers/views/Shop/Root/User/TabOrderDetail/TabOrderDetail.vue';
+import TabReturn from 'containers/views/Shop/Root/User/TabReturn/TabReturn.vue';
 const requiresAuth = true;
 export default [
   {
@@ -86,17 +88,17 @@ export default [
       {
         path: 'order/:id',
         name: 'order',
-        component: Home,
+        component: TabOrderDetail,
       },
       {
         path: 'return/:id',
         name: 'return',
-        component: Home,
+        component: TabReturn,
       },
       {
         path: 'orders/:page?',
         name: 'orders',
-        component: Home,
+        component: TabOrderList,
       },
       {
         path: 'account',

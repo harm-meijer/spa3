@@ -1,6 +1,8 @@
 import gql from 'graphql-tag';
-import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, ref, shallowRef, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import useLocale from 'hooks/useLocale';
+import usePaging from 'hooks/usePaging';
 import { apolloClient, cache } from '../../../apollo';
 import {
   loginToken,
@@ -31,7 +33,255 @@ const createResetToken = (email) =>
       email,
     },
   });
-//
+const useMyOrder = () => {
+  const loading = shallowRef(true);
+  const error = shallowRef(null);
+  const order = shallowRef(null);
+  const { locale } = useLocale();
+  const route = useRoute();
+  const id = computed(() => route.params.id);
+  const fetchOrder = () =>
+    apolloClient
+      .query({
+        query: gql`
+          query orderById($id: String, $locale: Locale!) {
+            me {
+              order(id: $id) {
+                id
+                version
+                orderNumber
+                createdAt
+                lineItems {
+                  lineId: id
+                  name(locale: $locale)
+                  productSlug(locale: $locale)
+                  quantity
+                  price {
+                    value {
+                      centAmount
+                      currencyCode
+                      fractionDigits
+                    }
+                    discounted {
+                      value {
+                        centAmount
+                        currencyCode
+                        fractionDigits
+                      }
+                    }
+                  }
+                  totalPrice {
+                    centAmount
+                    currencyCode
+                    fractionDigits
+                  }
+                  variant {
+                    sku
+                    images {
+                      url
+                    }
+                    attributesRaw {
+                      name
+                      value
+                      attributeDefinition {
+                        type {
+                          name
+                        }
+                        name
+                        label(locale: $locale)
+                      }
+                    }
+                  }
+                }
+                totalPrice {
+                  centAmount
+                  currencyCode
+                  fractionDigits
+                }
+                shippingInfo {
+                  shippingMethod {
+                    name
+                    localizedDescription(locale: $locale)
+                  }
+                  price {
+                    centAmount
+                    currencyCode
+                    fractionDigits
+                  }
+                }
+                taxedPrice {
+                  totalGross {
+                    centAmount
+                    currencyCode
+                    fractionDigits
+                  }
+                  totalNet {
+                    centAmount
+                    currencyCode
+                    fractionDigits
+                  }
+                }
+                discountCodes {
+                  discountCode {
+                    id
+                    code
+                    name(locale: $locale)
+                  }
+                }
+                shippingAddress {
+                  firstName
+                  lastName
+                  streetName
+                  additionalStreetInfo
+                  postalCode
+                  city
+                  country
+                  phone
+                  email
+                }
+                billingAddress {
+                  firstName
+                  lastName
+                  streetName
+                  additionalStreetInfo
+                  postalCode
+                  city
+                  country
+                  phone
+                  email
+                }
+                paymentInfo {
+                  payments {
+                    paymentStatus {
+                      interfaceCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          id: id.value,
+          locale: locale.value,
+        },
+      })
+      .then((result) => {
+        order.value = result.data.me.order;
+        loading.value = false;
+        error.value = null;
+      })
+      .catch((e) => {
+        loading.value = false;
+        order.value = null;
+        error.value = e;
+      });
+  watch([id, locale], fetchOrder);
+  fetchOrder();
+  return { loading, error, order };
+};
+const returnItems = (id, version, items) => {
+  return apolloClient
+    .mutate({
+      mutation: gql`
+        mutation returnItems(
+          $id: String
+          $version: Long!
+          $items: [ReturnItemDraftType!]!
+        ) {
+          updateOrder(
+            version: $version
+            id: $id
+            actions: { addReturnInfo: { items: $items } }
+          ) {
+            orderNumber
+          }
+        }
+      `,
+      variables: {
+        id,
+        version,
+        items: items.map((item) => ({
+          ...item,
+          shipmentState: 'Advised',
+        })),
+      },
+    })
+    .then(() => {
+      cache.reset();
+      //@todo: move to order detail
+    });
+};
+const useMyOrders = () => {
+  const route = useRoute();
+  const router = useRouter();
+  const page = computed(() =>
+    Number(route.params.page || 1)
+  );
+  const setPage = (page) =>
+    router.push({
+      ...route,
+      params: {
+        ...route.params,
+        page,
+      },
+    });
+  const { limit, offset } = usePaging(page);
+  const error = shallowRef(null);
+  const orders = shallowRef(null);
+  const total = shallowRef(null);
+  const loading = shallowRef(true);
+  const fetchOrders = () =>
+    apolloClient
+      .query({
+        query: gql`
+          query MyOrders($limit: Int, $offset: Int) {
+            MyOrders: me {
+              orders(
+                sort: "createdAt desc"
+                limit: $limit
+                offset: $offset
+              ) {
+                total
+                results {
+                  orderId: id
+                  orderNumber
+                  totalPrice {
+                    centAmount
+                    currencyCode
+                    fractionDigits
+                  }
+                  createdAt
+                  shipmentState
+                  paymentState
+                  paymentInfo {
+                    payments {
+                      paymentStatus {
+                        interfaceCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          limit: limit.value,
+          offset: offset.value,
+        },
+      })
+      .then((result) => {
+        orders.value = result.data.MyOrders.orders.results;
+        total.value = result.data.MyOrders.orders.total;
+        loading.value = false;
+      })
+      .catch((e) => (error.value = e));
+
+  watch(page, fetchOrders);
+  fetchOrders();
+  return { error, loading, orders, total, setPage };
+};
 const resetPassword = ({ token, newPassword }) =>
   apolloClient.mutate({
     mutation: gql`
@@ -229,6 +479,9 @@ export default {
       logout,
       createResetToken,
       resetPassword,
+      useMyOrders,
+      useMyOrder,
+      returnItems,
       updateMyCustomerPassword,
     };
     return { tools };

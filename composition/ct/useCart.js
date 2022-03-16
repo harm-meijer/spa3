@@ -7,7 +7,7 @@ import { getValue } from '../../src/lib';
 //  when the cart route is done
 const query = gql`
   query myCart($locale: Locale!) {
-    me {
+    myCart: me {
       activeCart {
         cartId: id
         version
@@ -127,7 +127,7 @@ const useCart = ({ locale }) => {
       if (!data) {
         return;
       }
-      setCart(data.me.activeCart);
+      setCart(data.myCart.activeCart);
     },
   });
   useEffect(
