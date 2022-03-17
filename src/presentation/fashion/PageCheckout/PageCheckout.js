@@ -1,7 +1,7 @@
 import BillingDetails from './BillingDetails/BillingDetails.vue';
 import OrderOverview from './OrderOverview/OrderOverview.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
-import { shallowRef } from 'vue';
+import { shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import useCart from 'hooks/useCart';
@@ -44,9 +44,11 @@ export default {
           }
         );
     };
-    if (!cart.value && !loading.value) {
-      router.replace({ name: 'home' });
-    }
+    watch([cart, loading], ([cart, loading]) => {
+      if (!cart && !loading) {
+        router.replace({ name: 'home' });
+      }
+    });
     const setValidBillingForm = (valid) => {
       validBillingForm.value = valid;
     };
