@@ -1,4 +1,5 @@
 import { shallowRef, watch } from 'vue';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   name: 'LineItemQuantityForm',
@@ -15,15 +16,11 @@ export default {
       type: Number,
       required: false,
     },
-    cartLike: {
-      type: Object,
-      required: true,
-    },
   },
   setup(props) {
-    const quantity_ = shallowRef(props.quantity);
     const { changeLine: cl, removeLineItem: rm } =
-      props.cartLike.cartTools;
+      useCartTools();
+    const quantity_ = shallowRef(props.quantity);
     const changeLine = () =>
       cl(props.lineItemId, quantity_.value);
     const removeLineItem = () => rm(props.lineItemId);

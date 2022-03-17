@@ -2,13 +2,10 @@ import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 // import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
 import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   props: {
-    cartLike: {
-      type: Object,
-      required: true,
-    },
     address: {
       type: Object,
       required: false,
@@ -20,8 +17,7 @@ export default {
   },
   setup(props, { emit }) {
     const { t } = useI18n();
-    const { form, v } =
-      props.cartLike.cartTools.baseAddress;
+    const { form, v } = useCartTools().baseAddress;
     watch(
       form,
       (form) => {

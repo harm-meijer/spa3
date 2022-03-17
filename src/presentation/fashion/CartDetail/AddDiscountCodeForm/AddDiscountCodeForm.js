@@ -3,6 +3,7 @@ import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 
 import { useI18n } from 'vue-i18n';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   components: {
@@ -10,17 +11,12 @@ export default {
     BaseInput,
     ServerError,
   },
-  props: {
-    cartLike: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
-    const { form, v } =
-      props.cartLike.cartTools.discountCode;
-    const { applyDiscount: ad } = props.cartLike.cartTools;
+    const {
+      discountCode: { form, v },
+      applyDiscount: ad,
+    } = useCartTools();
     const applyDiscount = () => ad(form.value.code);
     const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {

@@ -14,7 +14,7 @@
           data-test="cart-subtotal-price"
         >
           <span>
-            <BasePrice :price="subtotal(cart)" />
+            <BasePrice :price="subTotal(cart)" />
           </span>
         </div>
       </div>

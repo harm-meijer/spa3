@@ -5,12 +5,17 @@ import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { useI18n } from 'vue-i18n';
 import ShippingMethod from 'containers/views/Shop/Root/Checkout/ShippingMethod/ShippingMethod.vue';
 import { ref } from 'vue';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   props: {
     showError: {
       type: Boolean,
       required: false,
+    },
+    cart: {
+      type: Object,
+      required: true,
     },
   },
   components: {
@@ -36,7 +41,7 @@ export default {
       emit('complete-order', paymentId);
     };
     return {
-      ...props.cartLike.cartTools,
+      ...useCartTools(),
       t,
       cardPaid,
       updateShippingMethod,

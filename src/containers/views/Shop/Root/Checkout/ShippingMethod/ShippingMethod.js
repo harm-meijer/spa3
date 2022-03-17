@@ -4,13 +4,10 @@
 import { ref, watch } from 'vue';
 import useShippingMethods from 'hooks/useShippingMethods';
 import ShippingMethodPresentation from 'presentation/PageCheckout/OrderOverview/ShippingMethod/ShippingMethod.vue';
+import useCartTools from 'hooks/useCartTools';
 export default {
   props: {
     cart: {
-      type: Object,
-      required: true,
-    },
-    cartLike: {
       type: Object,
       required: true,
     },
@@ -24,11 +21,12 @@ export default {
     const selectedShippingMethod = ref(
       props.cart?.shippingInfo?.shippingMethod?.methodId
     );
+    const cartTools = useCartTools();
     watch(selectedShippingMethod, (methodId) => {
       if (!methodId) {
         return;
       }
-      props.cartLike.cartTools.setShippingMethod(methodId);
+      cartTools.setShippingMethod(methodId);
     });
     const setSelectedShippingMethod = (method) => {
       selectedShippingMethod.value = method;

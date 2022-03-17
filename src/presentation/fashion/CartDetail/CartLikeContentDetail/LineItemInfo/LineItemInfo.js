@@ -3,6 +3,7 @@ import { computed, shallowRef, watch } from 'vue';
 import LineItemQuantityForm from 'presentation/components/LineItemQuantityForm/LineItemQuantityForm.vue';
 
 import Remove from 'presentation/components/LineItemQuantityForm/Remove/Remove.vue';
+import useCartTools from 'hooks/useCartTools';
 export default {
   components: {
     LineItemQuantityForm,
@@ -26,10 +27,6 @@ export default {
       type: Boolean,
       default: () => false,
     },
-    cartLike: {
-      type: Object,
-      required: false,
-    },
   },
   setup(props, { emit }) {
     const selected = shallowRef(false);
@@ -52,7 +49,7 @@ export default {
     return {
       selected,
       item,
-      ...props.cartLike.cartTools,
+      ...useCartTools(),
     };
   },
 };

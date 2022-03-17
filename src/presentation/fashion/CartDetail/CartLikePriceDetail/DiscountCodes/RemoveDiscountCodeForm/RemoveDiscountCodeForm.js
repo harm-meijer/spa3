@@ -1,3 +1,5 @@
+import useCartTools from 'hooks/useCartTools';
+
 //removeDiscountCode
 export default {
   props: {
@@ -5,13 +7,9 @@ export default {
       type: String,
       required: true,
     },
-    cartLike: {
-      type: Object,
-      required: true,
-    },
   },
   setup(props) {
-    const { removeDiscount: rd } = props.cartLike.cartTools;
+    const { removeDiscount: rd } = useCartTools();
     const removeDiscount = () => rd(props.codeId);
     return { removeDiscount };
   },

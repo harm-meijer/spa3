@@ -40,7 +40,7 @@
             <li>
               <b class="bold-text">{{ t('subtotal') }}</b>
               <span
-                ><BasePrice :price="subtotal(cart)"
+                ><BasePrice :price="subTotal(cart)"
               /></span>
             </li>
           </ul>

@@ -1,6 +1,7 @@
 import { useI18n } from 'vue-i18n';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import DiscountCodes from './DiscountCodes/DiscountCodes.vue';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   components: {
@@ -16,14 +17,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    cartLike: {
-      type: Object,
-      required: true,
-    },
   },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
-
-    return { t, ...props.cartLike.cartTools };
+    return { t, ...useCartTools() };
   },
 };

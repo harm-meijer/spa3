@@ -4,6 +4,8 @@ import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import useCart from 'hooks/useCart';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   components: {
@@ -12,17 +14,7 @@ export default {
     BillingDetails,
     ServerError,
   },
-  props: {
-    cartLike: {
-      type: Object,
-      required: true,
-    },
-    cart: {
-      type: Object,
-      required: false,
-    },
-  },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
     const router = useRouter();
     const shippingMethod = shallowRef(null);
@@ -33,13 +25,14 @@ export default {
     const validShippingForm = shallowRef(true);
     const showError = shallowRef(false);
     const error = shallowRef(null);
-
+    const { cart, loading } = useCart();
+    const cartTools = useCartTools();
     const placeOrder = () => {
       //@todo: show a validation error?
       if (!validBillingForm.value) {
         return Promise.resolve();
       }
-      return props.cartLike.cartTools
+      return cartTools
         .createMyOrderFromCart({
           billingAddress,
           shippingAddress,
@@ -51,7 +44,7 @@ export default {
           }
         );
     };
-    if (!props.cart) {
+    if (!cart.value && !loading.value) {
       router.replace({ name: 'home' });
     }
     const setValidBillingForm = (valid) => {
@@ -75,7 +68,7 @@ export default {
     };
 
     return {
-      ...props.cartLike.cartTools,
+      ...cartTools,
       placeOrder,
       shippingMethod,
       billingAddress,
@@ -90,6 +83,7 @@ export default {
       updateShipping,
       updateShippingMethod,
       error,
+      cart,
       t,
     };
   },
