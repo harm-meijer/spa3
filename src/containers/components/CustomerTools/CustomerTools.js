@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import { computed, ref, shallowRef, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import useLocale from 'hooks/useLocale';
 import usePaging from 'hooks/usePaging';
 import { apolloClient, cache } from '../../../apollo';
 import {
@@ -9,6 +8,7 @@ import {
   logout as lo,
 } from '../../../apollo/auth';
 import { CUSTOMER } from '../../../constants';
+import useMyOrder from 'hooks/useMyOrder';
 const saveCustomerState = (c) => {
   localStorage.setItem(CUSTOMER, JSON.stringify(c));
   customer.value = c;
@@ -33,153 +33,6 @@ const createResetToken = (email) =>
       email,
     },
   });
-const useMyOrder = () => {
-  const loading = shallowRef(true);
-  const error = shallowRef(null);
-  const order = shallowRef(null);
-  const { locale } = useLocale();
-  const route = useRoute();
-  const id = computed(() => route.params.id);
-  const fetchOrder = () =>
-    apolloClient
-      .query({
-        query: gql`
-          query orderById($id: String, $locale: Locale!) {
-            me {
-              order(id: $id) {
-                id
-                version
-                orderNumber
-                createdAt
-                lineItems {
-                  lineId: id
-                  name(locale: $locale)
-                  productSlug(locale: $locale)
-                  quantity
-                  price {
-                    value {
-                      centAmount
-                      currencyCode
-                      fractionDigits
-                    }
-                    discounted {
-                      value {
-                        centAmount
-                        currencyCode
-                        fractionDigits
-                      }
-                    }
-                  }
-                  totalPrice {
-                    centAmount
-                    currencyCode
-                    fractionDigits
-                  }
-                  variant {
-                    sku
-                    images {
-                      url
-                    }
-                    attributesRaw {
-                      name
-                      value
-                      attributeDefinition {
-                        type {
-                          name
-                        }
-                        name
-                        label(locale: $locale)
-                      }
-                    }
-                  }
-                }
-                totalPrice {
-                  centAmount
-                  currencyCode
-                  fractionDigits
-                }
-                shippingInfo {
-                  shippingMethod {
-                    name
-                    localizedDescription(locale: $locale)
-                  }
-                  price {
-                    centAmount
-                    currencyCode
-                    fractionDigits
-                  }
-                }
-                taxedPrice {
-                  totalGross {
-                    centAmount
-                    currencyCode
-                    fractionDigits
-                  }
-                  totalNet {
-                    centAmount
-                    currencyCode
-                    fractionDigits
-                  }
-                }
-                discountCodes {
-                  discountCode {
-                    id
-                    code
-                    name(locale: $locale)
-                  }
-                }
-                shippingAddress {
-                  firstName
-                  lastName
-                  streetName
-                  additionalStreetInfo
-                  postalCode
-                  city
-                  country
-                  phone
-                  email
-                }
-                billingAddress {
-                  firstName
-                  lastName
-                  streetName
-                  additionalStreetInfo
-                  postalCode
-                  city
-                  country
-                  phone
-                  email
-                }
-                paymentInfo {
-                  payments {
-                    paymentStatus {
-                      interfaceCode
-                    }
-                  }
-                }
-              }
-            }
-          }
-        `,
-        variables: {
-          id: id.value,
-          locale: locale.value,
-        },
-      })
-      .then((result) => {
-        order.value = result.data.me.order;
-        loading.value = false;
-        error.value = null;
-      })
-      .catch((e) => {
-        loading.value = false;
-        order.value = null;
-        error.value = e;
-      });
-  watch([id, locale], fetchOrder);
-  fetchOrder();
-  return { loading, error, order };
-};
 const returnItems = (id, version, items) => {
   return apolloClient
     .mutate({
