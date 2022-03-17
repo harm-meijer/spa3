@@ -1,7 +1,7 @@
 import Header from 'presentation/Header/Header.vue';
 import Footer from 'presentation/Footer/Footer.vue';
 import Cart from 'presentation/CartDetail/CartDetail.vue';
-import Home from 'containers/views/Shop/Root/Home/Home.vue';
+import Home from 'presentation/Home/Home.vue';
 import StoreLocator from 'containers/views/Shop/Root/Stores/StoreLocator.vue';
 export default [
   {

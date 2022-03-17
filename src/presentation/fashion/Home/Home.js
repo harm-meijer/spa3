@@ -11,7 +11,11 @@ export default {
     const { location } = useLocation();
     const { t, n } = useI18n();
     const freeShippingValue = computed(() => {
-      return n(100, 'currency', location.value);
+      //@todo: works in BaseMoney but not here, why?
+      // return n(100, 'currency', location.value);
+      n;
+      location;
+      return '100';
     });
     return {
       t,
