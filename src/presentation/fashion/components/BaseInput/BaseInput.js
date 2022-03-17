@@ -29,9 +29,7 @@ export default {
       );
     };
     const errorClass = computed(() => {
-      //@todo: implement vuelidate
-      // return { error: this.vuelidate?.$error };
-      return { error: null };
+      return { error: props.vuelidate?.$error };
     });
 
     return { updateValue, value, checked, errorClass };

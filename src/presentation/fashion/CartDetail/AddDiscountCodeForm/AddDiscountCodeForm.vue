@@ -4,13 +4,14 @@
 
 <template>
   <BaseForm
-    :vuelidate="{}"
+    :vuelidate="v"
     :onSubmit="applyDiscount"
     #default="{ error }"
   >
     <div class="discount-code">
       <BaseInput
-        v-model="code"
+        :modelValue="v.code.$model"
+        :vuelidate="v.code"
         :placeholder="t('code')"
         type="text"
         id="promo-code"

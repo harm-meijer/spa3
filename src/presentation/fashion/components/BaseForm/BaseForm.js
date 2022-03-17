@@ -16,11 +16,9 @@ export default {
     const error = shallowRef(null);
     function submit() {
       //@todo:implement vuelidate (should be in props)
-      // this.vuelidate.$touch();
+      props.vuelidate.$touch();
       error.value = null;
-      // if (!this.vuelidate.$invalid) {
-      // eslint-disable-next-line no-constant-condition
-      if (true) {
+      if (!props.vuelidate.$invalid) {
         state.value = 'loading';
         return props
           .onSubmit()
@@ -32,6 +30,7 @@ export default {
             state.value = null;
           });
       }
+      console.log('not valid...');
     }
     return { state, error, submit };
   },

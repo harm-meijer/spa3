@@ -18,10 +18,10 @@ export default {
   },
   setup(props) {
     const { t } = useI18n();
-    const { code, v } =
+    const { form, v } =
       props.cartLike.cartTools.discountCode;
     const { applyDiscount: ad } = props.cartLike.cartTools;
-    const applyDiscount = () => ad(code.value);
+    const applyDiscount = () => ad(form.value.code);
     const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {
         return t('nonApplicable');
@@ -32,7 +32,7 @@ export default {
     return {
       t,
       applyDiscount,
-      code,
+      form,
       getErrorMessage,
       v,
     };

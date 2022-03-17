@@ -1,14 +1,14 @@
-import { shallowRef } from 'vue';
+import { ref } from 'vue';
 import { required } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 
 function useDiscountCode() {
-  const code = shallowRef('');
+  const form = ref({});
   const rules = {
     code: { required, $lazy: true },
   };
 
-  const v = useVuelidate(rules, code);
-  return { code, v };
+  const v = useVuelidate(rules, form);
+  return { form, v };
 }
 export default useDiscountCode;
