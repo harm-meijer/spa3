@@ -19,12 +19,9 @@ export default {
     },
   },
   setup(props) {
-    const { setPage, loading, orders, total } =
+    const { setPage, loading, orders, total, page } =
       props.tools.useMyOrders();
     const { t } = useI18n();
-    const page = computed(() => {
-      return 1;
-    });
     const orderListNotEmpty = computed(() => {
       return Boolean(orders.value.length);
     });

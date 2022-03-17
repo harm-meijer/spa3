@@ -280,7 +280,7 @@ const useMyOrders = () => {
 
   watch(page, fetchOrders);
   fetchOrders();
-  return { error, loading, orders, total, setPage };
+  return { page, error, loading, orders, total, setPage };
 };
 const resetPassword = ({ token, newPassword }) =>
   apolloClient.mutate({
