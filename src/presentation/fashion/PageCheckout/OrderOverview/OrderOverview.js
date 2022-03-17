@@ -3,7 +3,7 @@
 import PaymentMethod from './PaymentMethod/PaymentMethod.vue';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { useI18n } from 'vue-i18n';
-import ShippingMethod from 'containers/views/Shop/Root/Checkout/ShippingMethod/ShippingMethod.vue';
+import ShippingMethod from './ShippingMethod/ShippingMethod.vue';
 import { ref } from 'vue';
 import useCartTools from 'hooks/useCartTools';
 

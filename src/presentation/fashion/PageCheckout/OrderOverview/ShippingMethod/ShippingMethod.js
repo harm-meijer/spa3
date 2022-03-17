@@ -3,39 +3,17 @@
 // import { required } from 'vuelidate/lib/validators';
 // import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
-import { shallowRef, watch } from 'vue';
+import { ref, shallowRef, watch } from 'vue';
+import useShippingMethods from 'hooks/useShippingMethods';
+import useCartTools from 'hooks/useCartTools';
 // import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
 // import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
 // import MONEY_FRAGMENT from '../../Money.gql';
 // import { locale } from '../../common/shared';
 export default {
   props: {
-    total: {
-      type: Number,
-      required: false,
-    },
-    loading: {
-      type: Boolean,
-      required: true,
-    },
-    error: {
+    cart: {
       type: Object,
-      required: false,
-    },
-    shippingMethods: {
-      type: Array,
-      required: false,
-    },
-    price: {
-      type: Function,
-      required: true,
-    },
-    selectedShippingMethod: {
-      type: String,
-      required: false,
-    },
-    setSelectedShippingMethod: {
-      type: Function,
       required: true,
     },
   },
@@ -46,10 +24,43 @@ export default {
     // BaseRadio,
   },
   setup(props) {
-    const method = shallowRef(props.selectedShippingMethod);
-    watch(method, (method) => {
-      props.setSelectedShippingMethod(method);
+    const { total, loading, error, shippingMethods } =
+      useShippingMethods();
+    const selectedShippingMethod = ref(
+      props.cart?.shippingInfo?.shippingMethod?.methodId
+    );
+    const cartTools = useCartTools();
+    watch(selectedShippingMethod, (methodId) => {
+      if (!methodId) {
+        return;
+      }
+      cartTools.setShippingMethod(methodId);
     });
-    return { method };
+    const setSelectedShippingMethod = (method) => {
+      selectedShippingMethod.value = method;
+    };
+    const price = (shippingMethod) => {
+      return props.cart.totalPrice.centAmount >
+        (shippingMethod?.zoneRates[0]?.shippingRates?.[0]
+          ?.freeAbove?.centAmount || Infinity)
+        ? null
+        : shippingMethod?.zoneRates[0]?.shippingRates?.[0]
+            ?.price;
+    };
+
+    const method = shallowRef(selectedShippingMethod);
+    watch(method, (method) => {
+      setSelectedShippingMethod(method);
+    });
+    return {
+      method,
+      total,
+      loading,
+      error,
+      shippingMethods,
+      price,
+      selectedShippingMethod,
+      setSelectedShippingMethod,
+    };
   },
 };
