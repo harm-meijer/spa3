@@ -15,7 +15,7 @@
                 <!-- My Account Tab Menu Start -->
                 <div class="row">
                   <div class="col-lg-4 col-md-4">
-                    <SidebarMenu :tools="tools" />
+                    <SidebarMenu />
                   </div>
                   <!-- My Account Tab Menu End -->
                   <!-- My Account Tab Content Start -->

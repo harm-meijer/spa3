@@ -1,4 +1,9 @@
-import { computed, shallowRef } from 'vue';
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  shallowRef,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import useMyOrder from 'hooks/useMyOrder';
 import useMyOrders from 'hooks/useMyOrders';
@@ -9,10 +14,10 @@ import {
 } from '../src/apollo/auth';
 import { cache } from '../src/apollo';
 import { CUSTOMER } from '../src/constants';
+import { createReactive } from './lib';
 const saveCustomerState = (c) => {
-  localStorage.setItem(CUSTOMER, JSON.stringify(c));
-  customer.value = c;
-  () => cache.reset();
+  customerGlobal.setValue(c);
+  cache.reset();
 };
 const createResetToken = basic.createResetToken;
 const returnItems = (id, version, items) => {
@@ -69,27 +74,34 @@ const updateMyCustomerPassword = ({
     .updateMyCustomerPassword({
       currentPassword,
       newPassword,
-      version: customer.value.version,
+      version: customerGlobal.ref.value.version,
     })
     .then((result) => {
       const c = result.data.customerChangeMyPassword;
       saveCustomerState(c);
       return loginToken(c.email, newPassword);
     });
-//@todo: make this a global observable, when logging out this ref is set to
-//  null but showLoggedIn is not computed again.
-const customer = shallowRef(
-  JSON.parse(localStorage.getItem(CUSTOMER))
+const customerGlobal = createReactive(
+  JSON.parse(localStorage.getItem(CUSTOMER)),
+  (newValue) =>
+    localStorage.setItem(CUSTOMER, JSON.stringify(newValue))
 );
-
 function useCustomerTools() {
+  const customer = shallowRef(customerGlobal.ref.value);
+  const unListen = { fn: () => 88 };
+  onMounted(() => {
+    unListen.fn = customerGlobal.addListener((newValue) => {
+      customer.value = newValue;
+    });
+  });
+  onUnmounted(() => unListen.fn());
   const router = useRouter();
-  const showLoggedIn = computed(() =>
-    Boolean(customer.value)
-  );
+  const showLoggedIn = computed(() => {
+    return Boolean(customer.value);
+  });
   const logout = () => {
     lo();
-    customer.value = null;
+    customerGlobal.setValue(null);
     cache.reset();
     router.push({ name: 'login' });
   };
