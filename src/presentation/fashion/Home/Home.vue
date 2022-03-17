@@ -132,7 +132,12 @@
                 <h6>{{ t('free_shipping_head') }}</h6>
                 <p>
                   {{ t('free_shipping_body') }}&nbsp;
-                  {{ freeShippingValue }}
+                  <BaseMoney
+                    :money="{
+                      centAmount: 10000,
+                      fractionDigits: 2,
+                    }"
+                  />
                 </p>
               </div>
             </div>

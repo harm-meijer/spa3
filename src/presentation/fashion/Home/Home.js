@@ -1,25 +1,17 @@
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Banner from 'presentation/Banner/Banner.vue';
-import useLocation from '../../../../composition/useLocation';
+import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 
 export default {
   name: 'Home',
-  components: { Banner },
+  components: { Banner, BaseMoney },
 
   setup() {
-    const { location } = useLocation();
-    const { t, n } = useI18n();
-    const freeShippingValue = computed(() => {
-      //@todo: works in BaseMoney but not here, why?
-      // return n(100, 'currency', location.value);
-      n;
-      location;
-      return '100';
-    });
+    //cannot use i18n tag and working number format from setup in the same
+    //  component (vue is great!!)
+    const { t } = useI18n();
     return {
       t,
-      freeShippingValue,
     };
   },
 };
