@@ -11,10 +11,11 @@
       v-for="validation in validations"
       :key="validation"
     >
+      <!-- @todo: how do we know if a certain validation failed (there is no property indication it failed) -->
+      <!-- v-if="!vuelidate[validation]" -->
       <span
-        v-if="!vuelidate[validation]"
-        :validation="validation"
         data-test="validation-error"
+        v-if="vuelidate[validation].$invalid"
       >
         <span class="message">
           {{ getErrorMessage(validation) }}

@@ -19,17 +19,15 @@ export default {
     const { t, te } = useI18n();
 
     const validations = computed(() => {
-      return Object.keys(props.vuelidate.$params);
+      const errors = props.vuelidate.$errors.map(
+        ({ $validator }) => $validator
+      );
+      return errors;
     });
     function getErrorMessage(validation) {
-      const customError = props.customErrors[validation];
-      if (customError) {
-        return customError;
-      }
-      const { type, ...args } =
-        props.vuelidate.$params[validation];
-      return te(type)
-        ? t(type, args)
+      return te(validation)
+        ? //@todo: what about max/min ... length, where do we get parameter from?
+          t(validation, '')
         : t('unknownValidation');
     }
     return { validations, getErrorMessage };

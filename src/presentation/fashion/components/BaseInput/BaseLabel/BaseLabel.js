@@ -18,8 +18,7 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const required = computed(() => {
-      console.log('what does this do...');
-
+      //@todo: look at validationError, vuelidate update broke this
       return props.vuelidate?.$params?.required;
     });
     return { t, required };
