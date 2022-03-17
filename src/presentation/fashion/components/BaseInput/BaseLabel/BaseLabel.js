@@ -15,12 +15,12 @@ export default {
       type: Object,
     },
   },
-  setup() {
+  setup(props) {
     const { t } = useI18n();
     const required = computed(() => {
-      //@todo: implement vuelidate
-      // return this.vuelidate?.$params?.required;
-      return true;
+      console.log('what does this do...');
+
+      return props.vuelidate?.$params?.required;
     });
     return { t, required };
   },

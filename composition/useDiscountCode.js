@@ -5,7 +5,7 @@ import useVuelidate from '@vuelidate/core';
 function useDiscountCode() {
   const form = ref({});
   const rules = {
-    code: { required, $lazy: true },
+    code: { required },
   };
 
   const v = useVuelidate(rules, form);

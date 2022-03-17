@@ -19,16 +19,18 @@ export default {
       props.vuelidate.$touch();
       error.value = null;
       if (!props.vuelidate.$invalid) {
-        state.value = 'loading';
-        return props
-          .onSubmit()
-          .then(() => {
-            state.value = 'success';
-          })
-          .catch((e) => {
-            error.value = e;
-            state.value = null;
-          });
+        console.log('nothing wrong, is valid');
+        return;
+        // state.value = 'loading';
+        // return props
+        //   .onSubmit()
+        //   .then(() => {
+        //     state.value = 'success';
+        //   })
+        //   .catch((e) => {
+        //     error.value = e;
+        //     state.value = null;
+        //   });
       }
       console.log('not valid...');
     }

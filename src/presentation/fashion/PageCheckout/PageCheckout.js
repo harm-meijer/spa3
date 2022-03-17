@@ -37,10 +37,7 @@ export default {
     const error = shallowRef(null);
 
     const placeOrder = () => {
-      console.log(
-        'should check if form is valid:',
-        validBillingForm.value
-      );
+      //@todo: show a validation error?
       if (!validBillingForm.value) {
         return Promise.resolve();
       }

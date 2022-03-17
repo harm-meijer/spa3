@@ -9,8 +9,14 @@ export default {
       type: [String, Number, Boolean],
       default: null,
     },
-    vuelidate: Object,
-    label: String,
+    vuelidate: {
+      type: Object,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: false,
+    },
     customErrors: Object,
   },
   setup(props, { emit, attrs }) {

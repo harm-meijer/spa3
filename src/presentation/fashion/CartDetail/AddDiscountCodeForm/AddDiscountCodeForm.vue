@@ -10,7 +10,7 @@
   >
     <div class="discount-code">
       <BaseInput
-        :modelValue="v.code.$model"
+        v-model="v.code.$model"
         :vuelidate="v.code"
         :placeholder="t('code')"
         type="text"

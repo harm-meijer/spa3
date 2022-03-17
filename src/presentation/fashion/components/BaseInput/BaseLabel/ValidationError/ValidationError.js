@@ -1,4 +1,5 @@
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 //@todo: implement vuelidate
 export default {
@@ -14,19 +15,22 @@ export default {
       },
     },
   },
-  setup() {
+  setup(props) {
+    const { t, te } = useI18n();
+
     const validations = computed(() => {
-      //@todo: implement vuelidate
-      // return Object.keys(this.vuelidate.$params);
-      return true;
+      return Object.keys(props.vuelidate.$params);
     });
-    function getErrorMessage() {
-      // const customError = this.customErrors[validation];
-      // if (customError) {
-      //   return customError;
-      // }
-      // const { type, ...args } = this.vuelidate.$params[validation];
-      // return this.$te(type) ? this.$t(type, args) : this.$t('unknownValidation');
+    function getErrorMessage(validation) {
+      const customError = props.customErrors[validation];
+      if (customError) {
+        return customError;
+      }
+      const { type, ...args } =
+        props.vuelidate.$params[validation];
+      return te(type)
+        ? t(type, args)
+        : t('unknownValidation');
     }
     return { validations, getErrorMessage };
   },
