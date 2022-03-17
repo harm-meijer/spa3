@@ -18,8 +18,8 @@
         v-if="vuelidate[validation].$invalid"
       >
         <span class="message">
-          {{ getErrorMessage(validation) }}
-        </span>
+          {{ getErrorMessage(validation) }} </span
+        >&nbsp;
       </span>
     </span>
   </span>

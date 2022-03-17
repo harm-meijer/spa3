@@ -16,7 +16,7 @@
               <span>{{ t('resetPassword') }}</span>
             </div>
             <BaseForm
-              :vuelidate="{}"
+              :vuelidate="v"
               :onSubmit="resetPassword"
               #default="{ error, state }"
               id="form-reset-password"
@@ -31,8 +31,8 @@
                 <div class="col-sm-4">
                   <div class="form-sections">
                     <BaseInput
-                      v-model="newPassword"
-                      :vuelidate="{}"
+                      v-model="v.newPassword.$model"
+                      :vuelidate="v.newPassword"
                       :label="t('newPassword')"
                       type="password"
                       class="form-inputs"
@@ -45,8 +45,8 @@
                 <div class="col-sm-4">
                   <div class="form-sections">
                     <BaseInput
-                      v-model="confirmPassword"
-                      :vuelidate="{}"
+                      v-model="v.confirmPassword.$model"
+                      :vuelidate="v.confirmPassword"
                       :label="t('confirmPassword')"
                       type="password"
                       class="form-inputs"

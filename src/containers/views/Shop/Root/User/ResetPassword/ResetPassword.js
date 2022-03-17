@@ -1,11 +1,9 @@
 import ResetPasswordPresentation from 'presentation/ResetPassword/ResetPassword.vue';
-import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue';
 import { useRoute, useRouter } from 'vue-router';
 
 export default {
   components: {
     ResetPasswordPresentation,
-    CustomerTools,
   },
   setup() {
     const router = useRouter();

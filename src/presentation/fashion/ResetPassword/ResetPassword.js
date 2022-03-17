@@ -1,10 +1,21 @@
-// import { required, sameAs } from 'vuelidate/lib/validators';
+import { required } from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.vue';
 import { useI18n } from 'vue-i18n';
-import { shallowRef } from 'vue';
+import { ref } from 'vue';
+import useCustomerTools from 'hooks/useCustomerTools';
+function Rules(form) {
+  const sameAs = (value) =>
+    value === form.value.newPassword;
+  this.newPassword = { required };
+  this.confirmPassword = {
+    required,
+    sameAsPassword: sameAs,
+  };
+}
 
 export default {
   components: {
@@ -14,10 +25,6 @@ export default {
     ServerError,
   },
   props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
     gotoLogin: {
       type: Function,
       required: true,
@@ -29,13 +36,15 @@ export default {
   },
   setup(props) {
     const { t } = useI18n();
-    const newPassword = shallowRef('p@ssword');
-    const confirmPassword = shallowRef('p@ssword');
+    const form = ref({});
+    const rules = new Rules(form);
+    const v = useVuelidate(rules, form);
+    const tools = useCustomerTools();
     const resetPassword = () =>
-      props.tools.tools
+      tools
         .resetPassword({
           token: props.token,
-          newPassword: newPassword.value,
+          newPassword: form.value.newPassword,
         })
         .then(props.gotoLogin);
 
@@ -48,8 +57,7 @@ export default {
 
     return {
       t,
-      newPassword,
-      confirmPassword,
+      v,
       resetPassword,
       getErrorMessage,
     };

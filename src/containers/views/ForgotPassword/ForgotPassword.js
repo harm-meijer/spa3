@@ -1,10 +1,8 @@
-import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue';
 import ForgotPasswordPresentation from 'presentation/Login/ForgotPassword/ForgotPassword.vue';
 import { useRouter } from 'vue-router';
 //import resetPassword
 export default {
   components: {
-    CustomerTools,
     ForgotPasswordPresentation,
   },
   setup() {

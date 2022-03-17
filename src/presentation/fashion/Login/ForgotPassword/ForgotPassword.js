@@ -3,8 +3,8 @@ import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import { useI18n } from 'vue-i18n';
-import { shallowRef } from 'vue';
-
+import useCustomerTools from 'hooks/useCustomerTools';
+import useResetPasswordForm from 'hooks/useResetPasswordForm';
 export default {
   components: {
     BaseForm,
@@ -13,21 +13,18 @@ export default {
     ServerError,
   },
   props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
     gotoResetToken: {
       type: Function,
       required: true,
     },
   },
   setup(props) {
+    const tools = useCustomerTools();
     const { t } = useI18n();
-    const email = shallowRef('emma.noor@commercetools.com');
+    const { form, v } = useResetPasswordForm();
     const createToken = () => {
-      return props.tools.tools
-        .createResetToken(email.value)
+      return tools
+        .createResetToken(form.value.email)
         .then((result) =>
           props.gotoResetToken(
             result.data.customerCreatePasswordResetToken
@@ -42,7 +39,7 @@ export default {
       return t('unknownError');
     };
 
-    return { createToken, getErrorMessage, email, t };
+    return { createToken, getErrorMessage, form, v, t };
   },
   // validations: {
   //   email: { required },

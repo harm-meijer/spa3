@@ -17,7 +17,7 @@
               <span>{{ t('forgotPassword') }}</span>
             </div>
             <BaseForm
-              :vuelidate="{}"
+              :vuelidate="v"
               :onSubmit="createToken"
               #default="{ error, state }"
               id="form-forgot-password"
@@ -32,8 +32,8 @@
                 <div class="col-sm-4">
                   <div class="form-sections">
                     <BaseInput
-                      v-model="email"
-                      :vuelidate="{}"
+                      v-model="v.email.$model"
+                      :vuelidate="v.email"
                       :label="t('email')"
                       type="email"
                       class="form-inputs"
