@@ -14,14 +14,10 @@
     <div class="container">
       <div class="row login-register-row">
         <div class="col-lg-6 col-md-6">
-          <CustomerTools v-slot="tools">
-            <LoginForm :tools="tools" />
-          </CustomerTools>
+          <LoginForm />
         </div>
         <div class="col-lg-6 col-md-6">
-          <CustomerTools v-slot="tools">
-            <SignUpForm :tools="tools" />
-          </CustomerTools>
+          <SignUpForm />
         </div>
       </div>
     </div>

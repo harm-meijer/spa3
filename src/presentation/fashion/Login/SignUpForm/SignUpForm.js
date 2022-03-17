@@ -1,14 +1,33 @@
-//@todo: implement vuelidate
-// import {
-//   required, email, minLength, sameAs,
-// } from 'vuelidate/lib/validators';
+import {
+  required,
+  email,
+  minLength,
+} from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 // import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 
-import { shallowRef } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import useCustomerTools from 'hooks/useCustomerTools';
+function Rules(form) {
+  this.firstName = { required };
+  this.lastName = { required };
+  this.email = { required, email };
+  this.password = { required, minLength: minLength(5) };
+  this.repeatPassword = {
+    sameAsPassword: (value) => {
+      console.log('why?', value, form.value);
+      return value === form.value.password;
+    },
+  };
+  this.agreeToTerms = {
+    required,
+    mustBeAgreed: (value) => value === true,
+  };
+}
 
 export default {
   components: {
@@ -16,15 +35,10 @@ export default {
     BaseInput,
     BaseForm,
   },
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  props: {},
+  setup() {
     const { t } = useI18n();
-    const form = shallowRef({
+    const form = ref({
       firstName: 'First Name',
       lastName: 'Last Name',
       email: 'mail.test@commercetools.com',
@@ -32,8 +46,10 @@ export default {
       repeatPassword: 'p@ssword',
       agreeToTerms: true,
     });
-    const customerSignMeUp = () =>
-      props.tools.tools.signup(form.value);
+    const rules = new Rules(form);
+    const v = useVuelidate(rules, form);
+    const tools = useCustomerTools();
+    const customerSignMeUp = () => tools.signup(form.value);
 
     const getErrorMessage = ({ code, field }) => {
       if (code === 'DuplicateField' && field === 'email') {
@@ -47,24 +63,9 @@ export default {
     return {
       change,
       t,
-      form,
+      v,
       customerSignMeUp,
       getErrorMessage,
     };
   },
-  // validations: {
-  //   form: {
-  //     firstName: { required },
-  //     lastName: { required },
-  //     email: { required, email },
-  //     password: { required, minLength: minLength(5) },
-  //     repeatPassword: {
-  //       sameAsPassword: sameAs('password'),
-  //     },
-  //     agreeToTerms: {
-  //       required,
-  //       mustBeAgreed: sameAs(() => true),
-  //     },
-  //   },
-  // },
 };
