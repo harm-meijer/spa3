@@ -46,11 +46,14 @@ export default {
           }
         );
     };
-    watch([cart, loading], ([cart, loading]) => {
-      if (!cart && !loading) {
-        router.replace({ name: 'home' });
+    watch(
+      [cart, loading, orderComplete],
+      ([cart, loading, orderComplete]) => {
+        if (!orderComplete && !cart && !loading) {
+          router.replace({ name: 'home' });
+        }
       }
-    });
+    );
     const setValidBillingForm = (valid) => {
       validBillingForm.value = valid;
     };
