@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, shallowRef } from 'vue';
 import { useRouter } from 'vue-router';
 import useMyOrder from 'hooks/useMyOrder';
 import useMyOrders from 'hooks/useMyOrders';
@@ -76,8 +76,9 @@ const updateMyCustomerPassword = ({
       saveCustomerState(c);
       return loginToken(c.email, newPassword);
     });
-
-const customer = ref(
+//@todo: make this a global observable, when logging out this ref is set to
+//  null but showLoggedIn is not computed again.
+const customer = shallowRef(
   JSON.parse(localStorage.getItem(CUSTOMER))
 );
 

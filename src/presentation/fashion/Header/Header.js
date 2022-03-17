@@ -1,6 +1,5 @@
 // import CategoriesMenu from "../CategoriesMenu";
 import LoginButton from './LoginButton/LoginButton.vue';
-import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue';
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
 
 import Selector from './Selector/Selector.vue';
@@ -66,6 +65,5 @@ export default {
     Selector,
     CategoriesMenu,
     LoginButton,
-    CustomerTools,
   },
 };

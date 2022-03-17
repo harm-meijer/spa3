@@ -5,17 +5,15 @@
   <div class="login-register-wrap">
     <h3>{{ t('signIn') }}</h3>
     <div class="login-register-form">
-      <!-- :vuelidate="$v" -->
       <BaseForm
-        :vuelidate="{}"
+        :vuelidate="v"
         :onSubmit="customerSignMeIn"
         #default="{ error }"
       >
         <div class="sin-login-register">
-          <!-- :vuelidate="$v.form.email" -->
           <BaseInput
-            :vuelidate="{}"
-            v-model="form.email"
+            v-model="v.email.$model"
+            :vuelidate="v.email"
             :label="t('email')"
             type="email"
             autocomplete="username"
@@ -23,10 +21,9 @@
           />
         </div>
         <div class="sin-login-register">
-          <!-- :vuelidate="$v.form.password" -->
           <BaseInput
-            :vuelidate="{}"
-            v-model="form.password"
+            v-model="v.password.$model"
+            :vuelidate="v.password"
             :label="t('password')"
             type="password"
             autocomplete="current-password"

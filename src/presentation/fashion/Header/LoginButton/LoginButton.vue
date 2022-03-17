@@ -3,11 +3,8 @@
 <script src="./LoginButton.js"></script>
 
 <template>
-  <!-- @todo: split up in container and presentation -->
   <div class="header-login component-same ml-10">
     <span v-if="showLoggedIn">
-      <!-- @todo: need to implement the profile route -->
-      <!-- :to="{ name: 'user' }" -->
       <router-link
         :to="{ name: 'user' }"
         data-test="login-info-name"
@@ -18,11 +15,6 @@
         }}</span>
       </router-link>
     </span>
-    <!-- <span v-if="showLoggedIn" class="hidden-xs">
-      <a @click="logout" data-test="logout-button">
-        <span>{{ t('signOut') }}</span>
-      </a>
-    </span> -->
     <span v-else data-test="login-button">
       <router-link :to="{ name: 'login' }">
         <i class="dl-icon-user12"></i>

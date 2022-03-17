@@ -1,14 +1,11 @@
 import { useI18n } from 'vue-i18n';
+import useCustomerTools from 'hooks/useCustomerTools';
 
 export default {
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  props: {},
+  setup() {
     const { t } = useI18n();
-    return { t, ...props.tools.tools };
+    const { showLoggedIn } = useCustomerTools();
+    return { t, showLoggedIn };
   },
 };
