@@ -37,22 +37,15 @@
                     :editable="true"
                   />
                   <div class="cart-shiping-update-wrapper">
-                    <CartLike v-slot="cartLike">
-                      <AddDiscountCodeForm
-                        :cartLike="cartLike"
-                      />
-                    </CartLike>
+                    <AddDiscountCodeForm />
                   </div>
                 </div>
                 <div class="col-lg-4">
-                  <CartLike v-slot="cartLike">
-                    <CartLikePriceDetail
-                      :cart="cart"
-                      :editable="true"
-                      :cartLike="cartLike"
-                      class="total-price-calc"
-                    />
-                  </CartLike>
+                  <CartLikePriceDetail
+                    :cart="cart"
+                    :editable="true"
+                    class="total-price-calc"
+                  />
                 </div>
               </div>
             </form>

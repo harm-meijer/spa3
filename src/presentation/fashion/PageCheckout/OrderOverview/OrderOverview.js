@@ -4,7 +4,6 @@ import PaymentMethod from './PaymentMethod/PaymentMethod.vue';
 import BasePrice from 'presentation/components/BasePrice/BasePrice.vue';
 import { useI18n } from 'vue-i18n';
 import ShippingMethod from 'containers/views/Shop/Root/Checkout/ShippingMethod/ShippingMethod.vue';
-import CartLike from 'containers/components/CartLike/CartLike.vue';
 import { ref } from 'vue';
 
 export default {
@@ -13,19 +12,10 @@ export default {
       type: Boolean,
       required: false,
     },
-    cart: {
-      type: Object,
-      required: true,
-    },
-    cartLike: {
-      type: Object,
-      required: true,
-    },
   },
   components: {
     ShippingMethod,
     BasePrice,
-    CartLike,
     PaymentMethod,
     // VuePerfectScrollbar,
   },

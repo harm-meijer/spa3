@@ -1,11 +1,9 @@
 import { useI18n } from 'vue-i18n';
 import LineItemInfo from './LineItemInfo/LineItemInfo.vue';
-import CartLike from 'containers/components/CartLike/CartLike.vue';
 import { shallowRef } from 'vue';
 export default {
   components: {
     LineItemInfo,
-    CartLike,
   },
   props: {
     cart: {

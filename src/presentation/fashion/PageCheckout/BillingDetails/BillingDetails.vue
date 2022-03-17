@@ -4,14 +4,11 @@
 <template>
   <div class="billing-info-wrap mr-100">
     <h3>{{ t('billingDetails') }}</h3>
-    <CartLike v-slot="cartLike">
-      <BaseAddressForm
-        @update-address="updateBillingAddress"
-        @valid-form="validBillingForm"
-        :address="billingAddress"
-        :cartLike="cartLike"
-      />
-    </CartLike>
+    <BaseAddressForm
+      @update-address="updateBillingAddress"
+      @valid-form="validBillingForm"
+      :address="billingAddress"
+    />
     <div class="checkout-account mt-20">
       <input
         v-model="differentAddress"
@@ -26,14 +23,11 @@
       class="checkout-ship-open mt-30"
       data-test="alt-shipping-address"
     >
-      <CartLike v-slot="cartLike">
-        <BaseAddressForm
-          @update-address="updateShippingAddress"
-          :cartLike="cartLike"
-          @valid-form="validShippingForm"
-          :address="shippingAddress"
-        />
-      </CartLike>
+      <BaseAddressForm
+        @update-address="updateShippingAddress"
+        @valid-form="validShippingForm"
+        :address="shippingAddress"
+      />
     </div>
   </div>
 </template>

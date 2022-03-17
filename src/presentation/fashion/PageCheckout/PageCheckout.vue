@@ -22,15 +22,12 @@
               />
             </div>
             <div class="col-lg-5">
-              <CartLike v-slot="cartLike">
-                <OrderOverview
-                  @update-shipping="updateShippingMethod"
-                  @complete-order="placeOrder"
-                  :showError="showError"
-                  :cart="cart"
-                  :cartLike="cartLike"
-                />
-              </CartLike>
+              <OrderOverview
+                @update-shipping="updateShippingMethod"
+                @complete-order="placeOrder"
+                :showError="showError"
+                :cart="cart"
+              />
               <ServerError
                 :error="error"
                 class="server-error"

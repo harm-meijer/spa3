@@ -6,12 +6,7 @@
   <tbody>
     <tr>
       <td v-if="editable" class="product-remove">
-        <CartLike v-slot="cartLike">
-          <Remove
-            :lineItemId="lineItem.lineId"
-            :cartLike="cartLike"
-          />
-        </CartLike>
+        <Remove :lineItemId="lineItem.lineId" />
       </td>
       <td v-if="selectable">
         <input
@@ -53,14 +48,11 @@
         </span>
       </td>
       <td class="cart-quality">
-        <CartLike v-slot="cartLike">
-          <LineItemQuantityForm
-            v-if="editable"
-            :line-item-id="lineItem.lineId"
-            :quantity="lineItem.quantity"
-            :cartLike="cartLike"
-          />
-        </CartLike>
+        <LineItemQuantityForm
+          v-if="editable"
+          :line-item-id="lineItem.lineId"
+          :quantity="lineItem.quantity"
+        />
         <div v-if="selectable">
           <div class="cart-plus-minus">
             <input

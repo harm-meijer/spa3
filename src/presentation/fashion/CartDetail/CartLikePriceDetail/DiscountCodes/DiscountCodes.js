@@ -1,9 +1,8 @@
 import { useI18n } from 'vue-i18n';
 import RemoveDiscountCodeForm from './RemoveDiscountCodeForm/RemoveDiscountCodeForm.vue';
-import CartLike from 'containers/components/CartLike/CartLike.vue';
 
 export default {
-  components: { RemoveDiscountCodeForm, CartLike },
+  components: { RemoveDiscountCodeForm },
   props: {
     cart: {
       type: Object,

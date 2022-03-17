@@ -15,7 +15,7 @@ import config from '../../../../../sunrise.config';
 import { getValue, move } from '../../../../lib';
 import i18n from '../../../../i18n';
 import useMiniCart from 'hooks/useMinicart';
-import MiniCart from 'containers/components/MiniCart/MiniCart.vue';
+import MiniCart from 'presentation/Header/MiniCart/MiniCart.vue';
 
 const caseCorrected = (value = '', key = 'countries') => {
   //get case insensitive locale from sunrise config

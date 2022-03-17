@@ -53,12 +53,9 @@
                     <BasePrice :price="total(lineItem)" />
                   </span>
                 </div>
-                <CartLike v-slot="cartLike">
-                  <LineItemDeleteForm
-                    :lineItemId="lineItem.lineId"
-                    :cartLike="cartLike"
-                  />
-                </CartLike>
+                <LineItemDeleteForm
+                  :lineItemId="lineItem.lineId"
+                />
               </li>
             </ul>
             <div class="cart-total">
@@ -66,7 +63,7 @@
                 <!-- @todo: when discounted the strikout style is not working -->
                 {{ t('subtotal') }}:
                 <BasePrice
-                  :price="subtotal(cart)"
+                  :price="subTotal(cart)"
                   data-test="mini-cart-price"
                 />
               </h4>

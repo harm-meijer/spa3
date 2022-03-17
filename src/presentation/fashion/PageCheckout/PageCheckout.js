@@ -1,7 +1,6 @@
 import BillingDetails from './BillingDetails/BillingDetails.vue';
 import OrderOverview from './OrderOverview/OrderOverview.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
-import CartLike from 'containers/components/CartLike/CartLike.vue';
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -11,7 +10,6 @@ export default {
     // CheckoutTopSection,
     OrderOverview,
     BillingDetails,
-    CartLike,
     ServerError,
   },
   props: {

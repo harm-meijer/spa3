@@ -53,14 +53,11 @@
         <div class="shipping-content-left">
           <span class="bold-text">{{ t('shipping') }}</span>
         </div>
-        <CartLike v-slot="cartLike">
-          <ShippingMethod
-            @update-shipping="updateShippingMethod"
-            :cart="cart"
-            :cartLike="cartLike"
-            data-test="shipping-methods"
-          />
-        </CartLike>
+        <ShippingMethod
+          @update-shipping="updateShippingMethod"
+          :cart="cart"
+          data-test="shipping-methods"
+        />
       </div>
       <PaymentMethod
         data-test="payment-methods"

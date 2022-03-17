@@ -3,13 +3,11 @@ import { computed, shallowRef, watch } from 'vue';
 import LineItemQuantityForm from 'presentation/components/LineItemQuantityForm/LineItemQuantityForm.vue';
 
 import Remove from 'presentation/components/LineItemQuantityForm/Remove/Remove.vue';
-import CartLike from 'containers/components/CartLike/CartLike.vue';
 export default {
   components: {
     LineItemQuantityForm,
     Remove,
     BasePrice,
-    CartLike,
   },
   props: {
     lineItem: {

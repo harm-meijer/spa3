@@ -2,7 +2,6 @@
 // import BaseAddressForm from '../BaseAddressForm/BaseAddressForm.vue';
 import { computed, shallowRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import CartLike from 'containers/components/CartLike/CartLike.vue';
 import BaseAddressForm from './BaseAddressForm/BaseAddressForm.vue';
 export default {
   props: {
@@ -18,7 +17,6 @@ export default {
   components: {
     // BaseForm,
     BaseAddressForm,
-    CartLike,
   },
   setup(props, { emit }) {
     const { t } = useI18n({
