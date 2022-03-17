@@ -55,8 +55,11 @@ export default {
       locales,
       ...location,
       locations,
-      ...search,
+      search,
+      setSearch,
       totalCartItems,
+      showLocationChange: true, //@todo: implement this one
+      totalShoppingCartItems: 0, //@todo: need this one??
     };
   },
   components: {
