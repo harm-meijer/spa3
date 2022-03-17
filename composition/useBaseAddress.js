@@ -11,7 +11,6 @@ function useBaseAddress() {
     additionalStreetInfo: {},
     postalCode: { required, $lazy: true },
     city: { required, $lazy: true },
-    country: { required, $lazy: true },
     phone: {},
     email: { required, email, $lazy: true },
   };

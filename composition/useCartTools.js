@@ -1,6 +1,4 @@
 import { useCartActions } from 'hooks/useCartMutation';
-import useBaseAddress from 'hooks/useBaseAddress';
-import useDiscountCode from 'hooks/useDiscountCode';
 import config from '../sunrise.config';
 import useCart from './useCart';
 
@@ -102,8 +100,6 @@ const discountCodesExist = (cart) => {
 
 function useCartTools() {
   const cartActions = useCartActions();
-  const baseAddress = useBaseAddress();
-  const discountCode = useDiscountCode();
   const cartTools = {
     ...cartActions,
     cartNotEmpty,
@@ -113,9 +109,7 @@ function useCartTools() {
     displayedImageUrl,
     subTotal,
     taxes,
-    baseAddress,
     discountCodesExist,
-    discountCode,
     useCart,
   };
   return cartTools;

@@ -4,6 +4,7 @@ import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 
 import { useI18n } from 'vue-i18n';
 import useCartTools from 'hooks/useCartTools';
+import useDiscountCode from 'hooks/useDiscountCode';
 
 export default {
   components: {
@@ -13,10 +14,8 @@ export default {
   },
   setup() {
     const { t } = useI18n();
-    const {
-      discountCode: { form, v },
-      applyDiscount: ad,
-    } = useCartTools();
+    const { applyDiscount: ad } = useCartTools();
+    const { form, v } = useDiscountCode();
     const applyDiscount = () => ad(form.value.code);
     const getErrorMessage = ({ code }) => {
       if (code === 'DiscountCodeNonApplicable') {

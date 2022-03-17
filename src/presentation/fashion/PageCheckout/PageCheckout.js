@@ -30,8 +30,10 @@ export default {
     const placeOrder = () => {
       //@todo: show a validation error?
       if (!validBillingForm.value) {
+        showError.value = true;
         return Promise.resolve();
       }
+      showError.value = false;
       return cartTools
         .createMyOrderFromCart({
           billingAddress,

@@ -2,7 +2,7 @@ import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 // import BaseSelect from '../../common/form/BaseSelect/BaseSelect.vue';
 import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import useCartTools from 'hooks/useCartTools';
+import useBaseAddress from 'hooks/useBaseAddress';
 
 export default {
   props: {
@@ -17,7 +17,8 @@ export default {
   },
   setup(props, { emit }) {
     const { t } = useI18n();
-    const { form, v } = useCartTools().baseAddress;
+    const { form, v } = useBaseAddress();
+    v.value.$touch();
     watch(
       form,
       (form) => {
