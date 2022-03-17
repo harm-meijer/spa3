@@ -181,7 +181,7 @@
           <input
             name="q"
             type="text"
-            v-model="q"
+            v-model="search"
             placeholder="Search entire store…"
             @submit.prevent="doSearch"
           />

@@ -1,5 +1,5 @@
 import About from 'containers/views/About/About.vue';
-import Header from 'containers/components/Header/Header.vue';
+import Header from 'presentation/Header/Header.vue';
 import Footer from 'presentation/Footer/Footer.vue';
 import Root from 'containers/views/Shop/Root/Root.vue';
 import harmRoutes from './harm';

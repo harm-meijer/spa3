@@ -6,17 +6,34 @@ import CustomerTools from 'containers/components/CustomerTools/CustomerTools.vue
 import Selector from './Selector/Selector.vue';
 import CategoriesMenu from 'containers/components/Header/CategoriesMenu';
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import useSearch from 'hooks/useSearch';
+import useLocale from 'hooks/useLocale';
+import useLocation from 'hooks/useLocation';
+import useCart from 'hooks/useCart';
+import useMiniCart from 'hooks/useMinicart';
+import sunriseConfig from '../../../../sunrise.config';
 
 export default {
   name: 'HeaderPresentation',
-  setup(props) {
+  setup() {
+    const locale = useLocale();
+    const location = useLocation();
+    const { cart, exist } = useCart();
+    const { search, setSearch } = useSearch();
+    const totalCartItems = computed(() =>
+      exist.value && cart.value
+        ? cart.value.lineItems
+            .map(({ quantity }) => quantity)
+            .reduce((sum, q) => sum + q, 0)
+        : 0
+    );
+    const locations = Object.keys(sunriseConfig.countries);
+    const locales = Object.keys(sunriseConfig.languages);
+    const miniCart = useMiniCart();
+
     //@todo: what do we do with this one? Do we have to get this every time?
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: 'local',
-    });
-    const q = ref(props.search);
+    const { t } = useI18n();
     const searchOpen = ref(false);
     // const mobileMenuOpen = ref(false);
 
@@ -25,73 +42,27 @@ export default {
     };
     const doSearch = () => {
       toggleSearch();
-      props.setSearch(q.value);
+      setSearch(search.value);
     };
 
-    return { t, q, doSearch, toggleSearch, searchOpen };
+    return {
+      t,
+      doSearch,
+      toggleSearch,
+      searchOpen,
+      ...locale,
+      miniCart,
+      locales,
+      ...location,
+      locations,
+      ...search,
+      totalCartItems,
+    };
   },
   components: {
     Selector,
     CategoriesMenu,
     LoginButton,
     CustomerTools,
-  },
-  props: {
-    miniCart: {
-      type: Object,
-      required: true,
-    },
-    shoppingLists: {
-      type: Array,
-      required: false,
-    },
-    totalShoppingCartItems: {
-      type: Number,
-      required: false,
-    },
-    totalCartItems: {
-      type: Number,
-      required: false,
-    },
-    showLocationChange: {
-      type: Boolean,
-      required: true,
-    },
-    search: {
-      type: String,
-      required: true,
-    },
-    setSearch: {
-      type: Function,
-      required: true,
-    },
-    toggleMobileMenu: {
-      type: Function,
-      required: true,
-    },
-    location: {
-      type: String,
-      required: true,
-    },
-    setLocation: {
-      type: Function,
-      required: true,
-    },
-    locations: {
-      type: Array,
-      required: true,
-    },
-    locale: {
-      type: String,
-      required: true,
-    },
-    setLocale: {
-      type: Function,
-      required: true,
-    },
-    locales: {
-      type: Array,
-      required: true,
-    },
   },
 };
