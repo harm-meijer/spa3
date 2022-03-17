@@ -1,37 +1,33 @@
-//@todo: implement vuelidate
+import { required, email } from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
-import { shallowRef } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-
+import useCustomerTools from 'hooks/useCustomerTools';
+function Rules() {
+  this.email = { required, email };
+  this.firstName = { required };
+  this.lastName = { required };
+}
 export default {
   components: {
     BaseInput,
     BaseForm,
     ServerError,
   },
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
-    const form = shallowRef({
-      ...props.tools.customer.value,
+    const tools = useCustomerTools();
+    const form = ref({
+      ...tools.customer.value,
     });
+    const rules = new Rules();
+    const v = useVuelidate(rules, form);
     const updateCustomerProfile = () => {
-      return props.tools.updateUser(form.value);
+      return tools.updateUser(form.value);
     };
-    return { t, form, updateCustomerProfile };
+    return { t, v, updateCustomerProfile };
   },
-  // validations: {
-  //   form: {
-  //     email: { required, email },
-  //     firstName: { required },
-  //     lastName: { required },
-  //   },
-  // },
 };

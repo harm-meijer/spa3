@@ -1,10 +1,10 @@
-// import { required, sameAs } from 'vuelidate/lib/validators';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.vue';
 import { useI18n } from 'vue-i18n';
 import { shallowRef } from 'vue';
+import useCustomerTools from 'hooks/useCustomerTools';
 
 export default {
   components: {
@@ -13,13 +13,8 @@ export default {
     LoadingButton,
     ServerError,
   },
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const tools = useCustomerTools();
     const { t } = useI18n();
     const getErrorMessage = ({ code }) => {
       if (code === 'InvalidCurrentPassword') {
@@ -29,7 +24,7 @@ export default {
     };
     const form = shallowRef({});
     const updateCustomerPassword = () =>
-      props.tools
+      tools
         .updateMyCustomerPassword(form.value)
         .then(() => {
           form.value = {};
@@ -39,14 +34,7 @@ export default {
       getErrorMessage,
       updateCustomerPassword,
       form,
-      ...props.tools,
+      ...tools,
     };
   },
-  // validations: {
-  //   form: {
-  //     currentPassword: { required },
-  //     newPassword: { required },
-  //     newPasswordConfirm: { sameAsPassword: sameAs('newPassword') },
-  //   },
-  // },
 };

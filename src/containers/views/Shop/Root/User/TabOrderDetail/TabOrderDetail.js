@@ -7,6 +7,7 @@ import CartLikeContentDetail from 'presentation/CartDetail/CartLikeContentDetail
 import BaseAddress from 'presentation/components/BaseAddress/BaseAddress.vue';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import useCustomerTools from 'hooks/useCustomerTools';
 
 export default {
   components: {
@@ -16,15 +17,11 @@ export default {
     BaseAddress,
     LineItemInfo,
   },
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  props: {},
+  setup() {
+    const tools = useCustomerTools();
     const { t } = useI18n();
-    const { loading, order } = props.tools.useMyOrder();
+    const { loading, order } = tools.useMyOrder();
     const subtotal = computed(() => {
       if (order.value) {
         const { currencyCode, fractionDigits } =

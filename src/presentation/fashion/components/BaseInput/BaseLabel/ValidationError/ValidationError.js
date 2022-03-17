@@ -1,7 +1,6 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-//@todo: implement vuelidate
 export default {
   props: {
     vuelidate: {
@@ -17,7 +16,6 @@ export default {
   },
   setup(props) {
     const { t, te } = useI18n();
-
     const validations = computed(() => {
       const errors = props.vuelidate.$errors.map(
         ({ $validator }) => $validator

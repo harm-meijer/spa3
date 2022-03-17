@@ -4,6 +4,7 @@ import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import Pagination from 'presentation/components/Pagination/Pagination.vue';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import useCustomerTools from 'hooks/useCustomerTools';
 
 export default {
   components: {
@@ -12,15 +13,10 @@ export default {
     Spinner,
     Pagination,
   },
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const tools = useCustomerTools();
     const { setPage, loading, orders, total, page } =
-      props.tools.useMyOrders();
+      tools.useMyOrders();
     const { t } = useI18n();
     const orderListNotEmpty = computed(() => {
       return Boolean(orders.value.length);

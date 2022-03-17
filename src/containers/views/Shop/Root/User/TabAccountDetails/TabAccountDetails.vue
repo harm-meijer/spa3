@@ -6,10 +6,9 @@
   <div class="myaccount-content">
     <h3>{{ t('title') }}</h3>
     <div class="account-details-form">
-      <!-- @todo: implement vuelidate -->
       <BaseForm
+        :vuelidate="v"
         :onSubmit="updateCustomerProfile"
-        :vuelidate="{}"
         #default="{ error }"
       >
         <div class="row">
@@ -19,8 +18,8 @@
                 t('firstName')
               }}</label>
               <BaseInput
-                v-model="form.firstName"
-                :vuelidate="{}"
+                v-model="v.firstName.$model"
+                :vuelidate="v.firstName"
                 type="text"
                 id="first-name"
               />
@@ -32,8 +31,8 @@
                 t('lastName')
               }}</label>
               <BaseInput
-                v-model="form.lastName"
-                :vuelidate="{}"
+                v-model="v.lastName.$model"
+                :vuelidate="v.lastName"
                 type="text"
                 id="last-name"
               />
@@ -45,16 +44,19 @@
             t('email')
           }}</label>
           <BaseInput
-            v-model="form.email"
-            :vuelidate="{}"
+            v-model="v.email.$model"
+            :vuelidate="v.email"
             type="email"
             id="email"
           />
         </div>
         <div class="single-input-item pt-30">
-          <!-- :disabled="$v.$invalid" -->
-          <!-- :class="$v.$invalid ? 'disabled' : ''" -->
-          <button type="submit" class="check-btn sqr-btn">
+          <button
+            :disabled="v.$invalid"
+            :class="v.$invalid ? 'disabled' : ''"
+            type="submit"
+            class="check-btn sqr-btn"
+          >
             {{ t('saveBtn') }}
           </button>
         </div>
