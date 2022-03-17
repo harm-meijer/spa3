@@ -18,10 +18,8 @@ function Rules(form) {
   this.email = { required, email };
   this.password = { required, minLength: minLength(5) };
   this.repeatPassword = {
-    sameAsPassword: (value) => {
-      console.log('why?', value, form.value);
-      return value === form.value.password;
-    },
+    sameAsPassword: (value) =>
+      value === form.value.password,
   };
   this.agreeToTerms = {
     required,
