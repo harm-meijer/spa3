@@ -3,16 +3,16 @@ import Footer from 'presentation/Footer/Footer.vue';
 import Products from 'containers/views/Shop/Root/Products/Products.vue';
 import Product from 'containers/views/Shop/Root/Product/Product.vue';
 import Checkout from 'presentation/PageCheckout/PageCheckout.vue';
-import Login from 'containers/views/Shop/Root/Login/Login.vue';
-import User from 'containers/views/Shop/Root/User/User.vue';
-import TabDashboard from 'containers/views/Shop/Root/User/TabDashboard/TabDashboard.vue';
-import TabAccountDetails from 'containers/views/Shop/Root/User/TabAccountDetails/TabAccountDetails.vue';
-import TabChangePassword from 'containers/views/Shop/Root/User/TabChangePassword/TabChangePassword.vue';
+import Login from 'presentation/Login/Login.vue';
+import User from 'presentation/User/User.vue';
+import TabDashboard from 'presentation/User/TabDashboard/TabDashboard.vue';
+import TabAccountDetails from 'presentation/User/TabAccountDetails/TabAccountDetails.vue';
+import TabChangePassword from 'presentation/User/TabChangePassword/TabChangePassword.vue';
 import ForgotPassword from 'containers/views/ForgotPassword/ForgotPassword.vue';
-import ResetPassword from 'containers/views/Shop/Root/User/ResetPassword/ResetPassword.vue';
-import TabOrderList from 'containers/views/Shop/Root/User/TabOrderList/TabOrderList.vue';
-import TabOrderDetail from 'containers/views/Shop/Root/User/TabOrderDetail/TabOrderDetail.vue';
-import TabReturn from 'containers/views/Shop/Root/User/TabReturn/TabReturn.vue';
+import ResetPassword from 'presentation/User/ResetPassword/ResetPassword.vue';
+import TabOrderList from 'presentation/User/TabOrderList/TabOrderList.vue';
+import TabOrderDetail from 'presentation/User/TabOrderDetail/TabOrderDetail.vue';
+import TabReturn from 'presentation/User/TabReturn/TabReturn.vue';
 const requiresAuth = true;
 export default [
   {

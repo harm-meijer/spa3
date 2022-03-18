@@ -20,13 +20,6 @@ const saveCustomerState = (c) => {
   cache.reset();
 };
 const createResetToken = basic.createResetToken;
-const returnItems = (id, version, items) => {
-  return basic.returnItems(id, version, items).then(() => {
-    cache.reset();
-    //@todo: move to order detail
-  });
-};
-const resetPassword = basic.resetPassword;
 const updateUser = ({ firstName, lastName, email }) =>
   basic
     .updateUser({
@@ -99,6 +92,12 @@ function useCustomerTools() {
         router.push({ name: 'user' });
         return result;
       });
+  const resetPassword = ({ token, newPassword }) =>
+    basic.resetPassword({ token, newPassword }).then(() =>
+      router.push({
+        name: 'login',
+      })
+    );
 
   const logout = () => {
     lo();
@@ -110,6 +109,17 @@ function useCustomerTools() {
     li(email, password).then(() =>
       router.push({ name: 'user' })
     );
+  const returnItems = (id, version, items) => {
+    return basic
+      .returnItems(id, version, items)
+      .then(() => {
+        cache.reset();
+        router.push({
+          name: 'order',
+          params: { id },
+        });
+      });
+  };
   return {
     login,
     signup,

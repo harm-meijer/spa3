@@ -5,6 +5,7 @@ import CartLikeContentDetail from 'presentation/CartDetail/CartLikeContentDetail
 import BaseAddress from 'presentation/components/BaseAddress/BaseAddress.vue';
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import useCustomerTools from 'hooks/useCustomerTools';
 
 export default {
   components: {
@@ -14,31 +15,19 @@ export default {
     BaseAddress,
     LineItemInfo,
   },
-  props: {
-    tools: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
     const selectedItems = shallowRef([]);
-    const { loading, order } = props.tools.useMyOrder();
+    const tools = useCustomerTools();
+    const { loading, order } = tools.useMyOrder();
     function updateSelectedItems(items) {
       selectedItems.value = items;
-    }
-    function closeModal() {
-      throw new Error('not implemented to close modal');
-      // this.$modal.hide('returnSuccess');
-      // changeRoute(
-      //   { name: 'orders' }, this,
-      // );
     }
     function submitReturn() {
       if (selectedItems.value.length === 0) {
         alert(t('alert'));
       } else {
-        return props.tools.returnItems(
+        return tools.returnItems(
           order.value.id,
           order.value.version,
           selectedItems.value
@@ -49,7 +38,6 @@ export default {
       t,
       updateSelectedItems,
       submitReturn,
-      closeModal,
       loading,
       order,
     };

@@ -1,5 +1,4 @@
 //@todo: add to shopping list (breadcrumb can go)
-// import Breadcrumb from '../../common/Breadcrumb/Breadcrumb.vue';
 // import AddToShoppingList from '../../productoverview/AddToShoppingList/AddToShoppingList.vue';
 import { ref } from 'vue';
 import ProductInfo from './ProductInfo/ProductInfo.vue';

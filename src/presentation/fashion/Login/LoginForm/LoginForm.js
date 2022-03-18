@@ -3,7 +3,6 @@ import { required, email } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
-// import LoadingButton from '../../common/form/LoadingButton/LoadingButton.vue';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import { useI18n } from 'vue-i18n';
 import useCustomerTools from 'hooks/useCustomerTools';

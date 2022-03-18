@@ -23,6 +23,7 @@ export default {
     const { t } = useI18n();
     const { loading, order } = tools.useMyOrder();
     const subtotal = computed(() => {
+      //@todo: is this not already done in cart tools?
       if (order.value) {
         const { currencyCode, fractionDigits } =
           order.value.totalPrice;

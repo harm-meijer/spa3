@@ -25,10 +25,6 @@ export default {
     ServerError,
   },
   props: {
-    gotoLogin: {
-      type: Function,
-      required: true,
-    },
     token: {
       type: String,
       required: true,
@@ -41,12 +37,10 @@ export default {
     const v = useVuelidate(rules, form);
     const tools = useCustomerTools();
     const resetPassword = () =>
-      tools
-        .resetPassword({
-          token: props.token,
-          newPassword: form.value.newPassword,
-        })
-        .then(props.gotoLogin);
+      tools.resetPassword({
+        token: props.token,
+        newPassword: form.value.newPassword,
+      });
 
     function getErrorMessage({ code }) {
       if (code === 'InvalidSubject') {
