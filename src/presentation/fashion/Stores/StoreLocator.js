@@ -1,5 +1,5 @@
 import GoogleMaps from 'containers/views/Shop/Root/Stores/GoogleMaps/GoogleMaps.vue';
-import { computed, shallowRef } from 'vue';
+import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useChannels from 'hooks/useChannels';
 import useSelectedChannel from 'hooks/useSelectedChannel';
@@ -78,13 +78,12 @@ export default {
         label: '3000 mi',
       },
     ];
-    const radius = computed(
-      () => searchRadius.value.distance
+    const searchRadius = shallowRef(
+      radiusOptions[0].distance
     );
-    const searchRadius = shallowRef(radiusOptions[0]);
     const { channels, loading } = useChannels(
       center,
-      radius
+      searchRadius
     );
     function setPlace(place) {
       center.value = getLocationFromPlace(place);
