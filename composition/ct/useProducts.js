@@ -184,7 +184,10 @@ const useProducts = ({
   expand = {},
   sku,
   store,
+  customerGroup,
 }) => {
+  //@todo: use this in query if it is set
+  console.log('group:', customerGroup.value);
   const [products, setProducts] = useState();
   const [priceSelector, setPriceSelector] = useState(
     createPriceSelector(currency, country, store)

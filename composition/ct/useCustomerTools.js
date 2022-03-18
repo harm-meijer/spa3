@@ -82,6 +82,9 @@ const signup = (form) => {
             email
             version
             customerNumber
+            customerGroupRef {
+              customerGroupId: id
+            }
           }
         }
       }
@@ -118,6 +121,9 @@ const updateUser = ({
           firstName
           lastName
           version
+          customerGroupRef {
+            customerGroupId: id
+          }
         }
       }
     `,
@@ -144,6 +150,9 @@ const login = (email, password) =>
             email
             customerNumber
             version
+            customerGroupRef {
+              customerGroupId: id
+            }
           }
         }
       }
@@ -173,6 +182,9 @@ const updateMyCustomerPassword = ({
           email
           customerNumber
           version
+          customerGroupRef {
+            customerGroupId: id
+          }
         }
       }
     `,

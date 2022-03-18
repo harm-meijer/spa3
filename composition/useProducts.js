@@ -8,6 +8,7 @@ import useProducts from './ct/useProducts';
 import usePaging from './usePaging';
 import useSearch from './useSearch';
 import useStore from './useStore';
+import useCustomerTools from './useCustomerTools';
 //vue specific useProducts
 export const useSorts = () => {
   const route = useRoute();
@@ -29,6 +30,7 @@ export const useSorts = () => {
 };
 
 export default ({ expand } = {}) => {
+  const { customer } = useCustomerTools();
   const route = useRoute();
   const { locale } = useLocale();
   const { location } = useLocation();
@@ -37,6 +39,9 @@ export default ({ expand } = {}) => {
     route.params.categorySlug === ALL
       ? null
       : route.params.categorySlug
+  );
+  const customerGroup = computed(
+    () => customer.value?.customerGroupRef?.customerGroupId
   );
   const sku = computed(() => route?.params?.sku);
   const page = computed(() => route.params.page || 1);
@@ -57,6 +62,7 @@ export default ({ expand } = {}) => {
     sku,
     store,
     expand,
+    customerGroup,
   });
   return {
     total,
