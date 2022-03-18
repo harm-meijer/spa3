@@ -160,13 +160,24 @@ const updateFilters = (
         : undefined
     )
     .filter((f) => f);
-const createPriceSelector = (currency, country, store) => ({
+const createPriceSelector = (
+  currency,
+  country,
+  store,
+  customerGroup
+) => ({
   currency: getValue(currency),
   country: getValue(country),
   channel: getValue(store)
     ? {
         typeId: 'priceChannel',
         id: getValue(store),
+      }
+    : null,
+  customerGroup: getValue(customerGroup)
+    ? {
+        id: getValue(customerGroup),
+        typeId: 'customer-group',
       }
     : null,
 });
@@ -186,11 +197,14 @@ const useProducts = ({
   store,
   customerGroup,
 }) => {
-  //@todo: use this in query if it is set
-  console.log('group:', customerGroup.value);
   const [products, setProducts] = useState();
   const [priceSelector, setPriceSelector] = useState(
-    createPriceSelector(currency, country, store)
+    createPriceSelector(
+      currency,
+      country,
+      store,
+      customerGroup
+    )
   );
   const [skip, setSkip] = useState(true);
   const [total, setTotal] = useState();
@@ -222,9 +236,14 @@ const useProducts = ({
   );
   useEffect(() => {
     setPriceSelector(
-      createPriceSelector(currency, country, store)
+      createPriceSelector(
+        currency,
+        country,
+        store,
+        customerGroup
+      )
     );
-  }, [currency, country, store]);
+  }, [currency, country, store, customerGroup]);
   useEffect(
     () =>
       setFilters((filters) =>
