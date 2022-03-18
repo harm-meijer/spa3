@@ -4,7 +4,7 @@ import useCustomerTools from 'hooks/useCustomerTools';
 export default {
   setup() {
     const { t } = useI18n();
-    const { customer } = useCustomerTools();
-    return { t, customer };
+    const { customer, logout } = useCustomerTools();
+    return { t, customer, logout };
   },
 };
