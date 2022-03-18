@@ -6,3 +6,4 @@ export const ALL = 'all';
 export const DEFAULT_PAGE_SIZE = 10;
 export const STORE = 'STORE';
 export const CUSTOMER = 'CUSTOMER';
+export const CHANNEL = 'CHANNEL';

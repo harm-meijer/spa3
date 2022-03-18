@@ -1,7 +1,8 @@
 import GoogleMaps from 'containers/views/Shop/Root/Stores/GoogleMaps/GoogleMaps.vue';
 import { computed, shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import useChannels from '../../../../composition/useChannels';
+import useChannels from 'hooks/useChannels';
+import useSelectedChannel from 'hooks/useSelectedChannel';
 const getCoordinates = ({ lat, lng }) => ({
   lat: parseFloat(lat),
   lng: parseFloat(lng),
@@ -13,12 +14,44 @@ const getLocationFromPlace = (p) =>
     lng: p.geometry.location.lng(),
   });
 
+const getLocationFromChannel = (c) =>
+  getCoordinates({
+    lat: c.geoLocation.coordinates[1],
+    lng: c.geoLocation.coordinates[0],
+  });
+function haversineDistance(mk1, mk2) {
+  const R = 3958.8; // Radius of the Earth in miles
+  const rlat1 = mk1.lat * (Math.PI / 180); // Convert degrees to radians
+  const rlat2 = mk2.lat * (Math.PI / 180); // Convert degrees to radians
+  const difflat = rlat2 - rlat1; // Radian difference (latitudes)
+  const difflon = (mk2.lng - mk1.lng) * (Math.PI / 180); // Radian difference (longitudes)
+
+  const d =
+    2 *
+    R *
+    Math.asin(
+      Math.sqrt(
+        Math.sin(difflat / 2) * Math.sin(difflat / 2) +
+          Math.cos(rlat1) *
+            Math.cos(rlat2) *
+            Math.sin(difflon / 2) *
+            Math.sin(difflon / 2)
+      )
+    );
+  return d;
+}
+function initialLocation(channel) {
+  const [lng = 53.5512179, lat = 10.0015642] =
+    channel.value?.geoLocation?.coordinates;
+  return { lat, lng };
+}
 export default {
   name: 'StoreLocator',
   components: { GoogleMaps },
   setup() {
     const { t } = useI18n();
-    const center = shallowRef({});
+    const { channel, setChannel } = useSelectedChannel();
+    const center = shallowRef(initialLocation(channel));
     const radiusOptions = [
       {
         distance: 25,
@@ -45,24 +78,52 @@ export default {
         label: '3000 mi',
       },
     ];
-    const distance = computed(
+    const radius = computed(
       () => searchRadius.value.distance
     );
     const searchRadius = shallowRef(radiusOptions[0]);
     const { channels, loading } = useChannels(
       center,
-      distance
+      radius
     );
     function setPlace(place) {
       center.value = getLocationFromPlace(place);
     }
+    function distance(channel) {
+      return haversineDistance(
+        this.center,
+        getLocationFromChannel(channel)
+      ).toFixed(2);
+    }
+    function openingHours(channel) {
+      const field = (
+        channel?.custom?.customFieldsRaw || []
+      ).find(({ name }) => name === 'openingTimes');
+      const hours = field && field.value && field.value.en;
+      return hours;
+    }
+    function isSelected(channel) {
+      return channel.value?.name === channel.name;
+    }
+    function setStore(channel) {
+      setChannel(channel);
+    }
+    function click(channel) {
+      const [lng, lat] = channel.geoLocation.coordinates;
+      center.value = { lat, lng };
+    }
     return {
+      click,
       setPlace,
       center,
       radiusOptions,
       searchRadius,
       loading,
       channels,
+      distance,
+      isSelected,
+      setStore,
+      openingHours,
       t,
     };
   },

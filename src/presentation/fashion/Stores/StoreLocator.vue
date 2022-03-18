@@ -96,7 +96,7 @@
                         :value="channel.id"
                       />
                       <button
-                        v-on:click="setStore"
+                        @click="setStore(channel)"
                         class="selectBtn"
                         :value="channel.id"
                         data-test="select-store"
