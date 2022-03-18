@@ -1,10 +1,20 @@
+import { required } from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
 import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import LoadingButton from 'presentation/components/LoadingButton/LoadingButton.vue';
 import { useI18n } from 'vue-i18n';
-import { shallowRef } from 'vue';
+import { ref } from 'vue';
 import useCustomerTools from 'hooks/useCustomerTools';
+function Rules(form) {
+  this.currentPassword = { required };
+  this.newPassword = { required };
+  this.newPasswordConfirm = {
+    sameAsPassword: (value) =>
+      value === form.value.newPassword,
+  };
+}
 
 export default {
   components: {
@@ -22,7 +32,9 @@ export default {
       }
       return t('unknownError');
     };
-    const form = shallowRef({});
+    const form = ref({});
+    const rules = new Rules(form);
+    const v = useVuelidate(rules, form);
     const updateCustomerPassword = () =>
       tools
         .updateMyCustomerPassword(form.value)
@@ -33,7 +45,7 @@ export default {
       t,
       getErrorMessage,
       updateCustomerPassword,
-      form,
+      v,
       ...tools,
     };
   },

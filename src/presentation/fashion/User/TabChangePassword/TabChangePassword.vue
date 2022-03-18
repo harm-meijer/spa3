@@ -7,7 +7,7 @@
     <h3>{{ t('title') }}</h3>
     <div class="account-details-form">
       <BaseForm
-        :vuelidate="{}"
+        :vuelidate="v"
         :onSubmit="updateCustomerPassword"
         #default="{ error }"
       >
@@ -21,8 +21,8 @@
             t('currentPassword')
           }}</label>
           <BaseInput
-            v-model="form.currentPassword"
-            :vuelidate="{}"
+            v-model="v.currentPassword.$model"
+            :vuelidate="v.currentPassword"
             type="password"
             data-test="change-password-form-currentpassword"
           />
@@ -34,8 +34,8 @@
                 t('newPassword')
               }}</label>
               <BaseInput
-                v-model="form.newPassword"
-                :vuelidate="{}"
+                v-model="v.newPassword.$model"
+                :vuelidate="v.newPassword"
                 type="password"
                 data-test="change-password-form-newpassword"
               />
@@ -47,8 +47,8 @@
                 t('newPasswordConfirm')
               }}</label>
               <BaseInput
-                v-model="form.newPasswordConfirm"
-                :vuelidate="{}"
+                v-model="v.newPasswordConfirm.$model"
+                :vuelidate="v.newPasswordConfirm"
                 :customErrors="{
                   sameAsPassword: t(
                     'newPasswordConfirmError'
@@ -61,9 +61,9 @@
           </div>
         </div>
         <div class="single-input-item pt-30">
-          <!-- :disabled="$v.$invalid" -->
-          <!-- :class="$v.$invalid ? 'disabled' : ''" -->
           <button
+            :disabled="v.$invalid"
+            :class="v.$invalid ? 'disabled' : ''"
             type="submit"
             class="check-btn sqr-btn"
             data-test="change-password-submit"
