@@ -27,21 +27,6 @@ const returnItems = (id, version, items) => {
   });
 };
 const resetPassword = basic.resetPassword;
-const signup = (form) =>
-  basic
-    .signup(form)
-    .then((data) => {
-      return loginToken(form.email, form.password).then(
-        () => data
-      );
-    })
-    .then((result) => {
-      saveCustomerState(
-        result.data.customerSignMeUp.customer
-      );
-      return result;
-    });
-
 const updateUser = ({ firstName, lastName, email }) =>
   basic
     .updateUser({
@@ -99,6 +84,22 @@ function useCustomerTools() {
   const showLoggedIn = computed(() => {
     return Boolean(customer.value);
   });
+  const signup = (form) =>
+    basic
+      .signup(form)
+      .then((data) => {
+        return loginToken(form.email, form.password).then(
+          () => data
+        );
+      })
+      .then((result) => {
+        saveCustomerState(
+          result.data.customerSignMeUp.customer
+        );
+        router.push({ name: 'user' });
+        return result;
+      });
+
   const logout = () => {
     lo();
     customerGlobal.setValue(null);
