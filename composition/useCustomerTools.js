@@ -42,14 +42,14 @@ const signup = (form) =>
       return result;
     });
 
-const updateUser = ({
-  version,
-  firstName,
-  lastName,
-  email,
-}) =>
+const updateUser = ({ firstName, lastName, email }) =>
   basic
-    .updateUser({ version, firstName, lastName, email })
+    .updateUser({
+      version: customerGlobal.ref.value.version,
+      firstName,
+      lastName,
+      email,
+    })
     .then((result) => {
       saveCustomerState(result.data.updateMyCustomer);
     });
