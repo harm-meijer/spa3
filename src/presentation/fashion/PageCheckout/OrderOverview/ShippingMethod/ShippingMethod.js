@@ -1,15 +1,10 @@
-//@todo: use vuelidate
+//@todo: do not need vuelidate but set default method when opening
+//  and no shipping method has been set already
 
-// import { required } from 'vuelidate/lib/validators';
-// import BaseRadio from '../../common/form/BaseRadio/BaseRadio.vue';
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 import { ref, shallowRef, watch } from 'vue';
 import useShippingMethods from 'hooks/useShippingMethods';
 import useCartTools from 'hooks/useCartTools';
-// import BaseForm from '../../common/form/BaseForm/BaseForm.vue';
-// import BaseLabel from '../../common/form/BaseLabel/BaseLabel.vue';
-// import MONEY_FRAGMENT from '../../Money.gql';
-// import { locale } from '../../common/shared';
 export default {
   props: {
     cart: {
@@ -18,10 +13,7 @@ export default {
     },
   },
   components: {
-    // BaseLabel,
-    // BaseForm,
     BaseMoney,
-    // BaseRadio,
   },
   setup(props) {
     const { total, loading, error, shippingMethods } =

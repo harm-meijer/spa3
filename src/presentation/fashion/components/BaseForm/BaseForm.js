@@ -15,7 +15,6 @@ export default {
     const state = shallowRef(null);
     const error = shallowRef(null);
     function submit() {
-      //@todo:implement vuelidate (should be in props)
       props.vuelidate.$touch();
       error.value = null;
       if (!props.vuelidate.$invalid) {

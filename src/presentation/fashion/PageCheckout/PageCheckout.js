@@ -28,7 +28,6 @@ export default {
     const { cart, loading } = useCart();
     const cartTools = useCartTools();
     const placeOrder = () => {
-      //@todo: show a validation error?
       if (!validBillingForm.value) {
         showError.value = true;
         return Promise.resolve();

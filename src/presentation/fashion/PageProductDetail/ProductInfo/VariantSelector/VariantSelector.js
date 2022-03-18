@@ -1,4 +1,4 @@
-//@todo: make container and presentation
+//@todo: put some of this code in a hook
 import useLocale from 'hooks/useLocale';
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';

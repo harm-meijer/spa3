@@ -28,10 +28,10 @@
           >
             <td data-test="order-date">
               <!-- @todo: base date is not working i18n error -->
-              <!-- <BaseDate
+              <BaseDate
                 :date="order.createdAt"
                 :format="'short'"
-              /> -->
+              />
             </td>
             <td data-test="total-price">
               <BaseMoney :money="order.totalPrice" />

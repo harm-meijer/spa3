@@ -1,5 +1,3 @@
-//@todo: move to presentation and dont wrap in customertools, just
-//   call useCustomerTools from presentation
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 import BaseDate from 'presentation/components/BaseDate/BaseDate.vue';
 import LineItemInfo from 'presentation/CartDetail/CartLikeContentDetail/LineItemInfo/LineItemInfo.vue';

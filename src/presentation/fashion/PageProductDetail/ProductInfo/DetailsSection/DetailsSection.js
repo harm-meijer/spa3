@@ -16,7 +16,6 @@ export default {
   setup(props) {
     const { t } = useI18n();
     const expanded = shallowRef([true, false]);
-    //@todo: split up in container and presentation
     const { locale } = useLocale();
     const attributes = computed(() => {
       const attributes =

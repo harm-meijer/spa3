@@ -113,18 +113,6 @@
           {{ t('country') }}
           <abbr class="required" title="required">*</abbr>
         </label>
-        <!-- @todo: use vuelidate -->
-        <!-- :vuelidate="$v.country" -->
-        <!-- country is set in useCartMutation -->
-        <!-- <select v-model="form.country" class="select">
-          <option
-            v-for="country in countries"
-            :value="country.id"
-            :key="country.id"
-          >
-            {{ country.name }}
-          </option>
-        </select> -->
       </div>
     </div>
     <div class="col-lg-6 col-md-6">

@@ -11,8 +11,6 @@
       v-for="validation in validations"
       :key="validation"
     >
-      <!-- @todo: how do we know if a certain validation failed (there is no property indication it failed) -->
-      <!-- v-if="!vuelidate[validation]" -->
       <span
         data-test="validation-error"
         v-if="vuelidate[validation].$invalid"

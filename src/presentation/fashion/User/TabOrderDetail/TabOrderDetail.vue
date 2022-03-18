@@ -22,11 +22,11 @@
             <br />
           </span>
           <!-- @todo: base date is broken i18n does not work -->
-          <!-- <BaseDate
+          <BaseDate
             :date="order.createdAt"
             :format="'short'"
             data-test="details-order-date"
-          /> -->
+          />
         </div>
         <div class="col-md-5">
           <router-link
