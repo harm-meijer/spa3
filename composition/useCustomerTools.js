@@ -17,7 +17,6 @@ import { CUSTOMER } from '../src/constants';
 import { createReactive } from './lib';
 const saveCustomerState = (c) => {
   customerGlobal.setValue(c);
-  cache.reset();
 };
 const createResetToken = basic.createResetToken;
 const updateUser = ({ firstName, lastName, email }) =>
@@ -30,6 +29,7 @@ const updateUser = ({ firstName, lastName, email }) =>
     })
     .then((result) => {
       saveCustomerState(result.data.updateMyCustomer);
+      cache.reset();
     });
 const li = (email, password) =>
   basic
@@ -43,21 +43,6 @@ const li = (email, password) =>
       );
       cache.reset();
       return result;
-    });
-const updateMyCustomerPassword = ({
-  currentPassword,
-  newPassword,
-}) =>
-  basic
-    .updateMyCustomerPassword({
-      currentPassword,
-      newPassword,
-      version: customerGlobal.ref.value.version,
-    })
-    .then((result) => {
-      const c = result.data.customerChangeMyPassword;
-      saveCustomerState(c);
-      return loginToken(c.email, newPassword);
     });
 const customerGlobal = createReactive(
   JSON.parse(localStorage.getItem(CUSTOMER)),
@@ -89,6 +74,7 @@ function useCustomerTools() {
         saveCustomerState(
           result.data.customerSignMeUp.customer
         );
+        cache.reset();
         router.push({ name: 'user' });
         return result;
       });
@@ -120,6 +106,22 @@ function useCustomerTools() {
         });
       });
   };
+  const updateMyCustomerPassword = ({
+    currentPassword,
+    newPassword,
+  }) =>
+    basic
+      .updateMyCustomerPassword({
+        currentPassword,
+        newPassword,
+        version: customerGlobal.ref.value.version,
+      })
+      .then((result) => {
+        const c = result.data.customerChangeMyPassword;
+        saveCustomerState(c);
+        return loginToken(c.email, newPassword);
+      })
+      .then(() => router.push({ name: 'user' }));
   return {
     login,
     signup,
