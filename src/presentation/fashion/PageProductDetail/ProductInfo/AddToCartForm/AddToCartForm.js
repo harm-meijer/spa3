@@ -1,8 +1,15 @@
-import { shallowRef } from 'vue';
+import { required, numeric } from '@vuelidate/validators';
+import useVuelidate from '@vuelidate/core';
+
+import { shallowRef, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import BaseForm from 'presentation/components/BaseForm/BaseForm.vue';
+import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import ServerError from 'presentation/components/ServerError/ServerError.vue';
 import useCartTools from 'hooks/useCartTools';
+function Rules() {
+  this.quantity = { required, numeric };
+}
 
 export default {
   name: 'AddToCartForm',
@@ -27,14 +34,17 @@ export default {
   components: {
     BaseForm,
     ServerError,
+    BaseInput,
   },
   setup(props) {
     const { t } = useI18n();
-    const quantity = shallowRef(1);
+    const form = ref({ quantity: 1 });
+    const rules = new Rules(form);
+    const v = useVuelidate(rules, form);
     const showQuantityError = shallowRef(false);
     const { addLine } = useCartTools();
     const addLineItem = () =>
-      addLine(props.sku, quantity.value);
-    return { t, addLineItem, quantity, showQuantityError };
+      addLine(props.sku, Number(form.value.quantity));
+    return { t, addLineItem, v, showQuantityError };
   },
 };

@@ -6,7 +6,7 @@
   <div class="product-dec-action-wrap pro-dec-action-2">
     <BaseForm
       v-if="isOnStock"
-      :vuelidate="{}"
+      :vuelidate="v"
       :onSubmit="addLineItem"
       #default="{ error }"
     >
@@ -15,13 +15,14 @@
       }}</ServerError>
       <div class="quality-cart-wrap">
         <div class="quality-wrap">
-          <input
+          <BaseInput
+            v-model="v.quantity.$model"
+            :vuelidate="v.quantity"
             class="input-text qty"
             type="number"
             min="1"
             name="qty"
             maxlength="12"
-            v-model="quantity"
             data-test="add-to-cart-amount"
             title="Qty"
           />
