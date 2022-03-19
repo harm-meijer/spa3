@@ -11,7 +11,5 @@
     :changeSKU="changeSKU"
     :sku="sku"
     :skus="skus"
-    :store="store"
-    :setStore="setStore"
   />
 </template>

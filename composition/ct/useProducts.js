@@ -163,15 +163,15 @@ const updateFilters = (
 const createPriceSelector = (
   currency,
   country,
-  store,
+  channel,
   customerGroup
 ) => ({
   currency: getValue(currency),
   country: getValue(country),
-  channel: getValue(store)
+  channel: getValue(channel)
     ? {
         typeId: 'priceChannel',
-        id: getValue(store),
+        id: getValue(channel).id,
       }
     : null,
   customerGroup: getValue(customerGroup)
@@ -194,15 +194,15 @@ const useProducts = ({
   categorySlug,
   expand = {},
   sku,
-  store,
   customerGroup,
+  channel,
 }) => {
   const [products, setProducts] = useState();
   const [priceSelector, setPriceSelector] = useState(
     createPriceSelector(
       currency,
       country,
-      store,
+      channel,
       customerGroup
     )
   );
@@ -239,11 +239,11 @@ const useProducts = ({
       createPriceSelector(
         currency,
         country,
-        store,
+        channel,
         customerGroup
       )
     );
-  }, [currency, country, store, customerGroup]);
+  }, [currency, country, channel, customerGroup]);
   useEffect(
     () =>
       setFilters((filters) =>

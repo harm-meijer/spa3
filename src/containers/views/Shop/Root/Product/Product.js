@@ -2,7 +2,6 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useProducts from 'hooks/useProducts';
 import { move } from '../../../../../lib';
-import useStore from 'hooks/useStore';
 import PageProductDetail from 'presentation/PageProductDetail/PageProductDetail.vue';
 
 const skus = [
@@ -49,12 +48,9 @@ export default {
     const changeSKU = (sku) => {
       move(router, route, { ...route.params, sku }, 'push');
     };
-    const { store, setStore } = useStore();
     return {
       allVariants,
       currentVariant,
-      store,
-      setStore,
       product,
       total,
       loading,

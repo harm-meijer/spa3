@@ -7,8 +7,8 @@ import { ALL } from '../src/constants';
 import useProducts from './ct/useProducts';
 import usePaging from './usePaging';
 import useSearch from './useSearch';
-import useStore from './useStore';
 import useCustomerTools from './useCustomerTools';
+import useSelectedChannel from './useSelectedChannel';
 //vue specific useProducts
 export const useSorts = () => {
   const route = useRoute();
@@ -48,8 +48,7 @@ export default ({ expand } = {}) => {
   const { limit, offset } = usePaging(page);
   const { sorts, setSort } = useSorts();
   const { search } = useSearch();
-  //@todo: store will be an object, only pass id
-  const { store } = useStore();
+  const { channel } = useSelectedChannel();
   const { total, products, loading, error } = useProducts({
     search,
     limit,
@@ -60,7 +59,7 @@ export default ({ expand } = {}) => {
     country: location,
     categorySlug,
     sku,
-    store,
+    channel,
     expand,
     customerGroup,
   });
