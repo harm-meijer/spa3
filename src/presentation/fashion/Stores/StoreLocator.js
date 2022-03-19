@@ -101,11 +101,14 @@ export default {
       const hours = field && field.value && field.value.en;
       return hours;
     }
-    function isSelected(channel) {
-      return channel.value?.name === channel.name;
+    function isSelected(c) {
+      return channel.value?.name === c.name;
     }
     function setStore(channel) {
       setChannel(channel);
+    }
+    function unsetStore() {
+      setChannel(null);
     }
     function click(channel) {
       const [lng, lat] = channel.geoLocation.coordinates;
@@ -122,6 +125,7 @@ export default {
       distance,
       isSelected,
       setStore,
+      unsetStore,
       openingHours,
       t,
     };
