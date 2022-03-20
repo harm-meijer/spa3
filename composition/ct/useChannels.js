@@ -36,10 +36,8 @@ const query = gql`
   }
 `;
 const createWhere = (center, searchRadius) => {
-  return `geoLocation within circle(${
-    getValue(center)?.lng || -78.9052195
-  },
-  ${getValue(center)?.lat || 35.9937228},
+  return `geoLocation within circle(${getValue(center).lng},
+  ${getValue(center).lat},
   ${(getValue(searchRadius) || 1000000) * 1609.4})
 `;
 };

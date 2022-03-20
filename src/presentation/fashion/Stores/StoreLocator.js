@@ -41,7 +41,7 @@ function haversineDistance(mk1, mk2) {
   return d;
 }
 function initialLocation(channel) {
-  const [lng = 53.5512179, lat = 10.0015642] =
+  const [lng = 10.0015642, lat = 53.5512179] =
     channel.value?.geoLocation?.coordinates || [];
   return { lat, lng };
 }
