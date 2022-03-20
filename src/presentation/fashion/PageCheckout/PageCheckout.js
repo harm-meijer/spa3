@@ -49,7 +49,7 @@ export default {
       [cart, loading, orderComplete],
       ([cart, loading, orderComplete]) => {
         if (!orderComplete && !cart && !loading) {
-          router.replace({ name: 'home' });
+          router.replace({ path: '/' });
         }
       }
     );
