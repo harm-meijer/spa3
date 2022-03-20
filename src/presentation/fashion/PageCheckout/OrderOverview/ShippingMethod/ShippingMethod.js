@@ -28,16 +28,32 @@ export default {
       }
       cartTools.setShippingMethod(methodId);
     });
+    watch(shippingMethods, (shippingMethods) => {
+      if (
+        !props.cart?.shippingInfo?.shippingMethod
+          ?.methodId &&
+        Boolean(shippingMethods?.length)
+      ) {
+        selectedShippingMethod.value = (
+          shippingMethods.find(
+            ({ isDefault }) => isDefault
+          ) || shippingMethods[0]
+        ).methodId;
+      }
+    });
     const setSelectedShippingMethod = (method) => {
       selectedShippingMethod.value = method;
     };
     const price = (shippingMethod) => {
+      //zone rates not for this country will be filtered out by graphql
+      //  shipping rates are not.
+      const rate = shippingMethod?.zoneRates
+        ?.flatMap(({ shippingRates }) => shippingRates)
+        .find(({ isMatching }) => isMatching);
       return props.cart.totalPrice.centAmount >
-        (shippingMethod?.zoneRates[0]?.shippingRates?.[0]
-          ?.freeAbove?.centAmount || Infinity)
+        (rate?.freeAbove?.centAmount || Infinity)
         ? null
-        : shippingMethod?.zoneRates[0]?.shippingRates?.[0]
-            ?.price;
+        : rate?.price;
     };
 
     const method = shallowRef(selectedShippingMethod);
