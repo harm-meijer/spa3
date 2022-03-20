@@ -28,7 +28,20 @@ function useAccessRules() {
      */
     return config.ct.auth.scope.includes('manage_orders');
   });
+  const showResetPassword = computed(() => {
+    /**
+     * To request a reset password token you need manage_customers this is done
+     * through a proxy or BFF that will email that token, sunrise is connecting
+     * directly to commercetools so if you want this to work you need the client
+     * to have manage_customers scope. Do not do this in production, this is only
+     * for demo purposes
+     */
+    return config.ct.auth.scope.includes(
+      'manage_customers'
+    );
+  });
   return {
+    showResetPassword,
     showStoreSelector,
     showLocationSelector,
     showReturnItemButton,

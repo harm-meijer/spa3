@@ -7,6 +7,7 @@ import BaseInput from 'presentation/components/BaseInput/BaseInput.vue';
 import { useI18n } from 'vue-i18n';
 import useCustomerTools from 'hooks/useCustomerTools';
 import { ref } from 'vue';
+import useAccessRules from 'hooks/useAccessRules';
 function Rules() {
   this.password = { required };
   this.email = {
@@ -24,6 +25,7 @@ export default {
   },
   props: {},
   setup() {
+    const { showResetPassword } = useAccessRules();
     const { t } = useI18n();
     const form = ref({
       email: 'emma.noor@commercetools.com',
@@ -46,6 +48,7 @@ export default {
       customerSignMeIn,
       t,
       getErrorMessage,
+      showResetPassword,
     };
   },
 };

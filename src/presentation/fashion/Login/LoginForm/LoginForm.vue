@@ -31,9 +31,11 @@
           />
         </div>
         <div class="lost-password mb-20">
-          <router-link :to="{ name: 'forgot-password' }">{{
-            t('forgotPassword')
-          }}</router-link>
+          <router-link
+            :to="{ name: 'forgot-password' }"
+            v-if="showResetPassword"
+            >{{ t('forgotPassword') }}</router-link
+          >
         </div>
 
         <div class="login-register-btn-remember">
