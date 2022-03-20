@@ -12,6 +12,7 @@ import useLocation from 'hooks/useLocation';
 import useCart from 'hooks/useCart';
 import useMiniCart from 'hooks/useMinicart';
 import sunriseConfig from '../../../../sunrise.config';
+import useAccessRules from 'hooks/useAccessRules';
 
 export default {
   name: 'HeaderPresentation',
@@ -43,7 +44,8 @@ export default {
       toggleSearch();
       setSearch(search.value);
     };
-
+    const { showStoreSelector, showLocationSelector } =
+      useAccessRules();
     return {
       t,
       doSearch,
@@ -57,7 +59,8 @@ export default {
       search,
       setSearch,
       totalCartItems,
-      showLocationChange: true, //@todo: implement this one
+      showStoreSelector,
+      showLocationSelector,
       totalShoppingCartItems: 0, //@todo: need this one??
     };
   },

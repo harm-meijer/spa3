@@ -13,7 +13,7 @@
                 <router-link
                   :to="{ name: 'stores' }"
                   data-test="stores-link"
-                  v-if="showLocationChange"
+                  v-if="showStoreSelector"
                 >
                   {{ t('stores') }}
                 </router-link>
@@ -26,7 +26,7 @@
               <div class="curr-lang-wrap curr-lang-inc">
                 <ul>
                   <Selector
-                    v-if="showLocationChange"
+                    v-if="showLocationSelector"
                     :values="locations"
                     title="location"
                     :value="location"
