@@ -6,6 +6,7 @@ import BaseAddress from 'presentation/components/BaseAddress/BaseAddress.vue';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useCustomerTools from 'hooks/useCustomerTools';
+import useAccessRules from 'hooks/useAccessRules';
 
 export default {
   components: {
@@ -17,6 +18,7 @@ export default {
   },
   props: {},
   setup() {
+    const { showReturnItemButton } = useAccessRules();
     const tools = useCustomerTools();
     const { t } = useI18n();
     const { loading, order } = tools.useMyOrder();
@@ -45,6 +47,13 @@ export default {
           )
         : '';
     });
-    return { t, subtotal, paymentInfo, order, loading };
+    return {
+      t,
+      subtotal,
+      paymentInfo,
+      order,
+      loading,
+      showReturnItemButton,
+    };
   },
 };

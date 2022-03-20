@@ -4,7 +4,6 @@ import useCart from './useCart';
 
 function useAccessRules() {
   const { cart } = useCart();
-  console.log('cart:', cart.value);
   const showStoreSelector = computed(() => {
     /**
      * To get channels the scope view_products is needed
@@ -20,6 +19,19 @@ function useAccessRules() {
   const showLocationSelector = computed(
     () => cart.value === null
   );
-  return { showStoreSelector, showLocationSelector };
+  const showReturnItemButton = computed(() => {
+    /**
+     * To return an item you need to update the order, there is no update my order scope
+     * so to return an item you need access to all orders, including orders that are not
+     * yours. So to return an item you need to implement it with proxy or BFF that
+     * checks ownership of the order
+     */
+    return config.ct.auth.scope.includes('manage_orders');
+  });
+  return {
+    showStoreSelector,
+    showLocationSelector,
+    showReturnItemButton,
+  };
 }
 export default useAccessRules;
