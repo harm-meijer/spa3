@@ -1,5 +1,4 @@
-//@todo: do not need vuelidate but set default method when opening
-//  and no shipping method has been set already
+//do not need vuelidate, default method is set in setup when needed
 
 import BaseMoney from 'presentation/components/BaseMoney/BaseMoney.vue';
 import { ref, shallowRef, watch } from 'vue';
