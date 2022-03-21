@@ -4,7 +4,7 @@ import useMutation from '../useMutationFacade';
 import useCart from '../useCart';
 import gql from 'graphql-tag';
 const create = gql`
-  mutation creatCart($draft: MyCartDraft!) {
+  mutation createCart($draft: MyCartDraft!) {
     createMyCart(draft: $draft) {
       cartId: id
       version
@@ -54,7 +54,7 @@ export const createMyOrderFromCart = (id, version) => {
       version,
     },
     mutation: gql`
-      mutation ($id: String!, $version: Long!) {
+      mutation createOrder($id: String!, $version: Long!) {
         createMyOrderFromCart(
           draft: { id: $id, version: $version }
         ) {
@@ -159,9 +159,10 @@ const useCartMutation = ({ location, currency }) => {
           });
         }
         return result;
-      }) //@todo: maybe delete less then entire cache is better
+      })
       .then((result) => {
-        cache.reset();
+        cache.evict({ id: 'activeCart' });
+        cache.gc();
         return result;
       });
   };
