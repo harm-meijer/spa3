@@ -12,25 +12,19 @@ export default {
     LoadingButton,
     ServerError,
   },
-  props: {
-    gotoResetToken: {
-      type: Function,
-      required: true,
-    },
-  },
-  setup(props) {
-    const tools = useCustomerTools();
+  setup() {
+    const { createResetToken, gotoResetToken } =
+      useCustomerTools();
     const { t } = useI18n();
     const { form, v } = useResetPasswordForm();
     const createToken = () => {
-      return tools
-        .createResetToken(form.value.email)
-        .then((result) =>
-          props.gotoResetToken(
+      return createResetToken(form.value.email).then(
+        (result) =>
+          gotoResetToken(
             result.data.customerCreatePasswordResetToken
               .value
           )
-        );
+      );
     };
     const getErrorMessage = ({ code }) => {
       if (code === 'InvalidSubject') {
@@ -41,7 +35,4 @@ export default {
 
     return { createToken, getErrorMessage, form, v, t };
   },
-  // validations: {
-  //   email: { required },
-  // },
 };

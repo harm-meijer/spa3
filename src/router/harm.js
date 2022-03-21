@@ -8,7 +8,7 @@ import User from 'presentation/User/User.vue';
 import TabDashboard from 'presentation/User/TabDashboard/TabDashboard.vue';
 import TabAccountDetails from 'presentation/User/TabAccountDetails/TabAccountDetails.vue';
 import TabChangePassword from 'presentation/User/TabChangePassword/TabChangePassword.vue';
-import ForgotPassword from 'containers/views/ForgotPassword/ForgotPassword.vue';
+import ForgotPassword from 'presentation/Login/ForgotPassword/ForgotPassword.vue';
 import ResetPassword from 'presentation/User/ResetPassword/ResetPassword.vue';
 import TabOrderList from 'presentation/User/TabOrderList/TabOrderList.vue';
 import TabOrderDetail from 'presentation/User/TabOrderDetail/TabOrderDetail.vue';

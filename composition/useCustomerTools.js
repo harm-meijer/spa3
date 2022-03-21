@@ -4,7 +4,7 @@ import {
   onUnmounted,
   shallowRef,
 } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import useMyOrder from 'hooks/useMyOrder';
 import useMyOrders from 'hooks/useMyOrders';
 import basic from './ct/useCustomerTools';
@@ -59,6 +59,7 @@ function useCustomerTools() {
   });
   onUnmounted(() => unListen.fn());
   const router = useRouter();
+  const route = useRoute();
   const showLoggedIn = computed(() => {
     return Boolean(customer.value);
   });
@@ -125,7 +126,14 @@ function useCustomerTools() {
         return loginToken(c.email, newPassword);
       })
       .then(() => router.push({ name: 'user' }));
+  const gotoResetToken = (token) =>
+    router.push({
+      name: 'reset-password',
+      params: { token },
+    });
+  const { token } = route?.params || {};
   return {
+    token,
     login,
     signup,
     showLoggedIn,
@@ -137,6 +145,7 @@ function useCustomerTools() {
     useMyOrders,
     useMyOrder,
     returnItems,
+    gotoResetToken,
     updateMyCustomerPassword,
   };
 }

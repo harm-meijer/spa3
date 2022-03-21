@@ -24,21 +24,15 @@ export default {
     LoadingButton,
     ServerError,
   },
-  props: {
-    token: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const { t } = useI18n();
     const form = ref({});
     const rules = new Rules(form);
     const v = useVuelidate(rules, form);
-    const tools = useCustomerTools();
+    const { resetPassword: rp, token } = useCustomerTools();
     const resetPassword = () =>
-      tools.resetPassword({
-        token: props.token,
+      rp({
+        token,
         newPassword: form.value.newPassword,
       });
 
@@ -56,8 +50,4 @@ export default {
       getErrorMessage,
     };
   },
-  // validations: {
-  //   newPassword: { required },
-  //   confirmPassword: { required, sameAsPassword: sameAs('newPassword') },
-  // },
 };
