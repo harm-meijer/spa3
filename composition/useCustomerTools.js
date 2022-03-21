@@ -29,7 +29,6 @@ const updateUser = ({ firstName, lastName, email }) =>
     })
     .then((result) => {
       saveCustomerState(result.data.updateMyCustomer);
-      cache.reset();
     });
 const li = (email, password) =>
   basic
@@ -41,6 +40,7 @@ const li = (email, password) =>
       saveCustomerState(
         result.data.customerSignMeIn.customer
       );
+      //reset entire cache, customer may have specific prices
       cache.reset();
       return result;
     });
@@ -74,6 +74,7 @@ function useCustomerTools() {
         saveCustomerState(
           result.data.customerSignMeUp.customer
         );
+        //reset entire cache, customer may have specific prices
         cache.reset();
         router.push({ name: 'user' });
         return result;
@@ -88,6 +89,7 @@ function useCustomerTools() {
   const logout = () => {
     lo();
     customerGlobal.setValue(null);
+    //reset entire cache, customer may have had specific prices
     cache.reset();
     router.push({ name: 'login' });
   };
@@ -99,7 +101,8 @@ function useCustomerTools() {
     return basic
       .returnItems(id, version, items)
       .then(() => {
-        cache.reset();
+        cache.evict({ id: 'orders' });
+        cache.gc();
         router.push({
           name: 'order',
           params: { id },
