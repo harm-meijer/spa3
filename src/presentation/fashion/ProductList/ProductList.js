@@ -5,7 +5,7 @@ import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import ProductThumbnail from './ProductThumbnail/ProductThumbnail.vue';
 import { useI18n } from 'vue-i18n';
 import useProductTools from 'hooks/useProductTools';
-import useCartMutation from 'hooks/useCartMutation';
+import useCartTools from 'hooks/useCartTools';
 
 export default {
   name: 'ProductList',
@@ -18,7 +18,7 @@ export default {
   },
   setup() {
     const { t } = useI18n();
-    const { addLine } = useCartMutation();
+    const { addLine } = useCartTools();
     const {
       formatProduct,
       products,
