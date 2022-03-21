@@ -1,11 +1,12 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { DEFAULT_PAGE_SIZE } from '../../../../constants';
 
 export default {
   props: {
     pageSize: {
       type: Number,
-      required: true,
+      default: DEFAULT_PAGE_SIZE,
     },
     total: {
       type: Number,

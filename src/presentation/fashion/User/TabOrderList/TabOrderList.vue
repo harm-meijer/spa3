@@ -57,7 +57,6 @@
         </tbody>
       </table>
       <Pagination
-        :pageSize="2"
         :total="total"
         :page="page"
         :setPage="setPage"

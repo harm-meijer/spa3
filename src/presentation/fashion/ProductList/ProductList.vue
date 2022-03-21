@@ -36,7 +36,6 @@
           />
         </div>
         <Pagination
-          :pageSize="pageSize"
           :total="total"
           :page="page"
           :setPage="setPage"

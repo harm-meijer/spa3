@@ -1,15 +1,16 @@
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import useProducts from './useProducts';
 
 function useProductTools(expand = false) {
   const route = useRoute();
+  const router = useRouter();
   const sku = computed(() => route.params.sku);
-  const { total, products, loading, error } = useProducts({
+  const { products: p } = useProducts({
     sku,
     expand: expand ? { variants: true } : {},
   });
-  const product = computed(() => products.value?.[0]);
+  const product = computed(() => p.value?.[0]);
   const allVariants = computed(() =>
     product.value
       ? [product.value.masterVariant]
@@ -29,6 +30,30 @@ function useProductTools(expand = false) {
       : null
   );
 
+  const setPage = (page) =>
+    router.push({
+      ...route,
+      params: {
+        ...route.params,
+        page,
+      },
+    });
+  const page = computed(() =>
+    Number(route.params.page || 1)
+  );
+  const {
+    total,
+    products,
+    loading,
+    error,
+    // sort,
+    // setSort,
+  } = useProducts();
+  const formatProduct = (product) => ({
+    ...product,
+    ...product.masterVariant,
+  });
+
   return {
     total,
     products,
@@ -37,6 +62,9 @@ function useProductTools(expand = false) {
     allVariants,
     sku,
     currentVariant,
+    setPage,
+    formatProduct,
+    page,
   };
 }
 export default useProductTools;

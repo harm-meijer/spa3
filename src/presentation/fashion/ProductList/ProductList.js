@@ -4,6 +4,8 @@ import Pagination from 'presentation/components/Pagination/Pagination.vue';
 import Spinner from 'presentation/components/Spinner/Spinner.vue';
 import ProductThumbnail from './ProductThumbnail/ProductThumbnail.vue';
 import { useI18n } from 'vue-i18n';
+import useProductTools from 'hooks/useProductTools';
+import useCartMutation from 'hooks/useCartMutation';
 
 export default {
   name: 'ProductList',
@@ -14,46 +16,29 @@ export default {
     // ProductFilter,
     // TopBar,
   },
-  props: {
-    addToCart: {
-      type: Function,
-      required: true,
-    },
-    formatProduct: {
-      type: Function,
-      required: true,
-    },
-    setPage: {
-      type: Function,
-      required: true,
-    },
-    page: {
-      type: Number,
-      required: true,
-    },
-    pageSize: {
-      type: Number,
-      required: true,
-    },
-    products: {
-      type: Array,
-      required: false,
-    },
-    total: {
-      type: Number,
-      required: false,
-    },
-    loading: {
-      type: Boolean,
-      required: true,
-    },
-    error: {
-      type: Object,
-      required: false,
-    },
-  },
   setup() {
     const { t } = useI18n();
-    return { t };
+    const { addLine } = useCartMutation();
+    const {
+      formatProduct,
+      products,
+      total,
+      loading,
+      page,
+      setPage,
+    } = useProductTools();
+    const addToCart = (sku, quantity = 1) =>
+      addLine(sku, quantity);
+
+    return {
+      t,
+      formatProduct,
+      products,
+      total,
+      loading,
+      page,
+      setPage,
+      addToCart,
+    };
   },
 };

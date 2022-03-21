@@ -1,6 +1,6 @@
 import Header from 'presentation/Header/Header.vue';
 import Footer from 'presentation/Footer/Footer.vue';
-import Products from 'containers/views/Shop/Root/Products/Products.vue';
+import Products from 'presentation/ProductList/ProductList.vue';
 import Product from 'presentation/PageProductDetail/PageProductDetail.vue';
 import Checkout from 'presentation/PageCheckout/PageCheckout.vue';
 import Login from 'presentation/Login/Login.vue';
