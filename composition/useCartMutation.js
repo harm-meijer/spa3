@@ -97,7 +97,10 @@ export const useCartActions = () => {
           createMyOrderFromCart(id, version)
         );
       })
-      .then(() => cache.reset());
+      .then(() => {
+        cache.evict({ id: 'activeCart' });
+        cache.gc();
+      });
   };
 
   return {
