@@ -4,7 +4,7 @@ import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import config from '../../../../../../sunrise.config';
-import { getAttributeValue } from '../../../../../containers/lib';
+import { getAttributeValue } from 'containers/lib';
 import { move } from '../../../../../lib';
 
 export default {
