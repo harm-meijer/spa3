@@ -1,6 +1,3 @@
-import About from 'containers/views/About/About.vue';
-import Header from 'presentation/Header/Header.vue';
-import Footer from 'presentation/Footer/Footer.vue';
 import Root from 'containers/views/Shop/Root/Root.vue';
 import harmRoutes from './harm';
 import felipeRoutes from './felipe';
@@ -15,14 +12,5 @@ export default [
     name: 'root',
     component: Root,
     children: [...harmRoutes, ...felipeRoutes],
-  },
-  {
-    path: '/about',
-    name: 'About',
-    components: {
-      header: Header,
-      footer: Footer,
-      default: About,
-    },
   },
 ];
