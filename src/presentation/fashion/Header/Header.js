@@ -3,7 +3,7 @@ import LoginButton from './LoginButton/LoginButton.vue';
 // import LocationSelector from "../LocationSelector/LocationSelector.vue";
 
 import Selector from './Selector/Selector.vue';
-import CategoriesMenu from 'containers/components/Header/CategoriesMenu';
+import CategoriesMenu from 'presentation/components/CategoriesMenu';
 import { useI18n } from 'vue-i18n';
 import { computed, ref } from 'vue';
 import useSearch from 'hooks/useSearch';
