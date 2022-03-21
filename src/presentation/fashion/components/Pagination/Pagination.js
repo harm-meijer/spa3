@@ -39,7 +39,7 @@ export default {
       const last = Math.ceil(props.page / 3) * 3;
       const total = totalPages.value;
       return [last - 2, last - 1, last].filter(
-        (page) => page < total
+        (page) => page <= total
       );
     });
     const show = computed(() => {
