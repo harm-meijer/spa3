@@ -1,4 +1,3 @@
-import GoogleMaps from 'containers/views/Shop/Root/Stores/GoogleMaps/GoogleMaps.vue';
 import { shallowRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useChannels from 'hooks/useChannels';
@@ -47,7 +46,6 @@ function initialLocation(channel) {
 }
 export default {
   name: 'StoreLocator',
-  components: { GoogleMaps },
   setup() {
     const { t } = useI18n();
     const { channel, setChannel } = useSelectedChannel();
