@@ -11,7 +11,7 @@ describe('CartDetailPage', () => {
     );
   });
 
-  it.only('displays content of cart', () => {
+  it('displays content of cart', () => {
     cy.addLineItem(
       '/product/hoganrebel-r261-sneaker-6708K62AZC-grey/M0E20000000DX1Y',
       2
@@ -159,7 +159,7 @@ describe('CartDetailPage', () => {
     },
   };
 
-  it('applies and deletes discount codes', () => {
+  it.only('applies and deletes discount codes', () => {
     cy.addDiscountCode(cartDiscount, 'SUNRISE_CI');
     cy.addLineItem(
       '/product/hoganrebel-r261-sneaker-6708K62AZC-grey/M0E20000000DX1Y',
