@@ -1,29 +1,37 @@
+const getEnv = (env) => {
+  return typeof global?.Cypress?.env === 'function'
+    ? global.Cypress.env(env)
+    : process.env[env];
+};
 // eslint-disable-next-line no-console
-console.log('using host:', process.env.VUE_APP_CT_API_HOST);
+console.log(
+  'using project:',
+  getEnv('VUE_APP_CT_PROJECT_KEY')
+);
 let localConfig = {};
-if (process.env.VUE_APP_LOCAL_SUNRISE_CONFIG) {
+if (getEnv('VUE_APP_LOCAL_SUNRISE_CONFIG')) {
   localConfig = require(process.env
     .VUE_APP_LOCAL_SUNRISE_CONFIG).default;
 }
-
+getEnv('hello_world');
 export default {
   ct: {
     auth: {
       host:
-        process.env.VUE_APP_CT_AUTH_HOST ||
+        getEnv('VUE_APP_CT_AUTH_HOST') ||
         'https://auth.europe-west1.gcp.commercetools.com',
       projectKey:
-        process.env.VUE_APP_CT_PROJECT_KEY || 'sunrise-spa',
+        getEnv('VUE_APP_CT_PROJECT_KEY') || 'sunrise-spa',
       credentials: {
         clientId:
-          process.env.VUE_APP_CT_CLIENT_ID ||
+          getEnv('VUE_APP_CT_CLIENT_ID') ||
           '1mnlpBq-fHCCkAzmSXxNBB37',
         clientSecret:
-          process.env.VUE_APP_CT_CLIENT_SECRET ||
+          getEnv('VUE_APP_CT_CLIENT_SECRET') ||
           'WS9hXm6dKyqyuLOHciL6jkbCbFHrDSOL',
       },
       scope:
-        process.env.VUE_APP_CT_SCOPE ||
+        getEnv('VUE_APP_CT_SCOPE') ||
         'manage_my_orders:sunrise-spa ' +
           'manage_my_profile:sunrise-spa ' +
           'manage_my_payments:sunrise-spa ' +
@@ -34,7 +42,7 @@ export default {
           'create_anonymous_token:sunrise-spa',
     },
     api:
-      process.env.VUE_APP_CT_API_HOST ||
+      getEnv('VUE_APP_CT_API_HOST') ||
       'https://api.europe-west1.gcp.commercetools.com',
   },
   languages: {

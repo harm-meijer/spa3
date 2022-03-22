@@ -24,7 +24,7 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import client from './apollo';
+import { apolloClient as client } from '../../../src/apollo';
 import * as query from './queries';
 import * as mutation from './mutations';
 
