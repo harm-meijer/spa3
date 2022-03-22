@@ -1,4 +1,5 @@
 const webpack = require('@cypress/webpack-preprocessor');
+require('dotenv').config();
 
 // https://docs.cypress.io/guides/guides/plugins-guide.html
 module.exports = (on, config) => {

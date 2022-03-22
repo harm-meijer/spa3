@@ -3,13 +3,28 @@ import {
   ACCESS_TOKEN,
   CUSTOMER,
   REFRESH_TOKEN,
-} from '../constants';
+} from '../../../../src/constants';
 import {
   createGroup,
   createPromiseSessionCache,
 } from './group';
-import config from '../../sunrise.config';
-
+import fetch from 'isomorphic-fetch';
+const config = {
+  ct: {
+    auth: {
+      host: Cypress.env('VUE_APP_CT_AUTH_HOST'),
+      projectKey: Cypress.env('VUE_APP_CT_PROJECT_KEY'),
+      credentials: {
+        clientId: Cypress.env('VUE_APP_CT_CLIENT_ID'),
+        clientSecret: Cypress.env(
+          'VUE_APP_CT_CLIENT_SECRET'
+        ),
+      },
+      scope: Cypress.env('VUE_APP_CT_SCOPE'),
+    },
+    api: Cypress.env('VUE_APP_CT_API_HOST'),
+  },
+};
 const createAuth = (au) => encode(`${au.id}:${au.secret}`);
 const au = {
   id: config.ct.auth.credentials.clientId,

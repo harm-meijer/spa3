@@ -24,12 +24,11 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import createClient from './test-apollo';
+import client from './apollo';
 import * as query from './queries';
 import * as mutation from './mutations';
 
-const clientPromise = createClient();
-
+const clientPromise = Promise.resolve(client);
 Cypress.Commands.add('login', (customer) => {
   cy.visit('/login');
   cy.get('[data-test=login-button]').click();
