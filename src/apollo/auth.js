@@ -9,6 +9,7 @@ import {
   createPromiseSessionCache,
 } from './group';
 import config from '../../sunrise.config';
+import fetch from 'isomorphic-fetch';
 
 const createAuth = (au) => encode(`${au.id}:${au.secret}`);
 const au = {
