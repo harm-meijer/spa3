@@ -1,5 +1,5 @@
-import { ApolloClient } from '../../../src/apollo';
+import { apolloClient } from '../../../src/apollo';
 
 export default async function createClient() {
-  return ApolloClient;
+  return apolloClient;
 }
