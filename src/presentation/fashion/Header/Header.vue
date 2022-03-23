@@ -26,6 +26,7 @@
               <div class="curr-lang-wrap curr-lang-inc">
                 <ul>
                   <Selector
+                    data-test="country-selector-dropdown"
                     v-if="showLocationSelector"
                     :values="locations"
                     title="location"
@@ -33,6 +34,7 @@
                     :setValue="setLocation"
                   />
                   <Selector
+                    data-test="language-selector-dropdown"
                     :values="locales"
                     title="language"
                     :value="locale"

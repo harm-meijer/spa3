@@ -6,7 +6,7 @@ describe('Location selector', () => {
   });
 
   it('changes text to selected language', () => {
-    cy.changeLanguage('Deutsch').wait(500);
+    cy.changeLanguage('German').wait(500);
 
     cy.get('[data-test=product-name]').should(
       'contain',
@@ -18,7 +18,7 @@ describe('Location selector', () => {
       'Filiale'
     );
 
-    cy.changeLanguage('English');
+    cy.changeLanguage('Englisch');
     cy.get('[data-test=product-name]').should(
       'contain',
       'Sneakers ”R261” Hogan Rebel grey',
@@ -30,12 +30,12 @@ describe('Location selector', () => {
     );
   });
 
-  it.only('changes prices to selected country', () => {
+  it('changes prices to selected country', () => {
     cy.changeCountry('United States');
     cy.get('[data-test=product-original-price]').contains(
       /^\s*(US)?\$343.75\s*$/
     );
-    cy.changeCountry('Deutschland');
+    cy.changeCountry('Germany');
     cy.get('[data-test=product-original-price]').contains(
       /^\s*275,00\s€\s*$/
     );
