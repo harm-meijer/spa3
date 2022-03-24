@@ -15,7 +15,7 @@ export const createGroup =
         return r;
       },
       (e) => {
-        cache.resolve(key); //tell cache promise is done
+        cache.resolved(key); //tell cache promise is done
         return Promise.reject(e);
       }
     );
