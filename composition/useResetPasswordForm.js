@@ -4,7 +4,7 @@ import useVuelidate from '@vuelidate/core';
 
 function useResetPasswordForm() {
   const form = ref({
-    email: 'emma.noor@commercetools.com',
+    email: '',
   });
   const rules = {
     email: { required, email, $lazy: true },
