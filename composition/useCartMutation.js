@@ -12,6 +12,7 @@ import {
   setShippingAddress,
   createMyOrderFromCart,
 } from './ct/useCartMutation';
+import useSelectedChannel from './useSelectedChannel';
 import { getValue } from '../src/lib';
 import { apolloClient, cache } from '../src/apollo';
 export {
@@ -34,6 +35,7 @@ export default useCartMutation;
 
 export const useCartActions = () => {
   const { location } = useLocation();
+  const { channel } = useSelectedChannel();
   const debounce = (fn, time = 200) => {
     const current = {};
     const check = { current };
@@ -62,7 +64,9 @@ export const useCartActions = () => {
     mutateCart(removeLineItem(lineItemId));
   };
   const addLine = (sku, quantity) =>
-    mutateCart(addLineItem(sku, quantity));
+    mutateCart(
+      addLineItem(sku, quantity, channel.value?.id)
+    );
   const applyDiscount = (code) =>
     mutateCart(addDiscountCode(code));
   const removeDiscount = (codeId) =>

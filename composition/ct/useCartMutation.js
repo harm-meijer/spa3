@@ -32,9 +32,20 @@ const mutation = gql`
   }
 `;
 
-export const addLineItem = (sku, quantity) => [
+export const addLineItem = (sku, quantity, channel) => [
   {
-    addLineItem: { sku, quantity },
+    addLineItem: {
+      sku,
+      quantity,
+      ...(channel
+        ? {
+            distributionChannel: {
+              id: channel,
+              typeId: 'channel',
+            },
+          }
+        : undefined),
+    },
   },
 ];
 export const setBillingAddress = (address) => ({

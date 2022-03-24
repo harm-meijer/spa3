@@ -25,6 +25,7 @@
             <div id="place-radius">
               <GMapAutocomplete
                 placeholder="This is a placeholder"
+                id="place-input"
                 @place_changed="setPlace"
               >
               </GMapAutocomplete>
