@@ -76,11 +76,14 @@ Cypress.Commands.add('createCustomer', (draft) =>
 );
 
 Cypress.Commands.add('deleteCustomer', ({ email }) =>
-  cy.wrap(
-    clientPromise.then((client) =>
-      mutation.deleteCustomer(client, email)
+  cy
+    .wrap(
+      clientPromise.then((client) =>
+        mutation.deleteCustomer(client, email)
+      )
     )
-  )
+    //delete resolves but data is not gone yet
+    .then(later)
 );
 
 Cypress.Commands.add('addLineItem', (url, quantity) => {
@@ -100,6 +103,8 @@ Cypress.Commands.add(
       clientPromise.then((client) =>
         mutation
           .deleteDiscountCode(client, code)
+          //delete resolves but data is not gone yet
+          .then(later)
           .then(() =>
             mutation.createDiscountCode(
               client,
@@ -110,6 +115,8 @@ Cypress.Commands.add(
       )
     )
 );
+const later = (resolve, time = 3000) =>
+  new Promise((r) => setTimeout(() => r(resolve), time));
 
 Cypress.Commands.add(
   'createOrder',
@@ -118,6 +125,8 @@ Cypress.Commands.add(
       clientPromise.then((client) =>
         mutation
           .deleteOrder(client, orderDraft.orderNumber)
+          //delete resolves but data is not gone yet
+          .then(later)
           .then(() =>
             query
               .customerByEmail(
