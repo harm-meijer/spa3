@@ -31,7 +31,7 @@ import * as mutation from './mutations';
 const clientPromise = Promise.resolve(client);
 Cypress.Commands.add('login', (customer) => {
   cy.visit('/login');
-  cy.get('[data-test=login-button]').click();
+  // cy.get('[data-test=login-button]').click();
   cy.get('[data-test=login-form-email]').type(
     customer.email
   );
