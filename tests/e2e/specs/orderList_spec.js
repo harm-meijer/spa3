@@ -66,7 +66,7 @@ describe('my orders', () => {
         // cy.wrap($order)
         //   .find('[data-test=order-number]')
         //   .contains('1234');
-        cy.changeLanguage('Deutsch');
+        cy.changeLanguage('German');
         cy.wrap($order)
           .find('[data-test=shipment-state]')
           .contains('Versandt');
@@ -95,7 +95,7 @@ describe('my orders', () => {
       'have.length',
       2
     );
-    cy.get('[data-test=pagination]').contains('1Next');
+    cy.get('[data-test=pagination]').contains('12Next');
     cy.get('[data-test=next-page-link').click();
     cy.get('[data-test=order-list]').should(
       'have.length',
@@ -107,7 +107,7 @@ describe('my orders', () => {
       'have.length',
       2
     );
-    cy.get('[data-test=pagination]').contains('1Next');
+    cy.get('[data-test=pagination]').contains('12Next');
   });
 
   it('displays an empty order list message when no orders have been placed', () => {

@@ -16,7 +16,7 @@ describe('Product overview page', () => {
     window.fetch = wFetch;
   });
 
-  it('Changes sorting settings', () => {
+  xit('Changes sorting settings', () => {
     cy.visit('/products/men');
     cy.get('div[data-test=sort-selector]', {
       timeout: Cypress.config('graphqlTimeout'),
@@ -75,16 +75,14 @@ describe('Product overview page', () => {
     cy.get('[data-test=product-list]', {
       timeout: Cypress.config('graphqlTimeout'),
     });
-    cy.get('[data-test=pagination]').contains('1Next');
-
+    cy.get('[data-test=pagination]').contains('12Next');
     cy.get('[data-test=pagination]')
       .find('[data-test=next-page-link]')
       .click();
     cy.url().should('include', '/products/men/2');
     cy.get('[data-test=pagination]').contains('Previous1');
-
     cy.get('[data-test=previous-page-link]').click();
     cy.url().should('include', '/products/men/1');
-    cy.get('[data-test=pagination]').contains('1Next');
+    cy.get('[data-test=pagination]').contains('12Next');
   });
 });

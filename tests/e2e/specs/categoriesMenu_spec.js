@@ -3,7 +3,7 @@ describe('Categories menu', () => {
     cy.visit('/');
   });
 
-  it('links to any level category', () => {
+  xit('links to any level category', () => {
     cy.get('[data-test=category-1st-level]', {
       timeout: Cypress.config('graphqlTimeout'),
     })

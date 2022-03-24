@@ -58,7 +58,7 @@ describe('CheckoutPage', () => {
           .find(
             '[data-test=checkout-form-shipping-method-price]'
           )
-          .contains(/\s10,00\s€\s/);
+          .contains(/10,00\s€/);
 
         cy.wrap($method).find('input[type=radio]').check();
       });

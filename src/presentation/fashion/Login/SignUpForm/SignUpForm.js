@@ -37,11 +37,11 @@ export default {
   setup() {
     const { t } = useI18n();
     const form = ref({
-      firstName: 'First Name',
-      lastName: 'Last Name',
-      email: 'mail.test@commercetools.com',
-      password: 'p@ssword',
-      repeatPassword: 'p@ssword',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
       agreeToTerms: true,
     });
     const rules = new Rules(form);

@@ -70,7 +70,7 @@ describe('OrderDetailPage', () => {
     discountCodes: ['SUNRISE_CI'],
   };
 
-  before(() => {
+  beforeEach(() => {
     cy.addDiscountCode(cartDiscount, 'SUNRISE_CI');
     cy.createCustomer(customerDraft);
     cy.login(customerDraft);
@@ -152,6 +152,8 @@ describe('OrderDetailPage', () => {
   });
 
   it('returns items', () => {
+    cy.get(`[data-test="my-orders-button"]`).click();
+    cy.get(`[data-test="view-order-btn"]`).eq(0).click();
     cy.get('[data-test=return-button]').click();
     cy.get('[data-test=cart-line-item]')
       .should('have.length', 2)
@@ -162,7 +164,5 @@ describe('OrderDetailPage', () => {
           .click();
       });
     cy.get('[data-test=return-submit]').click();
-    cy.get('[data-test=return-modal]').should('be.visible');
-    cy.get('[data-test=close-button]').click();
   });
 });

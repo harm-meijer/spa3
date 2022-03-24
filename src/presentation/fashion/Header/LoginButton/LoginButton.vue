@@ -4,7 +4,7 @@
 
 <template>
   <div class="header-login component-same ml-10">
-    <span v-if="showLoggedIn" data-test="login-button">
+    <span v-if="showLoggedIn" data-test="login-info-name">
       <router-link
         :to="{ name: 'user' }"
         data-test="login-info-name"

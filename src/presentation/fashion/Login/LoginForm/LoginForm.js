@@ -28,8 +28,8 @@ export default {
     const { showResetPassword } = useAccessRules();
     const { t } = useI18n();
     const form = ref({
-      email: 'emma.noor@commercetools.com',
-      password: 'p@ssword',
+      email: '',
+      password: '',
     });
     const rules = new Rules(form);
     const v = useVuelidate(rules, form);

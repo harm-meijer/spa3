@@ -39,6 +39,7 @@ Cypress.Commands.add('login', (customer) => {
     customer.password
   );
   cy.get('[data-test=login-form-submit]').click();
+  cy.wait(3000);
 });
 Cypress.Commands.add('logout', () => {
   cy.visit('/user/dashboard');
