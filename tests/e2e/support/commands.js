@@ -99,10 +99,7 @@ Cypress.Commands.add('addLineItem', (url, quantity) => {
   cy.get('[data-test=add-to-cart-button]').click({
     force: true,
   });
-  cy.get(`[data-test="mini-cart-open-button"]`).should(
-    'not.contain',
-    /^0$/
-  );
+  cy.wait(3000);
 });
 
 Cypress.Commands.add(
