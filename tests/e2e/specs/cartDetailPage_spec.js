@@ -165,10 +165,6 @@ describe('CartDetailPage', () => {
       '/product/hoganrebel-r261-sneaker-6708K62AZC-grey/M0E20000000DX1Y',
       1
     );
-    cy.get(`[data-test="mini-cart-open-button"]`).should(
-      'not.contain',
-      /^0$/
-    );
     cy.visit('/cart');
     cy.get('[data-test=line-total]').contains(
       /^\s*137,50\s€\s*$/,

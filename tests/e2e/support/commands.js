@@ -29,6 +29,8 @@ import * as query from './queries';
 import * as mutation from './mutations';
 
 const clientPromise = Promise.resolve(client);
+const later = (resolve, time = 3000) =>
+  new Promise((r) => setTimeout(() => r(resolve), time));
 Cypress.Commands.add('login', (customer) => {
   cy.visit('/login');
   // cy.get('[data-test=login-button]').click();
@@ -97,6 +99,10 @@ Cypress.Commands.add('addLineItem', (url, quantity) => {
   cy.get('[data-test=add-to-cart-button]').click({
     force: true,
   });
+  cy.get(`[data-test="mini-cart-open-button"]`).should(
+    'not.contain',
+    /^0$/
+  );
 });
 
 Cypress.Commands.add(
@@ -118,8 +124,6 @@ Cypress.Commands.add(
       )
     )
 );
-const later = (resolve, time = 3000) =>
-  new Promise((r) => setTimeout(() => r(resolve), time));
 
 Cypress.Commands.add(
   'createOrder',
