@@ -39,11 +39,14 @@ Cypress.Commands.add('login', (customer) => {
     customer.password
   );
   cy.get('[data-test=login-form-submit]').click();
-  cy.wait(3000);
+  cy.get(`[data-test="login-button"]`).should('not.exist');
 });
 Cypress.Commands.add('logout', () => {
   cy.visit('/user/dashboard');
   cy.get('[data-test=sign-out]').click();
+  cy.get(`[data-test="login-info-name"]`).should(
+    'not.exist'
+  );
 });
 
 Cypress.Commands.add('checkCustomerIsLoggedIn', () => {
